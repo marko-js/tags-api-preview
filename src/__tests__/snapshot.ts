@@ -7,8 +7,8 @@ const UPDATE =
   process.env.UPDATE_SNAPSHOTS || process.argv.includes("--update");
 
 export default function snapshot(dir: string, file: string, rawData: unknown) {
-  const snapshotDir = path.join(dir, "__snapshots__");
   const parsed = path.parse(file);
+  const snapshotDir = path.join(dir, "__snapshots__", parsed.dir);
   const ext = parsed.ext;
   let name = parsed.name;
 

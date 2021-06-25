@@ -25,18 +25,10 @@ for (const key in mocha) {
   }
 }
 
-const environments = [
-  {
-    name: "node",
-    global,
-    require,
-  },
-  {
-    name: "web",
-    global: browser.window,
-    require: browser.require,
-  },
-] as const;
+const targets = {
+  node: require,
+  web: browser.require,
+} as const;
 
 export type FixtureHelpers = testing.RenderResult &
   typeof testing & { expect: typeof chai.expect };
@@ -62,17 +54,18 @@ export default (
   file = path.resolve(dir, file);
 
   return () => {
-    for (const env of environments) {
-      const currentTest = it(env.name, async function () {
-        const helpers = env.require("@marko/testing-library") as typeof testing;
-        const template = env.require(file);
+    for (const target in targets) {
+      const load = targets[target as keyof typeof targets];
+      const currentTest = it(target, async function () {
+        const helpers = load("@marko/testing-library") as typeof testing;
+        const template = load(file);
         const title = getTitle(currentTest);
         let renderResult: testing.RenderResult;
 
         try {
           renderResult = await helpers.render(template, input);
         } catch (err) {
-          snapshot(dir, `${title}-initial-render-error.txt`, err);
+          snapshot(dir, path.join(title, `${target}.error.txt`), err);
           return;
         }
 
@@ -82,9 +75,13 @@ export default (
           ...renderResult,
         } as FixtureHelpers;
 
-        snapshot(dir, `${title}-initial-render.html`, fixtureHelpers.container);
+        snapshot(
+          dir,
+          path.join(title, `${target}.render.html`),
+          fixtureHelpers.container
+        );
 
-        if (env.name !== "node") {
+        if (target !== "node") {
           for (let i = 0; i < steps.length; i++) {
             const step = steps[i];
 
@@ -95,11 +92,19 @@ export default (
                 await fixtureHelpers.rerender(step);
               }
             } catch (err) {
-              snapshot(dir, `${title}-step-${i}-error.txt`, err);
+              snapshot(
+                dir,
+                path.join(title, `${target}.step-${i}-error.txt`),
+                err
+              );
               return;
             }
 
-            snapshot(dir, `${title}-step-${i}.html`, fixtureHelpers.container);
+            snapshot(
+              dir,
+              path.join(title, `${target}.step-${i}.html`),
+              fixtureHelpers.container
+            );
           }
         }
       });
@@ -123,14 +128,17 @@ function createMarkoHook(output: Config["output"]) {
 
 function getTitle(test: Mocha.Test) {
   let parent = test.parent;
-  let title = test.title;
+  let title = "";
 
   while (parent) {
-    title = `${parent.title} ${title}`;
+    title = path.join(
+      parent.title.replace(/[^a-z0-9$_-]+/gi, "-").replace(/^-|-$/, ""),
+      title
+    );
     parent = parent.parent;
   }
 
-  return title.replace(/[^a-z0-9_-]+/g, "__").replace(/^__|__$/, "");
+  return title;
 }
 
 function calldir() {
