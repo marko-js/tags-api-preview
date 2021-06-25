@@ -1,0 +1,23 @@
+<const/obj={ a: 1, b: 2, c: 3 }/>
+<const/byKey=(key => key)/>
+<const/byVal=((_, val) => val)/>
+
+<for|key| in=obj by=(val => val)>
+  <div>Hello ${key}</div>
+</for>
+
+<for|key, val| in=obj by=byKey>
+  <div>Hello ${val} ${key}</div>
+</for>
+
+<for|key| in=obj by=((_, val) => val)>
+  <div>Hello ${key}</div>
+</for>
+
+<for in=obj by=byKey>
+  <div>Hello!</div>
+</for>
+
+<for|key| in=obj by=byVal>
+  <div>Hello ${key}!</div>
+</for>

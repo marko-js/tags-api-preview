@@ -1,0 +1,9 @@
+<const/byIndex=(i => i)/>
+
+<for|i| from=0 to=3 by=(i => i)>
+  <div>Hello ${i}</div>
+</for>
+
+<for from=0 to=3 by=byIndex>
+  <div>Hello!</div>
+</for>

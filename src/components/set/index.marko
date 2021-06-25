@@ -1,0 +1,37 @@
+static var typeIndex = 0;
+static var CONTEXT_KEY = "__subtree_context__";
+static var HAS_BOUND_ASYNC_CONTEXT = "__bound_async_subtree_context__";
+static function bindSubtreeContextOnBeginAsync(event) {
+  var out = event.out;
+  out[HAS_BOUND_ASYNC_CONTEXT] = true;
+  out[CONTEXT_KEY] = event.parentOut[CONTEXT_KEY];
+}
+
+$ {
+  if (!out[HAS_BOUND_ASYNC_CONTEXT]) {
+    out[HAS_BOUND_ASYNC_CONTEXT] = true;
+    out.on("beginAsync", bindSubtreeContextOnBeginAsync);
+  }
+
+  var provider = input.___from;
+  var providerId = provider.___providerId;
+  var prevContext = out[CONTEXT_KEY];
+  var nextContext = (out[CONTEXT_KEY] = Object.create(prevContext || {}));
+
+  if (!providerId) {
+    providerId = provider.___providerId = ++typeIndex;
+  }
+
+  nextContext[providerId] = component;
+}
+
+<${input.renderBody}/>
+
+$ {
+  if (typeof window === "object" && !component.___rendered) {
+    component.___rendered = true;
+    component.emit("___changed");
+  }
+
+  out[CONTEXT_KEY] = prevContext;
+}

@@ -1,0 +1,11 @@
+{
+  "transformer": "./transformer",
+  "@by": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "Used to uniquely identify each iterations to allow Marko to efficiently determine what has been changed, added or removed."
+      }
+    ]
+  }
+}

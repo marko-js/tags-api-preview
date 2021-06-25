@@ -1,0 +1,9 @@
+<if=input.show>
+  <let/count=input.value/>
+
+  <div>${count}</div>
+  <button onClick=(() => count++)>Increment</button>
+</if>
+<else>
+  Hidden...
+</else>

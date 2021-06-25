@@ -1,0 +1,48 @@
+static var CONTEXT_KEY = "__subtree_context__";
+static function getData(provider) {
+  return provider.input.default;
+}
+static function getProvider(out, provider) {
+  return out[CONTEXT_KEY] && out[CONTEXT_KEY][provider.___providerId];
+}
+
+class {
+  onCreate() {
+    this.sync = this.sync.bind(this);
+  }
+  onInput(input, out) {
+    var from = input.default;
+
+    if (!from || !from.render) {
+      throw new Error(
+        "Invalid component constructor provided as <get> 'default' attribute. Got: " +
+          from
+      );
+    }
+
+    var prevProvider = this.provider;
+    this.provider = getProvider(out, from);
+
+    if (prevProvider && prevProvider !== this.provider) {
+      this.sub.removeAllListeners();
+    }
+
+    if (this.provider) {
+      if (typeof window === "object") {
+        this.sub = this.subscribeTo(this.provider).on("___change", this.sync);
+      }
+
+      this.data = getData(this.provider);
+    } else {
+      this.data = this.sub = undefined;
+    }
+  }
+  sync() {
+    if (this.data !== (this.data = getData(this.provider))) {
+      this.forceUpdate();
+      this.update();
+    }
+  }
+}
+
+<${input.renderBody}(component.data)/>

@@ -1,0 +1,10 @@
+<if=input.show>
+  <let/count=input.count/>
+
+  <button onClick=(() => count++)>increment</button>
+
+  <effect=(() => {
+    input.onCount(count);
+    return input.onCleanup;
+  })/>
+</if>

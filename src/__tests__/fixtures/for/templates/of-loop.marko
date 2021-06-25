@@ -1,0 +1,23 @@
+<const/list=[1, 2, 3]/>
+<const/byIdentity=(it => it)/>
+<const/byIndex=((_, i) => i)/>
+
+<for|item| of=list by=(item => item)>
+  <div>Hello ${item}</div>
+</for>
+
+<for|item, i| of=list by=byIdentity>
+  <div>Hello ${item} ${i}</div>
+</for>
+
+<for|item| of=list by=((_, i) => i)>
+  <div>Hello ${item}</div>
+</for>
+
+<for of=list by=byIdentity>
+  <div>Hello!</div>
+</for>
+
+<for|item| of=list by=byIndex>
+  <div>Hello ${item}!</div>
+</for>

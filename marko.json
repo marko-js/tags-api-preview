@@ -1,0 +1,5 @@
+{
+  "taglibId": "@marko/tags-api-preview",
+  "tagsDir": "./src/components",
+  "transformer": "./src/transformers"
+}
