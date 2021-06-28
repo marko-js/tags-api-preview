@@ -1,13 +1,48 @@
-import { getTagDef, isNativeTag } from "@marko/babel-utils";
+import { importNamed, getTagDef, isNativeTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
 import { Visitor } from "@marko/compiler/babel-types";
 import { taglibId } from "../../../marko.json";
-import getAttr from "../../util/get-attr";
+import { closest } from "../../transformers/lifecycle";
+import getAttr from "../get-attr";
 type DepsVisitorState =
   | { shallow?: undefined; deps?: Set<string> }
   | { shallow: true; deps?: true };
 
-const seen = new WeakSet();
+const fnVisitor = {
+  Function(fn) {
+    const parentTag = fn.findParent((parent) =>
+      parent.isMarkoTag()
+    ) as t.NodePath<t.MarkoTag>;
+
+    if (!fn.isExpression() || !parentTag || isNativeTag(parentTag)) {
+      return;
+    }
+
+    const state: DepsVisitorState & { deps?: Set<string> } = {};
+    fn.skip();
+    fn.traverse(depsVisitor, state);
+
+    if (state.deps) {
+      const { file } = fn.hub;
+      const { component } = closest(parentTag)!;
+
+      fn.replaceWith(
+        t.logicalExpression(
+          "||",
+          t.callExpression(importNamed(file, __dirname, "cached"), [
+            component,
+            ...Array.from(state.deps, toIdentifier),
+          ]),
+          t.callExpression(importNamed(file, __dirname, "cache"), [
+            component,
+            fn.node,
+          ])
+        )
+      );
+    }
+  },
+} as Visitor;
+
 const depsVisitor = {
   ReferencedIdentifier: ((identifier, state) => {
     const { name } = identifier.node;
@@ -43,46 +78,8 @@ const depsVisitor = {
   }) as Visitor<DepsVisitorState>["Identifier"],
 } as Visitor<DepsVisitorState>;
 
-export = function transform(tag: t.NodePath<t.MarkoTag>) {
-  if (seen.has(tag)) {
-    return;
-  }
-
-  seen.add(tag);
-
-  const defaultAttr = getAttr(tag, "default")!;
-  const errorMessage = tag.node.var
-    ? "does not support a tag variable"
-    : !defaultAttr
-    ? "must be initialized with a value"
-    : tag.node.attributes.length > 1
-    ? "only supports the 'default' attribute"
-    : tag.node.body.body.length
-    ? "does not support body content"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.arguments?.length
-    ? "does not support arguments"
-    : undefined;
-
-  if (errorMessage) {
-    throw tag
-      .get("name")
-      .buildCodeFrameError(`The <effect> tag ${errorMessage}.`);
-  }
-
-  const state: DepsVisitorState & { deps?: Set<string> } = {};
-  defaultAttr.get("value").traverse(depsVisitor, state);
-
-  if (state.deps) {
-    tag.pushContainer(
-      "attributes",
-      t.markoAttribute(
-        "_deps",
-        t.arrayExpression(Array.from(state.deps, (it) => t.identifier(it)))
-      )
-    );
-  }
+export = function transform(program: t.NodePath<t.Program>) {
+  program.traverse(fnVisitor);
 };
 
 function isCoreTag(
@@ -98,4 +95,8 @@ function isCoreTag(
   }
 
   return false;
+}
+
+function toIdentifier(val: string) {
+  return t.identifier(val);
 }

@@ -23,6 +23,7 @@ describe(
 
       cleanup();
       expect(onCleanup).has.been.calledOnce;
+      resetHistory();
     },
   ])
 );
@@ -49,6 +50,7 @@ describe(
       await rerender({ onCount, onCleanup, show: true, count: 3 });
       expect(onCount).calledOnceWith(3);
       expect(onCleanup).has.not.been.called;
+      resetHistory();
     },
   ])
 );
