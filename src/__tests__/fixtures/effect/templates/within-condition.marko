@@ -1,10 +1,11 @@
-<if=input.show>
-  <let/count=input.count/>
+<props/{ show, count: initialCount, onCount, onCleanup }/>
+<if=show>
+  <let/count=initialCount/>
 
   <button onClick=(() => count++)>increment</button>
 
   <effect=(() => {
-    input.onCount(count);
-    return input.onCleanup;
+    onCount(count);
+    return onCleanup;
   })/>
 </if>

@@ -1,8 +1,9 @@
+<props/{ onCount, onCleanup }/>
 <let/count=0/>
 
 <button onClick=(() => count++)>increment</button>
 
 <effect=(() => {
-  input.onCount(count);
-  return input.onCleanup;
+  onCount(count);
+  return onCleanup;
 })/>
