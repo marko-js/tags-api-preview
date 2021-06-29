@@ -117,10 +117,11 @@ function createMarkoHook(output: Config["output"]) {
     module._compile!(
       compileFileSync(filename, {
         output,
+        meta: true,
         modules: "cjs",
         optimize: false,
         sourceMaps: "inline",
-      }).code,
+      } as any).code,
       filename
     );
   };
