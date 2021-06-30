@@ -1,7 +1,4 @@
-import path from "path";
 import { types as t } from "@marko/compiler";
-import utils from "@marko/babel-utils";
-import getAttr from "../../util/get-attr";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const body = tag.get("body");

@@ -9,7 +9,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     for (const attr of tag.get("attributes")) {
       if (attr.isMarkoAttribute()) {
         const { node } = attr;
-  
+
         if (eventNameReg.test(node.name) && node.value) {
           node.arguments = [node.value];
           node.value = t.booleanLiteral(true);

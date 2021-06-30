@@ -6,4 +6,5 @@ CHANGELOG.md
 node_modules
 coverage
 dist
+*.marko.js
 __snapshots__

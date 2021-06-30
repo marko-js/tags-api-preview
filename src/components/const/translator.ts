@@ -27,7 +27,10 @@ export = (tag: types.NodePath<types.MarkoTag>, t: typeof types) => {
 
   tag.replaceWith(
     t.variableDeclaration("const", [
-      t.variableDeclarator(tagVar, deepFreeze(tag.hub.file, defaultAttr.node.value)),
+      t.variableDeclarator(
+        tagVar,
+        deepFreeze(tag.hub.file, defaultAttr.node.value)
+      ),
     ])
   );
 };

@@ -3,11 +3,11 @@ import { isNativeTag, getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../../marko.json";
 
 type Meta = {
-  component: t.Identifier,
-  state: t.Identifier,
-  stateIndex: number,
-  refIndex: number,
-}
+  component: t.Identifier;
+  state: t.Identifier;
+  stateIndex: number;
+  refIndex: number;
+};
 
 const lifecycleRootsForProgram = new WeakMap<
   t.NodePath<t.Program>,
@@ -129,13 +129,15 @@ function buildRootLifecycle(program: t.NodePath<t.Program>): t.Statement[] {
 
 function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
   const meta = tag.node.extra!.___lifecycle as Meta;
-  return [t.markoTag(
-    t.stringLiteral("_component"),
-    [],
-    t.markoTagBody(tag.node.body.body, [
-      tag.scope.generateUidIdentifier("nestedComponentDef"),
-      meta.component,
-      meta.state,
-    ])
-  )];
+  return [
+    t.markoTag(
+      t.stringLiteral("_component"),
+      [],
+      t.markoTagBody(tag.node.body.body, [
+        tag.scope.generateUidIdentifier("nestedComponentDef"),
+        meta.component,
+        meta.state,
+      ])
+    ),
+  ];
 }

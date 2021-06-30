@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import lifecycle from "./lifecycle";
+import * as lifecycle from "./lifecycle";
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
   const { node } = tag;
@@ -10,10 +10,14 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
   }
 
   if (!t.isIdentifier(tagVar)) {
-    throw tag.get("var").buildCodeFrameError("Tag variables on a native tag cannot be destructured.");
+    throw tag
+      .get("var")
+      .buildCodeFrameError(
+        "Tag variables on a native tag cannot be destructured."
+      );
   }
 
-  const meta = lifecycle.closest(tag);
+  const meta = lifecycle.closest(tag)!;
   node.var = null;
   tag.pushContainer("attributes", t.markoAttribute("key", tagVar));
   tag.insertBefore(
