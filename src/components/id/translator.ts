@@ -2,24 +2,24 @@ import { types as t } from "@marko/compiler";
 import { closest } from "../../transformers/lifecycle";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
-  const tagVar = tag.node.var;
+  const tagVar = tag.node.var as t.Identifier;
 
-  if (!tagVar) {
-    throw tag
-      .get("name")
-      .buildCodeFrameError("<id> requires a tag variable to be assigned to.");
-  }
+  const errorMessage = !tagVar
+    ? "requires a tag variable"
+    : !t.isIdentifier(tagVar)
+    ? "does not a destructured tag variable"
+    : tag.node.attributes.length
+    ? "does not support attributes"
+    : tag.node.arguments
+    ? "does not support arguments"
+    : tag.node.body.params.length
+    ? "does not support tag body parameters"
+    : tag.node.body.body.length
+    ? "does not support body content"
+    : undefined;
 
-  if (tag.get("attributes").length) {
-    throw tag
-      .get("name")
-      .buildCodeFrameError("The <id> tag does not support attributes.");
-  }
-
-  if (tag.node.body.body.length) {
-    throw tag
-      .get("name")
-      .buildCodeFrameError("The <id> tag does not support body content.");
+  if (errorMessage) {
+    throw tag.get("name").buildCodeFrameError(`The <id> tag ${errorMessage}.`);
   }
 
   const meta = closest(tag)!;
