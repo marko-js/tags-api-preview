@@ -5,6 +5,8 @@ export = (tag: types.NodePath<types.MarkoTag>, t: typeof types) => {
   const tagVar = tag.node.var!;
   const errorMessage = !tagVar
     ? "requires a tag variable to be assigned to"
+    : !tag.parentPath.parentPath.isProgram()
+    ? "can only used at the root of the template"
     : tag.node.attributes.length > 0
     ? "does not support attributes"
     : tag.node.body.body.length
