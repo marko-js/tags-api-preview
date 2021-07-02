@@ -29,17 +29,38 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     throw tag.get("name").buildCodeFrameError(`The <let> tag ${errorMessage}.`);
   }
 
-  if (server) {
+  file.path.scope.crawl();
+  const binding = tag.scope.getBinding(tagVar.name)!;
+
+  if (server || !binding.constantViolations.length) {
+    file.path.scope.crawl();
     tag.replaceWith(
       t.variableDeclaration("const", [
         t.variableDeclarator(tagVar, deepFreeze(file, defaultAttr.node.value)),
       ])
     );
   } else {
-    file.path.scope.crawl();
-
     const meta = closest(tag)!;
-    const binding = tag.scope.getBinding(tagVar.name)!;
+    const keyString = t.stringLiteral("" + meta.stateIndex++);
+
+    tag.replaceWith(
+      t.variableDeclaration("const", [
+        t.variableDeclarator(
+          tagVar,
+          t.conditionalExpression(
+            t.binaryExpression("in", keyString, meta.state),
+            t.memberExpression(meta.state, keyString, true),
+            defaultAttr
+              ? t.assignmentExpression(
+                  "=",
+                  t.memberExpression(meta.state, keyString, true),
+                  deepFreeze(file, defaultAttr.node.value)
+                )
+              : t.unaryExpression("void", t.numericLiteral(0))
+          )
+        ),
+      ])
+    );
 
     binding.constantViolations.forEach((assignment) => {
       let setValue: t.Expression;
@@ -47,7 +68,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       if (assignment.isUpdateExpression()) {
         setValue = t.binaryExpression(
           assignment.node.operator === "++" ? "+" : "-",
-          t.memberExpression(meta.state, tagVar, true),
+          tagVar,
           t.numericLiteral(1)
         );
       } else if (assignment.isAssignmentExpression()) {
@@ -59,7 +80,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
                   0,
                   -1
                 ) as t.BinaryExpression["operator"],
-                t.memberExpression(meta.state, tagVar, true),
+                tagVar,
                 deepFreeze(file, assignment.node.right)
               );
       } else {
@@ -69,41 +90,9 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       assignment.replaceWith(
         t.callExpression(
           t.memberExpression(meta.component, t.identifier("setState")),
-          [tagVar, setValue]
+          [keyString, setValue]
         )
       );
     });
-
-    binding.referencePaths.forEach((ref) => {
-      if (!t.isUpdateExpression(ref.node)) {
-        ref.replaceWith(t.memberExpression(meta.state, tagVar, true));
-      }
-    });
-
-    const stateVar = t.variableDeclaration("var", [
-      t.variableDeclarator(tagVar, t.stringLiteral("" + meta.stateIndex++)),
-    ]);
-
-    if (!defaultAttr) {
-      tag.replaceWith(stateVar);
-    } else {
-      tag.replaceWithMultiple([
-        stateVar,
-        t.expressionStatement(
-          t.logicalExpression(
-            "&&",
-            t.unaryExpression(
-              "!",
-              t.binaryExpression("in", tagVar, meta.state)
-            ),
-            t.assignmentExpression(
-              "=",
-              t.memberExpression(meta.state, tagVar, true),
-              deepFreeze(file, defaultAttr.node.value)
-            )
-          )
-        ),
-      ]);
-    }
   }
 };

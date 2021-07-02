@@ -1,5 +1,6 @@
 import { spy, resetHistory } from "sinon";
 import fixture from "../../fixture";
+const onEl = spy();
 const onCount = spy();
 const onCleanup = spy();
 
@@ -23,6 +24,17 @@ describe(
 
       cleanup();
       expect(onCleanup).has.been.calledOnce;
+      resetHistory();
+    },
+  ])
+);
+
+describe(
+  "<effect> with native tag ref",
+  fixture("./templates/with-native-tag-ref.marko", [
+    { onEl },
+    async ({ expect, screen }) => {
+      expect(onEl).calledOnceWith(screen.getByText("child"));
       resetHistory();
     },
   ])

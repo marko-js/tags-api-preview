@@ -13,29 +13,28 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     throw tag
       .get("var")
       .buildCodeFrameError(
-        "Tag variables on a native tag cannot be destructured."
+        "A tag variable on a native tag cannot be destructured."
       );
   }
 
   const meta = lifecycle.closest(tag)!;
+  const keyString = t.stringLiteral(`${meta.refIndex++}`);
   node.var = null;
-  tag.pushContainer("attributes", t.markoAttribute("key", tagVar));
+  tag.pushContainer("attributes", t.markoAttribute("key", keyString));
   tag.insertBefore(
     t.markoScriptlet([
-      t.variableDeclaration("var", [
-        t.variableDeclarator(tagVar, t.stringLiteral(`${meta.refIndex++}`)),
+      t.variableDeclaration("const", [
+        t.variableDeclarator(
+          tagVar,
+          t.arrowFunctionExpression(
+            [],
+            t.callExpression(
+              t.memberExpression(meta.component, t.identifier("getEl")),
+              [keyString]
+            )
+          )
+        ),
       ]),
     ])
   );
-
-  for (const ref of tag.scope.getBinding(tagVar.name)!.referencePaths) {
-    if (!ref.isUpdateExpression()) {
-      ref.replaceWith(
-        t.callExpression(
-          t.memberExpression(meta.component, t.identifier("getEl")),
-          [tagVar]
-        )
-      );
-    }
-  }
 };
