@@ -41,6 +41,17 @@ describe(
 );
 
 describe(
+  "<effect> with hoisted tag ref",
+  fixture("./templates/with-hoisted-tag-ref.marko", [
+    { onEl },
+    async ({ expect, screen }) => {
+      expect(onEl).calledOnceWith(screen.getByText("child"));
+      resetHistory();
+    },
+  ])
+);
+
+describe(
   "<effect> within-condition",
   fixture("./templates/within-condition.marko", [
     { onCount, onCleanup, show: true, count: 0 },

@@ -1,11 +1,13 @@
 import { types as t } from "@marko/compiler";
+import { isNativeTag } from "@marko/babel-utils";
+import define from "../util/define/transform";
 import * as lifecycle from "./lifecycle";
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
   const { node } = tag;
   const tagVar = node.var;
 
-  if (!tagVar) {
+  if (!tagVar || !isNativeTag(tag)) {
     return;
   }
 
@@ -19,22 +21,19 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
 
   const meta = lifecycle.closest(tag)!;
   const keyString = t.stringLiteral(`${meta.refIndex++}`);
-  node.var = null;
-  tag.pushContainer("attributes", t.markoAttribute("key", keyString));
-  tag.insertBefore(
-    t.markoScriptlet([
-      t.variableDeclaration("const", [
-        t.variableDeclarator(
-          tagVar,
-          t.arrowFunctionExpression(
-            [],
-            t.callExpression(
-              t.memberExpression(meta.component, t.identifier("getEl")),
-              [keyString]
-            )
-          )
-        ),
-      ]),
-    ])
+  define(
+    tag,
+    meta,
+    // TODO: should replace with a runtime that errors if called before mount.
+    t.arrowFunctionExpression(
+      [],
+      t.callExpression(
+        t.memberExpression(meta.component, t.identifier("getEl")),
+        [keyString]
+      )
+    )
   );
+
+  tag.pushContainer("attributes", t.markoAttribute("key", keyString));
+  node.var = null;
 };

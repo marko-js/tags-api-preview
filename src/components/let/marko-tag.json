@@ -1,5 +1,5 @@
 {
-  "code-generator": "./translator",
+  "translate": "./translate",
   "autocomplete": [
     {
       "snippet": "let/${1:variable}",

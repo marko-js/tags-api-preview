@@ -1,4 +1,4 @@
-import patchLifecycle from "../patch-lifecycle";
+import patchLifecycle from "../../util/patch-lifecycle";
 
 const metaKey = Symbol();
 const indexKey = Symbol();

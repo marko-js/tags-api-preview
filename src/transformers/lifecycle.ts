@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 import { isNativeTag, getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../../marko.json";
 
-type Meta = {
+export type Meta = {
   component: t.Identifier;
   state: t.Identifier;
   stateIndex: number;
@@ -29,7 +29,7 @@ export function closest(tag: t.NodePath<t.MarkoTag>) {
   }
 }
 
-export const visitor = {
+export default {
   Program: {
     enter(program: t.NodePath<t.Program>) {
       lifecycleRootsForProgram.set(program, new Set());

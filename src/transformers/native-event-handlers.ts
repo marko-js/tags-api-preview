@@ -3,7 +3,6 @@ import { isNativeTag } from "@marko/babel-utils";
 const eventNameReg = /^on[A-Z]/;
 
 // TODO: warn when lowercased variants used and passed a non string
-
 export = (tag: t.NodePath<t.MarkoTag>) => {
   if (isNativeTag(tag)) {
     for (const attr of tag.get("attributes")) {

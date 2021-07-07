@@ -1,4 +1,4 @@
 {
   "template": "./index.marko",
-  "code-generator": "./translator"
+  "translate": "./translator"
 }

@@ -1,5 +1,5 @@
 {
-  "transformer": "./transformer",
+  "transform": "./transform",
   "@by": {
     "type": "expression",
     "autocomplete": [
