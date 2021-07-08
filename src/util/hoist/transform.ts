@@ -1,7 +1,9 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag } from "@marko/babel-utils";
-import { Meta } from "../../transform/lifecycle";
+import { closest, Meta } from "../../transform/lifecycle";
 import isCoreTag from "../is-core-tag";
+
+type RootNodePath = t.NodePath<t.Program> | t.NodePath<t.MarkoTagBody>;
 
 enum ScopeRelation {
   Same,
@@ -15,19 +17,13 @@ enum ReferenceType {
   Unknown,
 }
 
-export default (
-  tag: t.NodePath<t.MarkoTag>,
-  meta: Meta,
-  value: t.Expression
-) => {
+export default (tag: t.NodePath<t.MarkoTag>, meta: Meta) => {
   const {
     scope,
     hub: { file },
   } = tag;
   const tagVar = tag.get("var");
-  const initializers: t.Statement[] = [
-    t.variableDeclaration("const", [t.variableDeclarator(tagVar.node!, value)]),
-  ];
+  const initializers: t.Statement[] = [];
 
   for (const name in tagVar.getBindingIdentifiers()) {
     const binding = scope.getBinding(name);
@@ -87,9 +83,7 @@ export default (
         );
       }
 
-      (
-        binding.scope.path as t.NodePath<t.Program | t.MarkoTagBody>
-      ).unshiftContainer(
+      (binding.scope.path as RootNodePath).unshiftContainer(
         "body",
         t.markoScriptlet([
           t.variableDeclaration("var", [
@@ -97,7 +91,7 @@ export default (
               binding.identifier,
               maybeHasSyncRefsBefore
                 ? t.callExpression(importDefault(file, __dirname, "hoist"), [
-                    t.identifier("component"),
+                    closest(binding.scope.path as RootNodePath)!.component,
                     t.stringLiteral(name),
                   ])
                 : null
@@ -109,7 +103,9 @@ export default (
     }
   }
 
-  tag.insertBefore(t.markoScriptlet(initializers));
+  if (initializers.length) {
+    tag.insertBefore(t.markoScriptlet(initializers));
+  }
 };
 
 function getScopeRelation(scope: t.Scope, tag: t.NodePath, ref: t.NodePath) {

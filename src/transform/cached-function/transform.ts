@@ -59,7 +59,7 @@ export default {
 
     if (state.deps) {
       const { file } = fn.hub;
-      const { component } = closest(parentTag)!;
+      const { component } = closest(parentTag.parentPath)!;
 
       fn.replaceWith(
         t.logicalExpression(

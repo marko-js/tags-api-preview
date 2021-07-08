@@ -1,4 +1,4 @@
-export = function define(owner: any, name: string) {
+export = function hoist(owner: any, name: string) {
   let initialized = false;
   let val: unknown;
   return (child: any, newVal?: unknown) => {
@@ -6,9 +6,7 @@ export = function define(owner: any, name: string) {
       initialized = true;
       val = newVal;
     } else if (!initialized) {
-      throw new ReferenceError(
-        `Cannot access '${name}' before initialization (ssr)`
-      );
+      throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
 
     return val;

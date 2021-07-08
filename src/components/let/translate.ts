@@ -40,7 +40,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       ])
     );
   } else {
-    const meta = closest(tag)!;
+    const meta = closest(tag.parentPath)!;
     const keyString = t.stringLiteral("" + meta.stateIndex++);
 
     tag.replaceWith(

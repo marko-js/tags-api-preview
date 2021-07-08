@@ -22,7 +22,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     throw tag.get("name").buildCodeFrameError(`The <id> tag ${errorMessage}.`);
   }
 
-  const meta = closest(tag)!;
+  const meta = closest(tag.parentPath)!;
 
   tag.replaceWith(
     t.variableDeclaration("const", [

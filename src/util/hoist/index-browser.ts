@@ -1,9 +1,9 @@
 import patchLifecycle from "../patch-lifecycle";
 
 let rendering = false;
-const definesKey = Symbol();
-const defineIndexKey = Symbol();
-const definedSettersKey = Symbol();
+const hoistsKey = Symbol();
+const hoistIndexKey = Symbol();
+const hoistedSettersKey = Symbol();
 const lifecycleMethods = {
   onRender: onRender,
   onMount: onUpdate,
@@ -14,9 +14,9 @@ const lifecycleMethods = {
 type anyFn = (...args: unknown[]) => unknown;
 declare class Component {
   [x: string]: unknown;
-  [definesKey]?: ReturnType<typeof createDefine>[];
-  [defineIndexKey]?: number;
-  [definedSettersKey]?: Set<ReturnType<typeof createDefine>>;
+  [hoistsKey]?: ReturnType<typeof createHoist>[];
+  [hoistIndexKey]?: number;
+  [hoistedSettersKey]?: Set<ReturnType<typeof createHoist>>;
   onRender?: anyFn;
   onMount?: anyFn;
   onUpdate?: anyFn;
@@ -24,27 +24,27 @@ declare class Component {
   forceUpdate(): void;
 }
 
-export = function define(owner: Component, name: string) {
-  const defines = owner[definesKey];
-  const index = owner[defineIndexKey];
+export = function hoist(owner: Component, name: string) {
+  const hoists = owner[hoistsKey];
+  const index = owner[hoistIndexKey];
   let result;
 
-  if (defines) {
+  if (hoists) {
     if (index === undefined) {
-      defines.push((result = createDefine(owner, name)));
+      hoists.push((result = createHoist(owner, name)));
     } else {
-      result = defines[index];
+      result = hoists[index];
     }
   } else {
     rendering = true;
     patchLifecycle(owner, lifecycleMethods);
-    owner[definesKey] = [(result = createDefine(owner, name))];
+    owner[hoistsKey] = [(result = createHoist(owner, name))];
   }
 
   return result;
 };
 
-function createDefine(owner: Component, name: string) {
+function createHoist(owner: Component, name: string) {
   let initialized = false;
   let val: unknown;
 
@@ -55,10 +55,10 @@ function createDefine(owner: Component, name: string) {
       } else {
         val = newVal;
         initialized = true;
-        if (child[definedSettersKey]) {
-          child[definedSettersKey]!.add(setOrGet);
+        if (child[hoistedSettersKey]) {
+          child[hoistedSettersKey]!.add(setOrGet);
         } else {
-          child[definedSettersKey] = new Set([setOrGet]);
+          child[hoistedSettersKey] = new Set([setOrGet]);
         }
       }
     } else if (rendering) {
@@ -74,16 +74,16 @@ function onRender() {
 }
 
 function onUpdate(this: Component) {
-  if (this[definesKey]) {
-    this[defineIndexKey] = 0;
+  if (this[hoistsKey]) {
+    this[hoistIndexKey] = 0;
   }
 
   rendering = false;
 }
 
 function onDestroy(this: Component) {
-  if (this[definedSettersKey]) {
-    for (const set of this[definedSettersKey]!) {
+  if (this[hoistedSettersKey]) {
+    for (const set of this[hoistedSettersKey]!) {
       set(true);
     }
   }

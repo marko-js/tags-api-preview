@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag } from "@marko/babel-utils";
-import define from "../../util/define/transform";
+import hoist from "../../util/hoist/transform";
 import * as lifecycle from "../lifecycle";
 
 export default {
@@ -9,7 +9,7 @@ export default {
       node,
       hub: { file },
     } = tag;
-    const tagVar = node.var;
+    const tagVar = node.var!;
 
     if (!tagVar || !isNativeTag(tag)) {
       return;
@@ -23,17 +23,23 @@ export default {
         );
     }
 
-    const meta = lifecycle.closest(tag)!;
+    const meta = lifecycle.closest(tag.parentPath)!;
     const keyString = t.stringLiteral(`${meta.refIndex++}`);
-    define(
-      tag,
-      meta,
-      // TODO: should replace with a runtime that errors if called before mount.
-      t.callExpression(importDefault(file, __dirname, "createRef"), [
-        t.identifier("component"),
-        keyString,
+    tag.insertBefore(
+      t.markoScriptlet([
+        t.variableDeclaration("const", [
+          t.variableDeclarator(
+            tagVar,
+            t.callExpression(importDefault(file, __dirname, "createRef"), [
+              meta.component,
+              keyString,
+            ])
+          ),
+        ]),
       ])
     );
+
+    hoist(tag, meta);
 
     tag.pushContainer("attributes", t.markoAttribute("key", keyString));
     node.var = null;

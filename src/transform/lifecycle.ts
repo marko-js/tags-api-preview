@@ -15,18 +15,26 @@ const lifecycleRootsForProgram = new WeakMap<
 >();
 const tagsNeedingLifecycle = new Set(["id", "let", "effect"]);
 
-export function closest(tag: t.NodePath<t.MarkoTag>) {
-  let root = tag as t.NodePath;
-  let node: t.Node | undefined;
-  while ((root = root.parentPath) && (node = root.node)) {
-    const extra = node.extra;
+export function closest(path: t.NodePath<any>) {
+  let root = path;
+
+  do {
+    const { node } = root;
+
+    if (!node) {
+      return;
+    }
+
+    const { extra } = node;
     if (extra) {
       const meta = extra.___lifecycle;
       if (meta) {
         return meta as Meta;
       }
     }
-  }
+
+    root = root.parentPath;
+  } while (root);
 }
 
 export default {
