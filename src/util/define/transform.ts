@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag } from "@marko/babel-utils";
-import { Meta } from "../../transformers/lifecycle";
+import { Meta } from "../../transform/lifecycle";
 import isCoreTag from "../is-core-tag";
 
 enum ScopeRelation {

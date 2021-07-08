@@ -1,5 +1,6 @@
 {
   "taglibId": "@marko/tags-api-preview",
   "tagsDir": "./src/components",
-  "transform": "./src/transformers"
+  "transform": "./src/transform",
+  "translate": "./src/translate"
 }
