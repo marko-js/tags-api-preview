@@ -10,11 +10,15 @@ export = function (component: any, methods: Methods) {
     if (!extensions.has(methods)) {
       extensions.add(methods);
       addMethods(proto, methods);
+      return true;
     }
   } else {
     proto[extensionsKey] = new Set([methods]);
     addMethods(proto, methods);
+    return true;
   }
+
+  return false;
 };
 
 function addMethods(proto: any, methods: Methods) {

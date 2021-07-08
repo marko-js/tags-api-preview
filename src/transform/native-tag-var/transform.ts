@@ -1,11 +1,14 @@
 import { types as t } from "@marko/compiler";
-import { isNativeTag } from "@marko/babel-utils";
-import define from "../util/define/transform";
-import * as lifecycle from "../transform/lifecycle";
+import { importDefault, isNativeTag } from "@marko/babel-utils";
+import define from "../../util/define/transform";
+import * as lifecycle from "../lifecycle";
 
 export default {
   MarkoTag(tag: t.NodePath<t.MarkoTag>) {
-    const { node } = tag;
+    const {
+      node,
+      hub: { file },
+    } = tag;
     const tagVar = node.var;
 
     if (!tagVar || !isNativeTag(tag)) {
@@ -26,13 +29,10 @@ export default {
       tag,
       meta,
       // TODO: should replace with a runtime that errors if called before mount.
-      t.arrowFunctionExpression(
-        [],
-        t.callExpression(
-          t.memberExpression(meta.component, t.identifier("getEl")),
-          [keyString]
-        )
-      )
+      t.callExpression(importDefault(file, __dirname, "createRef"), [
+        t.identifier("component"),
+        keyString,
+      ])
     );
 
     tag.pushContainer("attributes", t.markoAttribute("key", keyString));
