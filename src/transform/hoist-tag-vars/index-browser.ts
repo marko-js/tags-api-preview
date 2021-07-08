@@ -1,4 +1,4 @@
-import patchLifecycle from "../patch-lifecycle";
+import patchLifecycle from "../../util/patch-lifecycle";
 
 let rendering = false;
 const hoistsKey = Symbol();

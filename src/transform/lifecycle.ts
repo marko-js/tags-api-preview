@@ -63,9 +63,10 @@ export default {
       const tagDef = getTagDef(tag);
 
       if (
-        tagDef &&
-        tagDef.taglibId === taglibId &&
-        tagsNeedingLifecycle.has(tagDef.name)
+        tag.node.var ||
+        (tagDef &&
+          tagDef.taglibId === taglibId &&
+          tagsNeedingLifecycle.has(tagDef.name))
       ) {
         ensureLifecycle(tag);
       }
