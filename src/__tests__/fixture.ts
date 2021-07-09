@@ -58,14 +58,21 @@ export default (
       const load = targets[target as keyof typeof targets];
       const currentTest = it(target, async function () {
         const helpers = load("@marko/testing-library") as typeof testing;
-        const template = load(file);
         const title = getTitle(currentTest);
+        let template: any;
         let renderResult: testing.RenderResult;
+
+        try {
+          template = load(file);
+        } catch (err) {
+          snapshot(dir, path.join(title, `${target}.compile-error.txt`), err);
+          return;
+        }
 
         try {
           renderResult = await helpers.render(template, input);
         } catch (err) {
-          snapshot(dir, path.join(title, `${target}.error.txt`), err);
+          snapshot(dir, path.join(title, `${target}.render-error.txt`), err);
           return;
         }
 

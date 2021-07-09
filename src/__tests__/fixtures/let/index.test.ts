@@ -10,6 +10,15 @@ describe(
 );
 
 describe(
+  "<let> hoisted",
+  fixture("./templates/hoisted.marko", [
+    { value: 1 },
+    click("Increment"),
+    click("Increment"),
+  ])
+);
+
+describe(
   "<let> within-condition",
   fixture("./templates/within-condition.marko", [
     { show: true, value: 0 },

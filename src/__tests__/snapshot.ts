@@ -52,7 +52,8 @@ function format(data: any) {
     }
 
     if (data.stack) {
-      return data.message;
+      // eslint-disable-next-line no-control-regex
+      return data.message.replace(/\x1B[[(?);]{0,2}(;?\d)*./g, "");
     }
   }
 

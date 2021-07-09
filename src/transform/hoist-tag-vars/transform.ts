@@ -42,6 +42,17 @@ export default {
           let hasHoistedRefs = false;
           let maybeHasSyncRefsBefore = false;
 
+          for (const assignment of binding.constantViolations) {
+            if (
+              getScopeRelation(binding.scope, tag, assignment) !==
+              ScopeRelation.Same
+            ) {
+              throw assignment.buildCodeFrameError(
+                `Assigning to a hoisted tag variable is not supported in the "Tags API Preview".`
+              );
+            }
+          }
+
           for (const ref of binding.referencePaths) {
             switch (getScopeRelation(binding.scope, tag, ref)) {
               case ScopeRelation.After:
@@ -117,7 +128,7 @@ export default {
       }
 
       if (initializers.length) {
-        tag.insertBefore(t.markoScriptlet(initializers));
+        tag.insertAfter(t.markoScriptlet(initializers));
       }
     },
   },
