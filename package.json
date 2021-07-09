@@ -11,6 +11,7 @@
     "@marko/compiler": "^5.11.2",
     "@marko/fixture-snapshots": "^2.1.0",
     "@marko/testing-library": "^5.0.4",
+    "@types/babel__code-frame": "^7.0.3",
     "@types/chai": "^4.2.20",
     "@types/chai-as-promised": "^7.1.4",
     "@types/chai-dom": "0.0.10",

@@ -4,6 +4,8 @@ import getAttr from "../../util/get-attr";
 const visited = new WeakSet<t.NodePath<t.MarkoTag>>();
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
+  if (tag.hub.file.path.node.extra!.___featureType === "class") return;
+
   if (visited.has(tag)) {
     return;
   }

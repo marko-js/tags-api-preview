@@ -1,15 +1,19 @@
 import { types as t } from "@marko/compiler";
 import getAttr from "../../util/get-attr";
 
-const seen = new WeakSet();
+const seen = new WeakSet<t.NodePath<t.MarkoTag>>();
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
-  if (seen.has(tag.node)) return;
-  seen.add(tag.node);
+  if (tag.hub.file.path.node.extra!.___featureType === "class") return;
+
+  if (seen.has(tag)) return;
+  seen.add(tag);
 
   const defaultAttr = getAttr(tag, "default")!;
   const errorMessage = tag.node.var
     ? "does not support a tag variable"
+    : tag.node.arguments?.length
+    ? "does not support arguments"
     : !defaultAttr
     ? "must be given a value"
     : tag.node.attributes.length > 1
@@ -18,12 +22,12 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
     ? "requires body content"
     : tag.node.body.params.length
     ? "does not support tag body parameters"
-    : tag.node.arguments?.length
-    ? "does not support arguments"
     : undefined;
 
   if (errorMessage) {
-    throw tag.get("name").buildCodeFrameError(`The <if> tag ${errorMessage}.`);
+    throw tag
+      .get("name")
+      .buildCodeFrameError(`The <${tag.node.name.value}> tag ${errorMessage}.`);
   }
 
   tag.node.arguments = [defaultAttr.node.value];
