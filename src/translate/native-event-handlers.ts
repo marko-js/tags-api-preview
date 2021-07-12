@@ -5,6 +5,7 @@ const eventNameReg = /^on[A-Z]/;
 // TODO: warn when lowercased variants used and passed a non string
 export default {
   MarkoTag(tag: t.NodePath<t.MarkoTag>) {
+    if (tag.hub.file.path.node.extra!.___featureType === "class") return;
     if (isNativeTag(tag)) {
       for (const attr of tag.get("attributes")) {
         if (attr.isMarkoAttribute()) {
