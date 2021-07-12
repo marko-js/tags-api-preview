@@ -1,10 +1,11 @@
 import { types as t } from "@marko/compiler";
 import getAttr from "../../util/get-attr";
+import isApi from "../../util/is-api";
 
 const visited = new WeakSet<t.NodePath<t.MarkoTag>>();
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
-  if (tag.hub.file.path.node.extra!.___featureType === "class") return;
+  if (isApi(tag, "class")) return;
 
   if (visited.has(tag)) {
     return;

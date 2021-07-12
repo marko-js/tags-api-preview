@@ -2,11 +2,12 @@ import path from "path";
 import { types as t } from "@marko/compiler";
 import { MarkoText } from "@marko/compiler/babel-types";
 import getAttr from "../../util/get-attr";
+import isApi from "../../util/is-api";
 
 const STYLE_REG = /^style(?:\.([a-zA-Z0-9$_-]+(?:\.[a-zA-Z0-9$_-]+)*))?/;
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
-  if (tag.hub.file.path.node.extra!.___featureType === "class") return;
+  if (isApi(tag, "class")) return;
 
   const { hub, node } = tag;
   const { deps } = hub.file.metadata.marko;

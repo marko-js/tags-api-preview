@@ -1,12 +1,12 @@
 import { types as t } from "@marko/compiler";
 import { getTagDef } from "@marko/babel-utils";
+import isApi from "../util/is-api";
 
 export default {
   MarkoTag(tag) {
-    if (tag.hub.file.path.node.extra!.___featureType === "class") return;
     const params = tag.get("body").get("params");
     const tagDef = getTagDef(tag);
-    if (!params.length || tagDef?.translator) {
+    if (isApi(tag, "class") || !params.length || tagDef?.translator) {
       return;
     }
 

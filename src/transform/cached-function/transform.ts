@@ -4,6 +4,7 @@ import { Visitor } from "@marko/compiler/babel-types";
 import { closest } from "../lifecycle";
 import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
+import isApi from "../../util/is-api";
 type DepsVisitorState =
   | { shallow?: undefined; deps?: Set<string> }
   | { shallow: true; deps?: true };
@@ -45,6 +46,8 @@ const depsVisitor = {
 
 export default {
   Function(fn) {
+    if (isApi(fn, "class")) return;
+
     const parentTag = fn.findParent((parent) =>
       parent.isMarkoTag()
     ) as t.NodePath<t.MarkoTag>;

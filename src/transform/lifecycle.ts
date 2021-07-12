@@ -1,6 +1,7 @@
 import { types as t } from "@marko/compiler";
 import { isNativeTag, getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../../marko.json";
+import isApi from "../util/is-api";
 
 export type Meta = {
   component: t.Identifier;
@@ -40,16 +41,20 @@ export function closest(path: t.NodePath<any>) {
 export default {
   Program: {
     enter(program: t.NodePath<t.Program>) {
-      lifecycleRootsForProgram.set(program, new Set());
+      if (isApi(program, "tags")) {
+        lifecycleRootsForProgram.set(program, new Set());
+      }
     },
     exit(program: t.NodePath<t.Program>) {
-      for (const root of lifecycleRootsForProgram.get(program)!) {
-        if (root === program) {
-          program.node.body = buildRootLifecycle(program).concat(
-            program.node.body
-          );
-        } else {
-          root.node.body.body = buildNestedLifecycle(root);
+      if (isApi(program, "tags")) {
+        for (const root of lifecycleRootsForProgram.get(program)!) {
+          if (root === program) {
+            program.node.body = buildRootLifecycle(program).concat(
+              program.node.body
+            );
+          } else {
+            root.node.body.body = buildNestedLifecycle(root);
+          }
         }
       }
     },
