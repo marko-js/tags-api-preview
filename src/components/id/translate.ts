@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { closest } from "../../transform/lifecycle";
+import { closest } from "../../transform/wrapper-component";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.node.var as t.Identifier;

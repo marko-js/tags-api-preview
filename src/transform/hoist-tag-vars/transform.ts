@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag } from "@marko/babel-utils";
-import { closest } from "../lifecycle";
+import { closest } from "../wrapper-component";
 import isCoreTag from "../../util/is-core-tag";
 
 type RootNodePath = t.NodePath<t.Program> | t.NodePath<t.MarkoTagBody>;

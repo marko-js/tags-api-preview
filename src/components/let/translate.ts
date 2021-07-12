@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import deepFreeze from "../../util/deep-freeze/transform";
-import { closest } from "../../transform/lifecycle";
+import { closest } from "../../transform/wrapper-component";
 import getAttr from "../../util/get-attr";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {

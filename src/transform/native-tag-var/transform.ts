@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag } from "@marko/babel-utils";
-import * as lifecycle from "../lifecycle";
+import { closest } from "../wrapper-component";
 
 export default {
   MarkoTag: {
@@ -23,7 +23,7 @@ export default {
           );
       }
 
-      const meta = lifecycle.closest(tag.parentPath)!;
+      const meta = closest(tag.parentPath)!;
       const keyString = t.stringLiteral(`${meta.refIndex++}`);
       tag.insertBefore(
         t.markoScriptlet([

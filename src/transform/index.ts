@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import lifecycle from "./lifecycle";
+import wrapperComponent from "./wrapper-component";
 import cachedFunction from "./cached-function/transform";
 import nativeTagVar from "./native-tag-var/transform";
 import hoistTagVars from "./hoist-tag-vars/transform";
@@ -8,7 +8,7 @@ import tagBodyParameters from "./tag-body-parameters";
 
 export = [
   featureDetection,
-  lifecycle,
+  wrapperComponent,
   cachedFunction,
   hoistTagVars,
   nativeTagVar,

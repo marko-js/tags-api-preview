@@ -1,7 +1,7 @@
 import { importNamed, isNativeTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
 import { Visitor } from "@marko/compiler/babel-types";
-import { closest } from "../lifecycle";
+import { closest } from "../wrapper-component";
 import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
