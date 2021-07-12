@@ -5,9 +5,7 @@ import isApi from "../../util/is-api";
 const visited = new WeakSet<t.NodePath<t.MarkoTag>>();
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
-  if (isApi(tag, "class")) return;
-
-  if (visited.has(tag)) {
+  if (isApi(tag, "class") || visited.has(tag)) {
     return;
   }
 
@@ -19,7 +17,10 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   }
 
   let byId;
-  const idId = tag.get("body").scope.generateUidIdentifier("id");
+  const body = tag.get("body");
+  const { scope } = body;
+  const idId = scope.generateUidIdentifier("id");
+  const params = body.get("params");
 
   if (byAttr.get("value").isIdentifier()) {
     byId = byAttr.node.value;
@@ -34,48 +35,53 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
     );
   }
 
+  const byArgs: t.Expression[] = [];
+  const bodyVars: t.VariableDeclarator[] = [];
+
+  for (const param of params) {
+    if (param.isIdentifier()) {
+      byArgs.push(param.node);
+    } else {
+      const paramAlias = param.scope.generateUidIdentifier();
+      bodyVars.push(t.variableDeclarator(param.node, paramAlias));
+      byArgs.push(paramAlias);
+    }
+
+    param.remove();
+  }
+
+  if (getAttr(tag, "in")) {
+    if (params.length < 1) {
+      byArgs.push(scope.generateUidIdentifier("key"));
+    }
+
+    if (params.length < 2) {
+      byArgs.push(scope.generateUidIdentifier("val"));
+    }
+  } else if (getAttr(tag, "of")) {
+    if (params.length < 1) {
+      byArgs.push(scope.generateUidIdentifier("val"));
+    }
+
+    if (params.length < 2) {
+      byArgs.push(scope.generateUidIdentifier("key"));
+    }
+  } else {
+    if (params.length < 1) {
+      byArgs.push(scope.generateUidIdentifier("index"));
+    }
+  }
+
+  body.set("params", byArgs as any);
+  bodyVars.push(t.variableDeclarator(idId, t.callExpression(byId, byArgs)));
+
   tag
     .get("body")
     .unshiftContainer(
       "body",
-      t.markoScriptlet([
-        t.variableDeclaration("const", [
-          t.variableDeclarator(idId, t.callExpression(byId, getByArgs(tag))),
-        ]),
-      ])
+      t.markoScriptlet([t.variableDeclaration("const", bodyVars)])
     );
 
   tag.set("keyScope", idId);
   byAttr.remove();
 };
-
-function getByArgs(tag: t.NodePath<t.MarkoTag>) {
-  const body = tag.get("body");
-  const params = body.node.params;
-
-  // TODO: if any param is not an identifier we need to ensure it is.
-
-  if (getAttr(tag, "in")) {
-    if (params.length < 1) {
-      body.pushContainer("params", tag.scope.generateUidIdentifier("key"));
-    }
-
-    if (params.length < 2) {
-      body.pushContainer("params", tag.scope.generateUidIdentifier("val"));
-    }
-  } else if (getAttr(tag, "of")) {
-    if (params.length < 1) {
-      body.pushContainer("params", tag.scope.generateUidIdentifier("val"));
-    }
-
-    if (params.length < 2) {
-      body.pushContainer("params", tag.scope.generateUidIdentifier("key"));
-    }
-  } else {
-    if (params.length < 1) {
-      body.pushContainer("params", tag.scope.generateUidIdentifier("index"));
-    }
-  }
-
-  return params as t.Identifier[];
-}

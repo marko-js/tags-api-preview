@@ -12,8 +12,6 @@ type FeatureState = {
   feature?: Feature;
 };
 
-// TODO: renderBody default attr
-
 const featureDetectionVisitor = {
   MarkoComment(comment, state) {
     if (/^\s*use tags\s*$/.test(comment.node.value)) {
