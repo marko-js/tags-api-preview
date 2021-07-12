@@ -15,6 +15,11 @@ type FeatureState = {
 // TODO: renderBody default attr
 
 const featureDetectionVisitor = {
+  MarkoComment(comment, state) {
+    if (/^\s*use tags\s*$/.test(comment.node.value)) {
+      addFeature(state, "tags", "<!-- use tags -->", comment);
+    }
+  },
   MarkoScriptlet(scriptlet, state) {
     addFeature(state, "class", "Scriptlet", scriptlet);
   },
@@ -118,8 +123,8 @@ const featureDetectionVisitor = {
 export default {
   Program(program) {
     const state: FeatureState = {};
-    program.traverse(featureDetectionVisitor, state);
     program.node.extra ??= {};
+    program.traverse(featureDetectionVisitor, state);
     program.node.extra.___featureType = state.feature?.type || "class";
   },
 } as t.Visitor;
