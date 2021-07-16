@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { importDefault } from "@marko/babel-utils";
-const supportedMethods = new Set(["onMount", "onUpdate", "onDestroy"]);
+const supportedAttrNames = new Set(["onMount", "onUpdate", "onDestroy"]);
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
@@ -19,7 +19,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   if (!errorMessage) {
     for (const attr of tag.get("attributes")) {
       if (attr.isMarkoAttribute()) {
-        if (!supportedMethods.has(attr.node.name)) {
+        if (!supportedAttrNames.has(attr.node.name)) {
           errorMessage = `does not support the "${attr.node.name}" attribute`;
           break;
         }

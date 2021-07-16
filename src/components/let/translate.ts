@@ -1,7 +1,8 @@
 import { types as t } from "@marko/compiler";
+import getAttr from "../../util/get-attr";
 import deepFreeze from "../../util/deep-freeze/transform";
 import { closest } from "../../transform/wrapper-component";
-import getAttr from "../../util/get-attr";
+import replaceAssignments from "../../util/replace-assignments";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
@@ -62,37 +63,11 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       ])
     );
 
-    binding.constantViolations.forEach((assignment) => {
-      let setValue: t.Expression;
-
-      if (assignment.isUpdateExpression()) {
-        setValue = t.binaryExpression(
-          assignment.node.operator === "++" ? "+" : "-",
-          tagVar,
-          t.numericLiteral(1)
-        );
-      } else if (assignment.isAssignmentExpression()) {
-        setValue =
-          assignment.node.operator === "="
-            ? deepFreeze(file, assignment.node.right)
-            : t.binaryExpression(
-                assignment.node.operator.slice(
-                  0,
-                  -1
-                ) as t.BinaryExpression["operator"],
-                tagVar,
-                deepFreeze(file, assignment.node.right)
-              );
-      } else {
-        throw assignment.buildCodeFrameError("Unsupported update expression");
-      }
-
-      assignment.replaceWith(
-        t.callExpression(
-          t.memberExpression(meta.component, t.identifier("setState")),
-          [keyString, setValue]
-        )
-      );
-    });
+    replaceAssignments(binding, (value) =>
+      t.callExpression(
+        t.memberExpression(meta.component, t.identifier("setState")),
+        [keyString, value]
+      )
+    );
   }
 };

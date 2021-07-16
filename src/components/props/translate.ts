@@ -1,9 +1,8 @@
-import type { types } from "@marko/compiler";
-import { Hub } from "@marko/compiler/babel-types";
+import { types as t } from "@marko/compiler";
 import deepFreeze from "../../util/deep-freeze/transform";
-const usedTag = new WeakSet<Hub>();
+const usedTag = new WeakSet<t.Hub>();
 
-export = (tag: types.NodePath<types.MarkoTag>, t: typeof types) => {
+export = (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
   const errorMessage = usedTag.has(tag.hub)
     ? "can only be used once within a template"

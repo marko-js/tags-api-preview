@@ -8,6 +8,7 @@ export type Meta = {
   state: t.Identifier;
   stateIndex: number;
   refIndex: number;
+  varIndex: number;
 };
 
 const lifecycleRootsForProgram = new WeakMap<
@@ -60,18 +61,15 @@ export default {
     },
   },
   MarkoTag(tag: t.NodePath<t.MarkoTag>) {
-    if (isNativeTag(tag)) {
-      if (tag.node.var) {
-        ensureLifecycle(tag);
-      }
+    if (tag.node.var) {
+      ensureLifecycle(tag);
     } else {
       const tagDef = getTagDef(tag);
 
       if (
-        tag.node.var ||
-        (tagDef &&
-          tagDef.taglibId === taglibId &&
-          tagsNeedingLifecycle.has(tagDef.name))
+        tagDef &&
+        tagDef.taglibId === taglibId &&
+        tagsNeedingLifecycle.has(tagDef.name)
       ) {
         ensureLifecycle(tag);
       }
@@ -98,6 +96,7 @@ function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
         state: root.scope.generateUidIdentifier("state"),
         stateIndex: 0,
         refIndex: 0,
+        varIndex: 0,
       };
 
       roots.add(root);

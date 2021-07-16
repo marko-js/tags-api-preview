@@ -1,8 +1,8 @@
-import type { types } from "@marko/compiler";
+import { types as t } from "@marko/compiler";
 import getAttr from "../../util/get-attr";
 import deepFreeze from "../../util/deep-freeze/transform";
 
-export = (tag: types.NodePath<types.MarkoTag>, t: typeof types) => {
+export = (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
   const defaultAttr = getAttr(tag, "default")!;
   const errorMessage = !tagVar

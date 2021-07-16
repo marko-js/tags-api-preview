@@ -120,7 +120,7 @@ export default {
                       )
                     : null
                 ),
-                t.variableDeclarator(alias, binding.identifier),
+                t.variableDeclarator(alias),
               ]),
             ])
           );
@@ -128,7 +128,10 @@ export default {
       }
 
       if (initializers.length) {
-        tag.insertAfter(t.markoScriptlet(initializers));
+        (tag.parentPath as RootNodePath).pushContainer(
+          "body",
+          t.markoScriptlet(initializers)
+        );
       }
     },
   },
