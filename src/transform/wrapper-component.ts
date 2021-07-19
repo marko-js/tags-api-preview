@@ -144,7 +144,7 @@ function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
   const meta = tag.node.extra!.___lifecycle as Meta;
   return [
     t.markoTag(
-      t.stringLiteral("_component"),
+      t.stringLiteral("_instance"),
       [],
       t.markoTagBody(tag.node.body.body, [
         tag.scope.generateUidIdentifier("nestedComponentDef"),

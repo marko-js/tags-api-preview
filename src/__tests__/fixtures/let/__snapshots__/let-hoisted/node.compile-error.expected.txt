@@ -1,4 +1,4 @@
-src/__tests__/fixtures/let/templates/hoisted.marko(7,24): Assigning to a hoisted tag variable is not supported in the "Tags API Preview".
+src/__tests__/fixtures/let/templates/hoisted.marko(7,24): Assigning to a hoisted tag variable is not supported in the tags api preview.
   5 | </div>
   6 |
 > 7 | <button onClick=(() => count++)>Increment</button>

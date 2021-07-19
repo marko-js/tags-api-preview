@@ -1,7 +1,4 @@
 static var CONTEXT_KEY = "__subtree_context__";
-static function getData(provider) {
-  return provider.input.default;
-}
 static function getProvider(out, provider) {
   return out[CONTEXT_KEY] && out[CONTEXT_KEY][provider.___providerId];
 }
@@ -32,17 +29,22 @@ class {
         this.sub = this.subscribeTo(this.provider).on("___change", this.sync);
       }
 
-      this.data = getData(this.provider);
+      this.data = this.provider.input;
     } else {
       this.data = this.sub = undefined;
     }
   }
   sync() {
-    if (this.data !== (this.data = getData(this.provider))) {
+    var prevData = this.data;
+    this.data = this.provider.input;
+    if (
+      this.data.default !== prevData.default ||
+      this.data.defaultChange !== prevData.defaultChange
+    ) {
       this.forceUpdate();
       this.update();
     }
   }
 }
 
-<${input.renderBody}(component.data)/>
+<${input.renderBody}(component.data.default, component.data.defaultChange)/>
