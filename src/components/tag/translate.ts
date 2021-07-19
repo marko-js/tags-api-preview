@@ -1,4 +1,5 @@
 import { types as t } from "@marko/compiler";
+import assertNoAssignments from "../../util/assert-no-assignments";
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.node.var! as t.Identifier;
@@ -18,6 +19,8 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   if (errorMessage) {
     throw tag.get("name").buildCodeFrameError(`The <tag> tag ${errorMessage}.`);
   }
+
+  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
 
   tag.replaceWith(
     t.functionDeclaration(

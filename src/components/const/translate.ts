@@ -1,6 +1,7 @@
 import { types as t } from "@marko/compiler";
 import getAttr from "../../util/get-attr";
 import deepFreeze from "../../util/deep-freeze/transform";
+import assertNoAssignments from "../../util/assert-no-assignments";
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
@@ -24,6 +25,8 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
       .get("name")
       .buildCodeFrameError(`The <const> tag ${errorMessage}.`);
   }
+
+  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
 
   tag.replaceWith(
     t.variableDeclaration("const", [

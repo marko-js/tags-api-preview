@@ -1,5 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { closest } from "../../transform/wrapper-component";
+import assertNoAssignments from "../../util/assert-no-assignments";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.node.var as t.Identifier;
@@ -22,6 +23,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     throw tag.get("name").buildCodeFrameError(`The <id> tag ${errorMessage}.`);
   }
 
+  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
   const meta = closest(tag.parentPath)!;
 
   tag.replaceWith(

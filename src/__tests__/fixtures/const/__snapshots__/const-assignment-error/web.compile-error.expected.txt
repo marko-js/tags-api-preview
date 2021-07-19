@@ -1,0 +1,5 @@
+src/__tests__/fixtures/const/templates/error-assignment.marko(2,24): Reference is a constant and cannot be assigned.
+  1 | <const/x = 1/>
+> 2 | <button onClick=(() => x++)>increment</button>
+    |                        ^^^
+  3 |

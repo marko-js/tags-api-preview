@@ -1,4 +1,5 @@
 import { types as t } from "@marko/compiler";
+import assertNoAssignments from "../../util/assert-no-assignments";
 import deepFreeze from "../../util/deep-freeze/transform";
 const usedTag = new WeakSet<t.Hub>();
 
@@ -27,6 +28,8 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
   }
 
   usedTag.add(tag.hub);
+
+  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
 
   tag.replaceWith(
     t.variableDeclaration("const", [

@@ -18,4 +18,9 @@ describe(
   ])
 );
 
+describe(
+  "<const> assignment error",
+  fixture("./templates/error-assignment.marko")
+);
+
 describe("<const> mutation error", fixture("./templates/error-mutation.marko"));
