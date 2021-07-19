@@ -10,6 +10,16 @@ export default {
       return;
     }
 
+    for (const name in tag.get("body").getBindingIdentifiers()) {
+      const binding = tag.scope.getBinding(name)!;
+      const [assignment] = binding.constantViolations;
+      if (assignment) {
+        throw assignment.buildCodeFrameError(
+          "Cannot assign to tag body parameters in the tags api preview."
+        );
+      }
+    }
+
     tag.node.body.params = [
       t.assignmentPattern(
         t.objectPattern([

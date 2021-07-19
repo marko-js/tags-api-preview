@@ -48,7 +48,7 @@ export default {
               ScopeRelation.Same
             ) {
               throw assignment.buildCodeFrameError(
-                `Assigning to a hoisted tag variable is not supported in the "Tags API Preview".`
+                `Assigning to a hoisted tag variable is not supported in the tags api preview.`
               );
             }
           }
