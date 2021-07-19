@@ -1,0 +1,7 @@
+src/__tests__/fixtures/if/templates/error-args.marko(2,2): The <if> tag does not support arguments, the tags api uses '<if=condition>' instead.
+  1 | <props/{ show }/>
+> 2 | <if(show)>
+    |  ^^
+  3 |   Hello world!
+  4 | </if>
+  5 |

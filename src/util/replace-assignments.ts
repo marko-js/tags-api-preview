@@ -31,8 +31,6 @@ export default function replaceAssignments(
               )
         )
       );
-    } else {
-      throw assignment.buildCodeFrameError("Unsupported update expression");
     }
   }
 }

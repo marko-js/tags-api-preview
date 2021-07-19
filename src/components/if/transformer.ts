@@ -12,7 +12,7 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   const errorMessage = tag.node.var
     ? "does not support a tag variable"
     : tag.node.arguments?.length
-    ? "does not support arguments"
+    ? "does not support arguments, the tags api uses '<if=condition>' instead"
     : !defaultAttr
     ? "must be given a value"
     : tag.node.attributes.length > 1
