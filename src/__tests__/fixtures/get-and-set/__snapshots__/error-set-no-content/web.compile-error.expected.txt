@@ -1,0 +1,4 @@
+src/__tests__/fixtures/get-and-set/templates/error-set-no-content.marko(1,2): The <set> tag requires body content.
+> 1 | <set=1/>
+    |  ^^^
+  2 |

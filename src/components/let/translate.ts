@@ -23,7 +23,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       }
     }
 
-    errorMessage = `Unexpected attribute "${attr.toString()}"`;
+    errorMessage = `does not support the "${attr.toString()}" attribute`;
     break;
   }
 

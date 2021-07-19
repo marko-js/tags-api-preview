@@ -51,3 +51,27 @@ describe(
   "error <get> no tag var",
   fixture("./templates/error-get-no-tag-var.marko")
 );
+
+describe("error <set> args", fixture("./templates/error-set-args.marko"));
+
+describe(
+  "error <set> body parameters",
+  fixture("./templates/error-set-body-parameters.marko")
+);
+
+describe(
+  "error <set> extra attr",
+  fixture("./templates/error-set-extra-attr.marko")
+);
+
+describe(
+  "error <set> no content",
+  fixture("./templates/error-set-no-content.marko")
+);
+
+describe(
+  "error <set> no default attr",
+  fixture("./templates/error-set-no-default-attr.marko")
+);
+
+describe("error <set> tag var", fixture("./templates/error-set-tag-var.marko"));

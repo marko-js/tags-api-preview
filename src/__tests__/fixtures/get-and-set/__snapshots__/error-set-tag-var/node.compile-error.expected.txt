@@ -1,0 +1,6 @@
+src/__tests__/fixtures/get-and-set/templates/error-set-tag-var.marko(1,2): The <set> tag does not support a tag variable.
+> 1 | <set/x=1>
+    |  ^^^
+  2 |   <div/>
+  3 | </set>
+  4 |

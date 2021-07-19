@@ -15,13 +15,15 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       }
     }
 
-    errorMessage = `Unexpected attribute "${attr.toString()}"`;
+    errorMessage = `does not support the "${attr.toString()}" attribute`;
     break;
   }
 
   errorMessage =
     errorMessage ||
-    (tag.node.var
+    (!tag.node.attributes.length
+      ? "requires a default attribute"
+      : tag.node.var
       ? "does not support a tag variable"
       : tag.node.arguments?.length
       ? "does not support arguments"
