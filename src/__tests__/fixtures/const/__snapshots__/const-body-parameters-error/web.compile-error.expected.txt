@@ -1,0 +1,4 @@
+src/__tests__/fixtures/const/templates/error-body-parameters.marko(1,2): The <const> tag does not support tag body parameters.
+> 1 | <const/x|y|=1/>
+    |  ^^^^^
+  2 |

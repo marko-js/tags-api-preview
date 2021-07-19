@@ -24,3 +24,24 @@ describe(
 );
 
 describe("<const> mutation error", fixture("./templates/error-mutation.marko"));
+describe("<const> args error", fixture("./templates/error-args.marko"));
+describe(
+  "<const> body content error",
+  fixture("./templates/error-body-content.marko")
+);
+describe(
+  "<const> body parameters error",
+  fixture("./templates/error-body-parameters.marko")
+);
+describe(
+  "<const> extra attribute error",
+  fixture("./templates/error-extra-attr.marko")
+);
+describe(
+  "<const> missing default attribute error",
+  fixture("./templates/error-no-default-attr.marko")
+);
+describe(
+  "<const> missing var error",
+  fixture("./templates/error-no-var.marko")
+);

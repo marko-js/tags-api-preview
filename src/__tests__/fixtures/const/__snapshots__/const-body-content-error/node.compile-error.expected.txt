@@ -1,0 +1,6 @@
+src/__tests__/fixtures/const/templates/error-body-content.marko(1,2): The <const> tag does not support body content.
+> 1 | <const/x=1>
+    |  ^^^^^
+  2 |   Hello!
+  3 | </const>
+  4 |
