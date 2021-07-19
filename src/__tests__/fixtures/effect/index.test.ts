@@ -31,6 +31,31 @@ describe(
 );
 
 describe(
+  "<effect> multiple",
+  fixture("./templates/multiple.marko", [
+    { onCount, onCleanup },
+    async ({ expect, screen, rerender, cleanup, fireEvent }) => {
+      expect(onCount).calledTwice;
+      expect(onCleanup).has.not.been.called;
+      resetHistory();
+
+      await fireEvent.click(screen.getByText("increment"));
+      expect(onCount).calledTwice;
+      expect(onCleanup).has.been.calledTwice;
+      resetHistory();
+
+      await rerender();
+      expect(onCount).has.not.been.called;
+      expect(onCleanup).has.not.been.called;
+
+      cleanup();
+      expect(onCleanup).has.been.calledTwice;
+      resetHistory();
+    },
+  ])
+);
+
+describe(
   "<effect> with native tag ref",
   fixture("./templates/with-native-tag-ref.marko", [
     { onEl },
