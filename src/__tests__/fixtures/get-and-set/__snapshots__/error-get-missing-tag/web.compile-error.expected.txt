@@ -1,0 +1,5 @@
+src/__tests__/fixtures/get-and-set/templates/error-get-missing-tag.marko(1,7): <get> could not find provider matching "missing-tag".
+> 1 | <get/x="missing-tag"/>
+    |       ^^^^^^^^^^^^^^
+  2 | <div>${val}</div>
+  3 |

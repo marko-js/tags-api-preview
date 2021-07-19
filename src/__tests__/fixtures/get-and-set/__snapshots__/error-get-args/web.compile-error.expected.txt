@@ -1,0 +1,7 @@
+src/__tests__/fixtures/get-and-set/templates/error-get-args.marko(2,4): The <get> tag 'default' attribute is required.
+  1 | <set=1>
+> 2 |   <get(y)/x="."/>
+    |    ^^^
+  3 |   <div>${val}</div>
+  4 | </set>
+  5 |

@@ -1,0 +1,7 @@
+src/__tests__/fixtures/get-and-set/templates/error-get-extra-attr.marko(2,4): The <get> tag only supports the 'default' attribute.
+  1 | <set=1>
+> 2 |   <get/val="." y=2/>
+    |    ^^^
+  3 |   <div>${val}</div>
+  4 | </set>
+  5 |
