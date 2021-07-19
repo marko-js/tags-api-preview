@@ -1,4 +1,4 @@
-<const/list=[1, 2, 3]/>
+<const/list=["1", "2", "3"]/>
 <const/byIdentity=(it => it)/>
 <const/byIndex=((_, i) => i)/>
 
@@ -20,4 +20,8 @@
 
 <for|item| of=list by=byIndex>
   <div>Hello ${item}!</div>
+</for>
+
+<for|{ length }| of=list by=(item => item)>
+  <div>Hello ${length}</div>
 </for>
