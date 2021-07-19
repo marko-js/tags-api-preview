@@ -26,8 +26,34 @@ describe(
 );
 
 describe(
+  "<get> & <set> assign to nested mutable set",
+  fixture("./templates/assign-to-nested-mutable-set.marko", [
+    { defaultChange },
+    async ({ expect, screen, rerender, fireEvent }) => {
+      expect(defaultChange).has.not.been.called;
+
+      await fireEvent.click(screen.getByText("increment"));
+      expect(defaultChange).calledOnceWith(2);
+      resetHistory();
+
+      await rerender();
+      expect(defaultChange).has.not.been.called;
+    },
+  ])
+);
+
+describe(
   "<get> & <set> assign to const set",
   fixture("./templates/assign-to-const-set.marko", [
+    async ({ screen, fireEvent }) => {
+      await fireEvent.click(screen.getByText("increment"));
+    },
+  ])
+);
+
+describe(
+  "<get> & <set> assign to nested const set",
+  fixture("./templates/assign-to-nested-const-set.marko", [
     async ({ screen, fireEvent }) => {
       await fireEvent.click(screen.getByText("increment"));
     },

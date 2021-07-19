@@ -40,14 +40,9 @@ export default async function trySnapshot(
         try {
           assert.strictEqual(data, expected);
         } catch (err) {
-          if ((rawData as any).stack && expected === undefined) {
-            throw rawData;
-          }
-
           await fs.promises.writeFile(actualFile, data, "utf-8");
-          err.stack = "";
-          err.name = err.name.replace(" [ERR_ASSERTION]", "");
           err.message = path.relative(process.cwd(), actualFile);
+          err.snapshot = true;
           throw err;
         }
       }
@@ -59,6 +54,8 @@ export default async function trySnapshot(
   try {
     await runner(utils);
   } catch (err) {
+    if (err.snapshot) throw err;
+
     if (UPDATE) {
       await Promise.all(
         (
@@ -68,6 +65,14 @@ export default async function trySnapshot(
           .filter((file) => file.includes(`${title}.expected.`))
           .map((file) => fs.promises.unlink(path.join(snapshotDir, file)))
       );
+    } else if (
+      !(
+        await fs.promises
+          .stat(path.join(snapshotDir, `${title}.error.expected.txt`))
+          .catch(noop)
+      )?.isFile()
+    ) {
+      throw err;
     }
 
     title += ".error";

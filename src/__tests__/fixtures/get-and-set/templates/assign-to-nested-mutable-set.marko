@@ -1,0 +1,6 @@
+<props/{ defaultChange }/>
+<set={ x: 1, xChange: defaultChange }>
+  <get/{ x }="."/>
+  <div>${x}</div>
+  <button onClick=(() => x++)>increment</button>
+</set>
