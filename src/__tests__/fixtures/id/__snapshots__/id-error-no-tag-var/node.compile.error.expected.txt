@@ -1,0 +1,5 @@
+src/__tests__/fixtures/id/templates/error-no-tag-var.marko(1,2): The <id> tag requires a tag variable.
+> 1 | <id/>
+    |  ^^
+  2 |
+  3 |

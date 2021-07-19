@@ -1,0 +1,5 @@
+src/__tests__/fixtures/id/templates/error-attr.marko(1,2): The <id> tag does not support attributes.
+> 1 | <id/firstNameId x=1/>
+    |  ^^
+  2 | <input id=firstNameId/>
+  3 |

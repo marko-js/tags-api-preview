@@ -1,0 +1,5 @@
+src/__tests__/fixtures/id/templates/error-body-content.marko(1,2): The <id> tag does not support body content.
+> 1 | <id/firstNameId>Hello</id>
+    |  ^^
+  2 | <input id=firstNameId/>
+  3 |

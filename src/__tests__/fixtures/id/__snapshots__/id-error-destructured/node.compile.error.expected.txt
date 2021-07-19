@@ -1,0 +1,5 @@
+src/__tests__/fixtures/id/templates/error-destructured.marko(1,2): The <id> tag does not a destructured tag variable.
+> 1 | <id/{ firstNameId }/>
+    |  ^^
+  2 | <input id=firstNameId/>
+  3 |
