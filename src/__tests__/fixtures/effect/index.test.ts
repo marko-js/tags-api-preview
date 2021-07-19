@@ -2,6 +2,7 @@ import { spy, resetHistory } from "sinon";
 import fixture from "../../fixture";
 const onEl = spy();
 const onCount = spy();
+const onEffect = spy();
 const onCleanup = spy();
 
 describe(
@@ -76,4 +77,52 @@ describe(
       resetHistory();
     },
   ])
+);
+describe(
+  "<effect> missing function",
+  fixture("./templates/missing-function.marko", [
+    { onEffect },
+    async ({ expect, rerender }) => {
+      expect(onEffect).to.have.been.calledOnce;
+      resetHistory();
+
+      await rerender();
+      expect(onEffect).has.not.been.called;
+      resetHistory();
+
+      await rerender({ onEffect: undefined });
+      expect(onEffect).has.not.been.called;
+      resetHistory();
+
+      await rerender({ onEffect });
+      expect(onEffect).to.have.been.calledOnce;
+    },
+  ])
+);
+
+describe("<effect> error args", fixture("./templates/error-args.marko"));
+
+describe(
+  "<effect> error body content",
+  fixture("./templates/error-body-content.marko")
+);
+
+describe(
+  "<effect> error body parameters",
+  fixture("./templates/error-body-parameters.marko")
+);
+
+describe(
+  "<effect> error extra attrs",
+  fixture("./templates/error-extra-attrs.marko")
+);
+
+describe(
+  "<effect> error no default attr",
+  fixture("./templates/error-no-default-attr.marko")
+);
+
+describe(
+  "<effect> error tag variable",
+  fixture("./templates/error-tag-variable.marko")
 );
