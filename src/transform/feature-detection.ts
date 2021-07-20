@@ -24,6 +24,16 @@ const featureDetectionVisitor = {
   MarkoClass(markoClass, state) {
     addFeature(state, "class", "Class block", markoClass.get("body"));
   },
+  ReferencedIdentifier(ref: t.NodePath<t.Identifier>, state: FeatureState) {
+    const name = ref.node.name;
+
+    if (
+      (name === "input" || name === "component" || name === "out") &&
+      !ref.scope.hasBinding(name)
+    ) {
+      addFeature(state, "class", `${name} template global`, ref);
+    }
+  },
   MarkoTag(tag, state) {
     if (tag.node.var) {
       addFeature(
