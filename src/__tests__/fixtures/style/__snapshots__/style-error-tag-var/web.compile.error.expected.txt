@@ -1,0 +1,6 @@
+src/__tests__/fixtures/style/templates/error-tag-var.marko(1,2): The <style> tag does not support a tag variable.
+> 1 | <style/y>
+    |  ^^^^^
+  2 |   .test {
+  3 |     color: green
+  4 |   }

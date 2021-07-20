@@ -55,3 +55,31 @@ describe("<style> custom lang", () => {
       ]);
   });
 });
+
+describe("<style> class api", fixture("./templates/class-api.marko"));
+
+describe("<style> error args", fixture("./templates/error-args.marko"));
+
+describe("<style> error attrs", fixture("./templates/error-attrs.marko"));
+
+describe(
+  "<style> error body parameters",
+  fixture("./templates/error-body-parameters.marko")
+);
+
+describe(
+  "<style> error class attr",
+  fixture("./templates/error-class-attr.marko")
+);
+
+describe(
+  "<style> error interpolation",
+  fixture("./templates/error-interpolation.marko")
+);
+
+describe(
+  "<style> error no content",
+  fixture("./templates/error-no-content.marko")
+);
+
+describe("<style> error tag var", fixture("./templates/error-tag-var.marko"));
