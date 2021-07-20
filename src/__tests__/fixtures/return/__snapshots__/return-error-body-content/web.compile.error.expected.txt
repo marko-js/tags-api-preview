@@ -1,0 +1,4 @@
+src/__tests__/fixtures/return/templates/error-body-content.marko(1,2): The <return> tag does not support body content.
+> 1 | <return=1>Hello</return>
+    |  ^^^^^^
+  2 |

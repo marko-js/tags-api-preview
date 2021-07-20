@@ -1,0 +1,4 @@
+src/__tests__/fixtures/return/templates/error-tag-var.marko(1,2): The <return> tag does not support a tag variable.
+> 1 | <return/x=1/>
+    |  ^^^^^^
+  2 |

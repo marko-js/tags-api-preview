@@ -1,0 +1,4 @@
+src/__tests__/fixtures/return/templates/error-body-parameters.marko(1,2): The <return> tag does not support tag body parameters.
+> 1 | <return|y|=1/>
+    |  ^^^^^^
+  2 |

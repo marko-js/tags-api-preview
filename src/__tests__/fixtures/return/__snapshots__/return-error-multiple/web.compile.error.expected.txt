@@ -1,0 +1,5 @@
+src/__tests__/fixtures/return/templates/error-multiple.marko(2,2): The <return> tag can only be used once within a template.
+  1 | <return=1/>
+> 2 | <return=2/>
+    |  ^^^^^^
+  3 |

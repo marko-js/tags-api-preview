@@ -1,0 +1,4 @@
+src/__tests__/fixtures/return/templates/error-no-default-attr.marko(1,2): The <return> tag requires a default attribute.
+> 1 | <return/>
+    |  ^^^^^^
+  2 |
