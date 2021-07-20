@@ -1,6 +1,5 @@
-src/__tests__/fixtures/let/templates/error-body-content.marko(2,2): The <let> tag does not support body content.
-  1 | <props/{ value }/>
-> 2 | <let/count=value>Hello</let>
+src/__tests__/fixtures/let/templates/error-body-content.marko(1,2): The <let> tag does not support body content.
+> 1 | <let/count=0>Hello</let>
     |  ^^^
-  3 | <div>${value}</div>
-  4 |
+  2 | <div>${count}</div>
+  3 |

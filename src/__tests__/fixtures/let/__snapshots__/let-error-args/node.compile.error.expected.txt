@@ -1,6 +1,5 @@
-src/__tests__/fixtures/let/templates/error-args.marko(2,2): The <let> tag does not support the "/count=value" attribute.
-  1 | <props/{ value }/>
-> 2 | <let(y)/count=value/>
+src/__tests__/fixtures/let/templates/error-args.marko(1,2): The <let> tag does not support the "/count=0" attribute.
+> 1 | <let(y)/count=0/>
     |  ^^^
-  3 | <div>${value}</div>
-  4 |
+  2 | <div>${count}</div>
+  3 |

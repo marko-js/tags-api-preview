@@ -1,6 +1,5 @@
-src/__tests__/fixtures/let/templates/error-body-parameters.marko(2,2): The <let> tag does not support tag body parameters.
-  1 | <props/{ value }/>
-> 2 | <let/count|y|=value/>
+src/__tests__/fixtures/let/templates/error-body-parameters.marko(1,2): The <let> tag does not support tag body parameters.
+> 1 | <let/count|y|=0/>
     |  ^^^
-  3 | <div>${value}</div>
-  4 |
+  2 | <div>${count}</div>
+  3 |
