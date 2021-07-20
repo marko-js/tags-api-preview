@@ -65,17 +65,16 @@ export default {
       const { component } = closest(parentTag.parentPath)!;
 
       fn.replaceWith(
-        t.logicalExpression(
-          "||",
-          t.callExpression(importNamed(file, __dirname, "cached"), [
-            component,
-            ...Array.from(state.deps, toIdentifier),
-          ]),
-          t.callExpression(importNamed(file, __dirname, "cache"), [
-            component,
-            fn.node,
-          ])
-        )
+        t.callExpression(importNamed(file, __dirname, "cache"), [
+          t.logicalExpression(
+            "||",
+            t.callExpression(importNamed(file, __dirname, "cached"), [
+              component,
+              t.arrayExpression(Array.from(state.deps, toIdentifier)),
+            ]),
+            fn.node
+          ),
+        ])
       );
     }
   },
