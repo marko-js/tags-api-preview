@@ -37,15 +37,12 @@ export = function (component: Component, cur: LifecycleHandlers = {}) {
     } else {
       component[indexKey]! += 2;
       const prev = meta[index + 1] as LifecycleHandlers;
-      if (prev.onUpdate !== cur.onUpdate) {
-        if (prev.onDestroy) {
-          prev.onDestroy();
-        }
+      prev.onMount = cur.onMount;
+      prev.onDestroy = cur.onDestroy;
 
+      if (prev.onUpdate !== cur.onUpdate) {
         meta[index] = 1;
-        prev.onMount = cur.onMount;
         prev.onUpdate = cur.onUpdate;
-        prev.onDestroy = cur.onDestroy;
       }
     }
   } else {
@@ -94,7 +91,7 @@ function runDestroy(this: Component) {
   const meta = this[metaKey]!;
 
   if (meta) {
-    for (let i = 2; i < meta.length; i += 2) {
+    for (let i = 1; i < meta.length; i += 2) {
       const handlers = meta[i] as LifecycleHandlers;
 
       if (handlers.onDestroy) {

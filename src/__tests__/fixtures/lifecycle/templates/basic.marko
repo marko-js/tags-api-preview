@@ -1,0 +1,10 @@
+<props/{ onCount, onMount, onDestroy }/>
+<let/count=0/>
+
+<button onClick=(() => count++)>increment</button>
+
+<lifecycle
+  onMount=onMount
+  onDestroy=onDestroy
+  onUpdate=(() => onCount(count))
+/>
