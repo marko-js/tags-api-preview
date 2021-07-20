@@ -1,0 +1,4 @@
+src/__tests__/fixtures/lifecycle/templates/error-no-attrs.marko(1,2): The <lifecycle> tag requires an onMount, onUpdate or onDestroy attribute.
+> 1 | <lifecycle/>
+    |  ^^^^^^^^^
+  2 |

@@ -107,6 +107,11 @@ describe(
 );
 
 describe(
+  "<lifecycle> error no attrs",
+  fixture("./templates/error-no-attrs.marko")
+);
+
+describe(
   "<lifecycle> error spread attr",
   fixture("./templates/error-spread-attr.marko")
 );
