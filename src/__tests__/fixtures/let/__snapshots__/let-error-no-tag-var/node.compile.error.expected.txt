@@ -1,0 +1,6 @@
+src/__tests__/fixtures/let/templates/error-no-tag-var.marko(2,2): The <let> tag requires a tag variable.
+  1 | <props/{ value }/>
+> 2 | <let=value/>
+    |  ^^^
+  3 | <div>${value}</div>
+  4 |

@@ -1,0 +1,6 @@
+src/__tests__/fixtures/let/templates/error-destructured.marko(2,2): The <let> tag tag variable cannot be destructured.
+  1 | <props/{ value }/>
+> 2 | <let/{ count }=value/>
+    |  ^^^
+  3 | <div>${count}</div>
+  4 |

@@ -64,6 +64,65 @@ describe(
   ])
 );
 
+describe(
+  "<let> error args",
+  fixture("./templates/error-args.marko", [{ value: 1 }, increment, increment])
+);
+
+describe(
+  "<let> error body content",
+  fixture("./templates/error-body-content.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "<let> error body parameters",
+  fixture("./templates/error-body-parameters.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "<let> error destructured",
+  fixture("./templates/error-destructured.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "<let> error extra attr",
+  fixture("./templates/error-extra-attr.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "<let> error no default attr",
+  fixture("./templates/error-no-default-attr.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "<let> error no tag var",
+  fixture("./templates/error-no-tag-var.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
 function click(text: string) {
   return async ({ fireEvent, screen }: FixtureHelpers) =>
     await fireEvent.click(screen.getByText(text));
