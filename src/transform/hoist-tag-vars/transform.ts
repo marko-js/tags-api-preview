@@ -31,6 +31,7 @@ export default {
       const tagVar = tag.get("var");
       const initializers: t.Statement[] = [];
       const meta = closest(tag.parentPath)!;
+      const body = tag.get("body");
 
       for (const name in tagVar.getBindingIdentifiers()) {
         const binding = scope.getBinding(name);
@@ -72,6 +73,31 @@ export default {
                     ref.replaceWith(
                       t.callExpression(ref.node as t.Identifier, [])
                     );
+                    break;
+                }
+                break;
+              }
+
+              case ScopeRelation.Same: {
+                switch (getReferenceType(ref)) {
+                  case ReferenceType.Async:
+                    break;
+                  case ReferenceType.Sync: {
+                    if (ref.findParent(isMarkoBody) === body) {
+                      throw ref.buildCodeFrameError(
+                        `Cannot access '${name}' before initialization.`
+                      );
+                    }
+
+                    break;
+                  }
+                  case ReferenceType.Unknown:
+                    if (ref.findParent(isMarkoBody) === body) {
+                      maybeHasSyncRefsBefore = true;
+                      ref.replaceWith(
+                        t.callExpression(ref.node as t.Identifier, [])
+                      );
+                    }
                     break;
                 }
                 break;
@@ -184,4 +210,10 @@ function getReferenceType(ref: t.NodePath) {
   }
 
   return ReferenceType.Unknown;
+}
+
+function isMarkoBody(
+  path: t.NodePath<any>
+): path is t.NodePath<t.MarkoTagBody> {
+  return path.isMarkoTagBody();
 }
