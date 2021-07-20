@@ -20,11 +20,6 @@ describe(
 );
 
 describe(
-  "<return> error extra attr",
-  fixture("./templates/error-extra-attr.marko")
-);
-
-describe(
   "<return> error multiple",
   fixture("./templates/error-multiple.marko")
 );
@@ -34,11 +29,6 @@ describe("<return> error nested", fixture("./templates/error-nested.marko"));
 describe(
   "<return> error no default attr",
   fixture("./templates/error-no-default-attr.marko")
-);
-
-describe(
-  "<return> error spread attr",
-  fixture("./templates/error-spread-attr.marko")
 );
 
 describe("<return> error tag var", fixture("./templates/error-tag-var.marko"));

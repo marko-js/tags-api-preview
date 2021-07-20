@@ -1,11 +1,15 @@
+import path from "path";
 import { types as t } from "@marko/compiler";
 import {
   isNativeTag,
   isDynamicTag,
   isAttributeTag,
   getTagDef,
+  importDefault,
 } from "@marko/babel-utils";
 import { closest } from "./wrapper-component";
+
+const returnRuntimePath = path.join(__dirname, "../components/return");
 
 export default {
   MarkoTag: {
@@ -20,27 +24,23 @@ export default {
         t.objectProperty(t.identifier("default"), tagVar),
       ]);
       const meta = closest(tag.parentPath)!;
-      const returnId = "_" + meta.varIndex++;
-      const curValue = t.memberExpression(
-        meta.component,
-        t.identifier(returnId)
+      const returnValueId = tag.scope.generateUidIdentifier(
+        `${(tag.node.name as t.StringLiteral).value}Return`
       );
       tag.set("var", tagVarReplacement);
 
       tag.pushContainer("attributes", [
-        t.markoAttribute("_return", meta.component),
-        t.markoAttribute("_returnId", t.stringLiteral(returnId)),
+        t.markoAttribute("_return", returnValueId),
       ]);
 
       tag.insertBefore(
         t.markoScriptlet([
-          t.variableDeclaration("let", [
+          t.variableDeclaration("var", [
             t.variableDeclarator(
-              tagVarReplacement,
-              t.logicalExpression(
-                "||",
-                curValue,
-                t.assignmentExpression("=", curValue, t.objectExpression([]))
+              returnValueId,
+              t.callExpression(
+                importDefault(tag.hub.file, returnRuntimePath, "return"),
+                [meta.component]
               )
             ),
           ]),
@@ -49,9 +49,12 @@ export default {
 
       tag.insertAfter(
         t.markoScriptlet([
-          t.expressionStatement(
-            t.assignmentExpression("=", tagVarReplacement, curValue)
-          ),
+          t.variableDeclaration("const", [
+            t.variableDeclarator(
+              tagVarReplacement,
+              t.callExpression(returnValueId, [])
+            ),
+          ]),
         ])
       );
     },

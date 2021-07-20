@@ -1,4 +1,0 @@
-src/__tests__/fixtures/return/templates/error-extra-attr.marko(1,2): The <return> tag does not support the "y" attribute.
-> 1 | <return=1 y=2/>
-    |  ^^^^^^
-  2 |

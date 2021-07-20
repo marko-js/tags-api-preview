@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 const usedTag = new WeakSet<t.Hub>();
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
-  let errorMessage = usedTag.has(tag.hub)
+  const errorMessage = usedTag.has(tag.hub)
     ? "can only be used once within a template"
     : tag.node.var
     ? "does not support a tag variable"
@@ -18,27 +18,6 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     ? "does not support arguments"
     : undefined;
 
-  let defaultAttr: t.NodePath<t.MarkoAttribute> | null = null;
-  let defaultChangeAttr: t.NodePath<t.MarkoAttribute> | null = null;
-
-  if (!errorMessage) {
-    for (const attr of tag.get("attributes")) {
-      if (attr.isMarkoAttribute()) {
-        if (attr.node.name === "default") {
-          defaultAttr = attr;
-        } else if (attr.node.name === "defaultChange") {
-          defaultChangeAttr = attr;
-        } else {
-          errorMessage = `does not support the "${attr.node.name}" attribute`;
-          break;
-        }
-      } else {
-        errorMessage = `does not support ...spread attributes`;
-        break;
-      }
-    }
-  }
-
   if (errorMessage) {
     throw tag
       .get("name")
@@ -47,57 +26,27 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
 
   usedTag.add(tag.hub);
 
-  const isHTML = tag.hub.file.markoOpts.output === "html";
-  const returnDataId = tag.scope.generateUidIdentifier("return");
-  const returnDataDefault = t.memberExpression(
-    returnDataId,
-    t.identifier("default")
-  );
-  const assignDefaultAttr = t.assignmentExpression(
-    "=",
-    returnDataDefault,
-    defaultAttr!.node.value
-  );
-  const replacements: t.Statement[] = [
-    t.variableDeclaration("var", [
-      t.variableDeclarator(
-        returnDataId,
-        t.memberExpression(
-          buildInputExpr("_return"),
-          buildInputExpr("_returnId"),
-          true
-        )
-      ),
-    ]),
-    isHTML
-      ? t.expressionStatement(assignDefaultAttr)
-      : t.ifStatement(
-          t.binaryExpression("!==", returnDataDefault, assignDefaultAttr),
-          t.expressionStatement(
-            t.callExpression(
-              t.memberExpression(
-                buildInputExpr("_return"),
-                t.identifier("forceUpdate")
-              ),
-              []
-            )
-          )
-        ),
-  ];
+  const props: t.ObjectExpression["properties"] = [];
 
-  if (defaultChangeAttr) {
-    replacements.push(
-      t.expressionStatement(
-        t.assignmentExpression(
-          "=",
-          t.memberExpression(returnDataId, t.identifier("defaultChange")),
-          defaultChangeAttr.node.value
-        )
-      )
-    );
+  for (const attr of tag.get("attributes")) {
+    if (attr.isMarkoAttribute()) {
+      props.push(
+        t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
+      );
+    } else {
+      props.push(t.spreadElement(attr.node.value));
+    }
   }
 
-  tag.replaceWithMultiple(replacements);
+  tag.replaceWith(
+    t.expressionStatement(
+      t.optionalCallExpression(
+        buildInputExpr("_return"),
+        [t.objectExpression(props), t.numericLiteral(1)],
+        true
+      )
+    )
+  );
 };
 
 function buildInputExpr(prop: string) {
