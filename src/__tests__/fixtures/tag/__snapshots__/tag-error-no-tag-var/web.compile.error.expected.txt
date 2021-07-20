@@ -1,0 +1,6 @@
+src/__tests__/fixtures/tag/templates/error-no-tag-var.marko(1,2): The <tag> tag requires a tag variable.
+> 1 | <tag>
+    |  ^^^
+  2 |   <div>Hello ${name}</div>
+  3 | </tag>
+  4 |

@@ -1,0 +1,6 @@
+src/__tests__/fixtures/tag/templates/error-no-content.marko(1,2): The <tag> tag requires body content.
+> 1 | <tag/myTag/>
+    |  ^^^
+  2 |
+  3 | <${myTag} name="Dylan"/>
+  4 |
