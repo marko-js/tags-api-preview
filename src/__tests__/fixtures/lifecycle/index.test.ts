@@ -93,3 +93,30 @@ describe(
     },
   ])
 );
+
+describe("<lifecycle> error args", fixture("./templates/error-args.marko"));
+
+describe(
+  "<lifecycle> error body content",
+  fixture("./templates/error-body-content.marko")
+);
+
+describe(
+  "<lifecycle> error extra attr",
+  fixture("./templates/error-extra-attr.marko")
+);
+
+describe(
+  "<lifecycle> error spread attr",
+  fixture("./templates/error-spread-attr.marko")
+);
+
+describe(
+  "<lifecycle> error tag parameters",
+  fixture("./templates/error-tag-parameters.marko")
+);
+
+describe(
+  "<lifecycle> error tag var",
+  fixture("./templates/error-tag-var.marko")
+);

@@ -1,0 +1,6 @@
+src/__tests__/fixtures/lifecycle/templates/error-spread-attr.marko(6,2): The <lifecycle> tag does not support ...spread attributes.
+  4 |   onDestroy() {}
+  5 | }/>
+> 6 | <lifecycle ...handlers/>
+    |  ^^^^^^^^^
+  7 |

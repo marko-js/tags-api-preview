@@ -1,0 +1,6 @@
+src/__tests__/fixtures/lifecycle/templates/error-body-content.marko(1,2): The <lifecycle> tag does not support body content.
+> 1 | <lifecycle
+    |  ^
+  2 |   onMount=(() => {})
+  3 |   onUpdate=(() => {})
+  4 |   onDestroy=(() => {})
