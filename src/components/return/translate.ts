@@ -37,10 +37,6 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
         break;
       }
     }
-
-    if (!errorMessage && !defaultAttr) {
-      errorMessage = "requires a default attribute";
-    }
   }
 
   if (errorMessage) {

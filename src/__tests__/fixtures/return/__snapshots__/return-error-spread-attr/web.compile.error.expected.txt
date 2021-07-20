@@ -1,0 +1,5 @@
+src/__tests__/fixtures/return/templates/error-spread-attr.marko(2,2): The <return> tag does not support ...spread attributes.
+  1 | <const/returnValue = { default: 1 }/>
+> 2 | <return ...returnValue/>
+    |  ^^^^^^
+  3 |
