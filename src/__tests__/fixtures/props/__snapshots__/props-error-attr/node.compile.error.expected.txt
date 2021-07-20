@@ -1,0 +1,5 @@
+src/__tests__/fixtures/props/templates/error-attr.marko(1,2): The <props> tag does not support attributes.
+> 1 | <props/{ value } y=2/>
+    |  ^^^^^
+  2 | <div>Hello ${value}</div>
+  3 |

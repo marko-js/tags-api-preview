@@ -1,0 +1,5 @@
+src/__tests__/fixtures/props/templates/error-args.marko(1,2): The <props> tag requires a tag variable to be assigned to.
+> 1 | <props(y)/{ value }/>
+    |  ^^^^^
+  2 | <div>Hello ${value}</div>
+  3 |
