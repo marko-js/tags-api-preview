@@ -33,7 +33,7 @@ export = function (component: Component, cur: LifecycleHandlers = {}) {
 
   if (meta) {
     if (index === undefined) {
-      meta.push(1, cur);
+      meta.push(0, cur);
     } else {
       component[indexKey]! += 2;
       const prev = meta[index + 1] as LifecycleHandlers;
@@ -47,7 +47,7 @@ export = function (component: Component, cur: LifecycleHandlers = {}) {
     }
   } else {
     patchLifecycle(component, lifecycleMethods);
-    component[metaKey] = [1, cur];
+    component[metaKey] = [0, cur];
   }
 };
 
@@ -56,14 +56,11 @@ function runMount(this: Component) {
 
   if (meta) {
     this[indexKey] = 0;
-    for (let i = 0; i < meta.length; i += 2) {
-      if (meta[i]) {
-        meta[i] = 0; // mark lifecycle as not changed
-        const handlers = meta[i + 1] as LifecycleHandlers;
+    for (let i = 1; i < meta.length; i += 2) {
+      const handlers = meta[i] as LifecycleHandlers;
 
-        if (handlers.onMount) {
-          handlers.onMount();
-        }
+      if (handlers.onMount) {
+        handlers.onMount();
       }
     }
   }
