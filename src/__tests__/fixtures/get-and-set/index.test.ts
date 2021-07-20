@@ -129,4 +129,9 @@ describe(
   fixture("./templates/error-set-no-default-attr.marko")
 );
 
+describe(
+  "error <set> spread attr",
+  fixture("./templates/error-set-spread-attr.marko")
+);
+
 describe("error <set> tag var", fixture("./templates/error-set-tag-var.marko"));
