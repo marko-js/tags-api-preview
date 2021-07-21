@@ -77,7 +77,7 @@ export default {
   },
 };
 
-function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
+export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
   const program = tag.hub.file.path;
   let root = tag as t.NodePath;
   while (
@@ -107,6 +107,8 @@ function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
         root.node.extra = { ___lifecycle: meta };
       }
     }
+
+    return root.node.extra!.___lifecycle as Meta;
   }
 }
 

@@ -1,7 +1,7 @@
 import { importNamed, isNativeTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
 import { Visitor } from "@marko/compiler/babel-types";
-import { closest } from "../wrapper-component";
+import { ensureLifecycle } from "../wrapper-component";
 import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
@@ -63,7 +63,9 @@ export default {
 
     if (state.deps) {
       const { file } = fn.hub;
-      const { component } = closest(parentTag.parentPath)!;
+      const { component } = ensureLifecycle(
+        parentTag as t.NodePath<t.MarkoTag>
+      )!;
 
       fn.replaceWith(
         t.callExpression(importNamed(file, __dirname, "cache"), [

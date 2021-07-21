@@ -31,7 +31,6 @@ export default {
       const tagVar = tag.get("var");
       const initializers: t.Statement[] = [];
       const meta = closest(tag.parentPath)!;
-      const body = tag.get("body");
 
       for (const name in tagVar.getBindingIdentifiers()) {
         const binding = scope.getBinding(name);
@@ -40,61 +39,32 @@ export default {
             binding.identifier
           );
 
-          let hasHoistedRefs = false;
           let maybeHasSyncRefsBefore = false;
+          const [assignment] = binding.constantViolations;
 
-          for (const assignment of binding.constantViolations) {
-            if (
-              getScopeRelation(binding.scope, tag, assignment) !==
-              ScopeRelation.Same
-            ) {
-              throw assignment.buildCodeFrameError(
-                `Assigning to a hoisted tag variable is not supported in the tags api preview.`
-              );
-            }
+          if (assignment) {
+            throw assignment.buildCodeFrameError(
+              `Assigning to a hoisted tag variable is not supported in the tags api preview.`
+            );
           }
 
           for (const ref of binding.referencePaths) {
-            switch (getScopeRelation(binding.scope, tag, ref)) {
-              case ScopeRelation.After:
-                hasHoistedRefs = true;
-                break;
-              case ScopeRelation.Before: {
-                hasHoistedRefs = true;
-                switch (getReferenceType(ref)) {
-                  case ReferenceType.Async:
-                    break;
-                  case ReferenceType.Sync:
-                    throw ref.buildCodeFrameError(
-                      `Cannot access '${name}' before initialization.`
-                    );
-                  case ReferenceType.Unknown:
-                    maybeHasSyncRefsBefore = true;
-                    ref.replaceWith(
-                      t.callExpression(ref.node as t.Identifier, [])
-                    );
-                    break;
-                }
-                break;
-              }
-
-              case ScopeRelation.Same: {
-                switch (getReferenceType(ref)) {
-                  case ReferenceType.Async:
-                    break;
-                  case ReferenceType.Sync: {
-                    throw ref.buildCodeFrameError(
-                      `Cannot access '${name}' before initialization.`
-                    );
-                  }
-                  case ReferenceType.Unknown:
-                    maybeHasSyncRefsBefore = true;
-                    ref.replaceWith(
-                      t.callExpression(ref.node as t.Identifier, [])
-                    );
-                    break;
-                }
-                break;
+            if (
+              getScopeRelation(binding.scope, tag, ref) === ScopeRelation.Before
+            ) {
+              switch (getReferenceType(ref)) {
+                case ReferenceType.Async:
+                  break;
+                case ReferenceType.Sync:
+                  throw ref.buildCodeFrameError(
+                    `Cannot access '${name}' before initialization.`
+                  );
+                case ReferenceType.Unknown:
+                  maybeHasSyncRefsBefore = true;
+                  ref.replaceWith(
+                    t.callExpression(ref.node as t.Identifier, [])
+                  );
+                  break;
               }
             }
           }
@@ -107,21 +77,19 @@ export default {
             );
           }
 
-          if (hasHoistedRefs) {
-            initializers.push(
-              t.expressionStatement(
-                t.assignmentExpression("=", alias, binding.identifier)
-              )
-            );
+          initializers.push(
+            t.expressionStatement(
+              t.assignmentExpression("=", alias, binding.identifier)
+            )
+          );
 
-            tag.parentPath.parentPath.insertAfter(
-              t.markoScriptlet([
-                t.expressionStatement(
-                  t.assignmentExpression("=", binding.identifier, alias)
-                ),
-              ])
-            );
-          }
+          tag.parentPath.parentPath.insertAfter(
+            t.markoScriptlet([
+              t.expressionStatement(
+                t.assignmentExpression("=", binding.identifier, alias)
+              ),
+            ])
+          );
 
           (binding.scope.path as RootNodePath).unshiftContainer(
             "body",
