@@ -32,6 +32,7 @@ const depsVisitor = {
 
         if (isDep) {
           if (state.shallow) {
+            state.deps = true;
             identifier.stop();
           } else {
             ((state.deps || (state.deps = new Set())) as Set<string>).add(
