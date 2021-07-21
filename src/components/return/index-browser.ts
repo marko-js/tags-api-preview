@@ -34,9 +34,7 @@ export = function getReturn(component: Component) {
 };
 
 function resetIndex(this: Component) {
-  if (this[metaKey]) {
-    this[indexKey] = 0;
-  }
+  this[indexKey] = 0;
 }
 
 function createReturn(component: Component) {

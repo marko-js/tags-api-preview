@@ -65,7 +65,5 @@ export function cache(val: unknown) {
 }
 
 function resetIndex(this: Component) {
-  if (this[metaKey]) {
-    this[indexKey] = 0;
-  }
+  this[indexKey] = 0;
 }

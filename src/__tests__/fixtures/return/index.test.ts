@@ -2,9 +2,25 @@ import fixture, { FixtureHelpers } from "../../fixture";
 
 describe("<return> basic", fixture("./templates/basic.marko"));
 
+describe("<return> spread", fixture("./templates/spread.marko"));
+
+describe("<return> read multiple", fixture("./templates/read-multiple.marko"));
+
 describe(
   "<return> write from parent",
   fixture("./templates/write-from-parent.marko", [click("increment")])
+);
+
+describe(
+  "<return> write from parent clamped",
+  fixture("./templates/write-from-parent-clamped.marko", [
+    { max: 2 },
+    click("increment"),
+    click("increment"),
+    { max: 3 },
+    click("increment"),
+    click("increment"),
+  ])
 );
 
 describe("<return> error args", fixture("./templates/error-args.marko"));
