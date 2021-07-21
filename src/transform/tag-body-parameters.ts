@@ -4,14 +4,16 @@ import isApi from "../util/is-api";
 
 export default {
   MarkoTag(tag) {
-    const params = tag.get("body").get("params");
+    const body = tag.get("body");
+    const params = body.get("params");
     const tagDef = getTagDef(tag);
+
     if (isApi(tag, "class") || !params.length || tagDef?.translator) {
       return;
     }
 
-    for (const name in tag.get("body").getBindingIdentifiers()) {
-      const binding = tag.scope.getBinding(name);
+    for (const name in body.getBindingIdentifiers()) {
+      const binding = body.scope.getBinding(name);
       if (binding) {
         const [assignment] = binding.constantViolations;
         if (assignment) {
@@ -22,13 +24,13 @@ export default {
       }
     }
 
-    tag.node.body.params = [
+    body.node.params = [
       t.assignmentPattern(
         t.objectPattern([
           t.objectProperty(
             t.identifier("default"),
             t.assignmentPattern(
-              t.arrayPattern(tag.node.body.params as t.PatternLike[]),
+              t.arrayPattern(body.node.params as t.PatternLike[]),
               t.arrayExpression([])
             )
           ),

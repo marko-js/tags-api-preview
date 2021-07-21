@@ -46,6 +46,11 @@ describe(
   fixture("./templates/error-assign-to-array-item.marko")
 );
 
+describe(
+  "misc error assign-to-tag-param",
+  fixture("./templates/error-assign-to-tag-param.marko")
+);
+
 function click(text: string) {
   return async ({ fireEvent, screen }: FixtureHelpers) =>
     await fireEvent.click(screen.getByText(text));
