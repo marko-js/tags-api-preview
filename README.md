@@ -4,14 +4,6 @@
   @marko/tags-api-preview
 	<br/>
 
-  <!-- Language -->
-  <a href="http://typescriptlang.org">
-    <img src="https://img.shields.io/badge/%3C%2F%3E-typescript-blue.svg" alt="TypeScript"/>
-  </a>
-  <!-- Format -->
-  <a href="https://github.com/prettier/prettier">
-    <img src="https://img.shields.io/badge/styled_with-prettier-ff69b4.svg" alt="Styled with prettier"/>
-  </a>
   <!-- CI -->
   <a href="https://github.com/marko-js/tags-api-preview/actions/workflows/ci.yml">
     <img src="https://github.com/marko-js/tags-api-preview/actions/workflows/ci.yml/badge.svg" alt="Build status"/>
@@ -30,7 +22,9 @@
   </a>
 </h1>
 
-PROJECT_DESCRIPTION
+A glimpse into the future of Marko.
+
+For more information, check out [the announcement article](TODO)!
 
 # Installation
 
@@ -38,11 +32,29 @@ PROJECT_DESCRIPTION
 npm install @marko/tags-api-preview
 ```
 
+After installing the `tags-api-preview` in your project, you can immediately start using new tags and features.
+You can use "tags api" templates along side your existing "class api" templates. A [set of heuristics](#heuristics) is used to determine if the "tags api" should be enabled.
+
 # Example
 
-```javascript
+```marko
+<let/count=0>
 
+<div>${count}</div>
+<button onClick() { count++ }>
+  Click me!
+</button>
 ```
+
+# Heuristics
+
+When `@marko/tags-api-preview` is installed, using any of the following opts into the "tags api" on a per template level:
+
+- tag variable syntax (`<div/el>`).
+- any new tag (`<let>`, `<const>`, `<effect>`, etc).
+- a `<!-- use tags -->` comment at the top of the template
+
+There are some features that are disabled when opting into the tags api. Those features will display errors when used.
 
 # Code of Conduct
 
