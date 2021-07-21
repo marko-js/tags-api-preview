@@ -26,7 +26,9 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   if (errorMessage) {
     throw tag
       .get("name")
-      .buildCodeFrameError(`The <${tag.node.name.value}> tag ${errorMessage}.`);
+      .buildCodeFrameError(
+        `The <${(tag.node.name as t.StringLiteral).value}> tag ${errorMessage}.`
+      );
   }
 
   tag.node.arguments = [defaultAttr.node.value];
