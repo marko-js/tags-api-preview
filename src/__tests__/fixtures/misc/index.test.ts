@@ -137,6 +137,20 @@ describe("misc hoisting", () => {
   );
 
   describe(
+    "maybe async read before",
+    fixture(
+      "./templates/hoisting-maybe-async-read-before-with-custom-tag.marko",
+      [
+        { onValue },
+        ({ expect }) => {
+          expect(onValue).to.have.been.calledOnceWith(1);
+          resetHistory();
+        },
+      ]
+    )
+  );
+
+  describe(
     "error assign before",
     fixture("./templates/error-hoisting-assign-before.marko")
   );

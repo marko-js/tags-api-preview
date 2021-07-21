@@ -6,11 +6,10 @@ const hoistIndexKey = Symbol();
 const hoistedSettersKey = Symbol();
 const lifecycleMethods = {
   onRender: onRender,
-  onMount: onUpdate,
-  onUpdate: onUpdate,
   onDestroy: onDestroy,
 };
 
+type Hoister = (val: unknown) => void;
 type anyFn = (...args: unknown[]) => unknown;
 declare class Component {
   [x: string]: unknown;
@@ -18,66 +17,69 @@ declare class Component {
   [hoistIndexKey]?: number;
   [hoistedSettersKey]?: Set<ReturnType<typeof createHoist>>;
   onRender?: anyFn;
-  onMount?: anyFn;
-  onUpdate?: anyFn;
   onDestroy?: anyFn;
   forceUpdate(): void;
 }
 
-export = function hoist(owner: Component, name: string) {
+export = function hoist(owner: Component, name: string, hoister: Hoister) {
   const hoists = owner[hoistsKey];
   const index = owner[hoistIndexKey];
   let result;
 
   if (hoists) {
     if (index === undefined) {
-      hoists.push((result = createHoist(owner, name)));
+      hoists.push((result = createHoist(owner, name, hoister)));
     } else {
       result = hoists[index];
     }
   } else {
-    rendering = true;
+    onRender();
     patchLifecycle(owner, lifecycleMethods);
-    owner[hoistsKey] = [(result = createHoist(owner, name))];
+    owner[hoistsKey] = [(result = createHoist(owner, name, hoister))];
   }
 
   return result;
 };
 
-function createHoist(owner: Component, name: string) {
+function createHoist(owner: Component, name: string, hoister: Hoister) {
   let initialized = false;
   let val: unknown;
 
-  return function setOrGet(child?: Component | true, newVal?: unknown) {
+  return function setOrCheckDefined(
+    child?: Component | true,
+    newVal?: unknown
+  ) {
     if (child) {
       if (initialized || child === true) {
-        if (val !== (val = newVal)) owner.forceUpdate();
+        if (val !== (val = newVal)) {
+          hoister(val);
+          owner.forceUpdate();
+        }
       } else {
         val = newVal;
+        hoister(val);
         initialized = true;
         if (child[hoistedSettersKey]) {
-          child[hoistedSettersKey]!.add(setOrGet);
+          child[hoistedSettersKey]!.add(setOrCheckDefined);
         } else {
-          child[hoistedSettersKey] = new Set([setOrGet]);
+          patchLifecycle(child, lifecycleMethods);
+          child[hoistedSettersKey] = new Set([setOrCheckDefined]);
         }
       }
     } else if (rendering) {
       throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
-
-    return val;
   };
 }
 
 function onRender() {
-  rendering = true;
+  if (!rendering) {
+    rendering = true;
+    queueMicrotask(endRender);
+  }
 }
 
-function onUpdate(this: Component) {
-  if (this[hoistsKey]) {
-    this[hoistIndexKey] = 0;
-  }
-
+function endRender() {
   rendering = false;
 }
 

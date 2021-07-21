@@ -1,14 +1,15 @@
-export = function hoist(owner: any, name: string) {
+export = function hoist(
+  owner: any,
+  name: string,
+  hoister: (val: unknown) => void
+) {
   let initialized = false;
-  let val: unknown;
-  return (child: any, newVal?: unknown) => {
+  return (child: any, val?: unknown) => {
     if (child) {
       initialized = true;
-      val = newVal;
+      hoister(val);
     } else if (!initialized) {
       throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
-
-    return val;
   };
 };
