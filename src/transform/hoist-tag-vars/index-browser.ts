@@ -6,6 +6,8 @@ const hoistIndexKey = Symbol();
 const hoistedSettersKey = Symbol();
 const lifecycleMethods = {
   onRender: onRender,
+  onMount: onUpdate,
+  onUpdate: onUpdate,
   onDestroy: onDestroy,
 };
 
@@ -17,6 +19,8 @@ declare class Component {
   [hoistIndexKey]?: number;
   [hoistedSettersKey]?: Set<ReturnType<typeof createHoist>>;
   onRender?: anyFn;
+  onMount?: anyFn;
+  onUpdate?: anyFn;
   onDestroy?: anyFn;
   forceUpdate(): void;
 }
@@ -81,6 +85,10 @@ function onRender() {
 
 function endRender() {
   rendering = false;
+}
+
+function onUpdate(this: Component) {
+  this[hoistIndexKey] = 0;
 }
 
 function onDestroy(this: Component) {

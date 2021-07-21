@@ -128,12 +128,36 @@ describe("misc hoisting", () => {
         expect(onValue).to.have.been.calledOnceWith(1);
         resetHistory();
       },
+      {},
+      ({ expect }) => {
+        expect(onValue).not.to.have.been.called;
+        resetHistory();
+      },
     ])
   );
 
   describe(
     "sync read after",
     fixture("./templates/hoisting-sync-read-after.marko")
+  );
+
+  describe(
+    "multiple maybe async read before",
+    fixture(
+      "./templates/hoisting-multiple-maybe-async-read-before-with-custom-tag.marko",
+      [
+        { onValue },
+        ({ expect }) => {
+          expect(onValue).to.have.been.calledOnceWith(3);
+          resetHistory();
+        },
+        {},
+        ({ expect }) => {
+          expect(onValue).not.to.have.been.called;
+          resetHistory();
+        },
+      ]
+    )
   );
 
   describe(
