@@ -46,8 +46,8 @@ export default {
               importDefault(file, __dirname, "extractHandlers"),
               [
                 (file as any)._componentDefIdentifier,
-                spreadEventHandlersId,
                 attr.node.value,
+                spreadEventHandlersId || t.numericLiteral(0),
               ]
             )
           );

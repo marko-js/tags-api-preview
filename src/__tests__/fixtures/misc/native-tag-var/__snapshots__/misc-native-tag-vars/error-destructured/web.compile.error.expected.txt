@@ -1,0 +1,6 @@
+src/__tests__/fixtures/misc/native-tag-var/templates/error-destructured.marko(3,6): A tag variable on a native tag cannot be destructured.
+  1 | <attrs/{ onValue }/>
+  2 | <effect=(() => onValue(el()))/>
+> 3 | <div/{ el }>Hello</div>
+    |      ^^^^^^
+  4 |
