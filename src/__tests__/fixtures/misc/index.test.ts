@@ -8,6 +8,35 @@ describe(
 );
 
 describe(
+  "misc assign with computed",
+  fixture("./templates/assign-with-computed.marko", [increment, increment])
+);
+
+describe(
+  "misc assign with default and rest",
+  fixture("./templates/assign-with-default-and-rest.marko", [
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "misc assign with string-literal",
+  fixture("./templates/assign-with-string-literal.marko", [
+    increment,
+    increment,
+  ])
+);
+
+describe(
+  "misc assign with existing change handler",
+  fixture("./templates/assign-with-existing-change-handler.marko", [
+    increment,
+    increment,
+  ])
+);
+
+describe(
   "misc error assign-to-rest-element",
   fixture("./templates/error-assign-to-rest-element.marko")
 );

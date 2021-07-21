@@ -1,6 +1,8 @@
 import { types as t } from "@marko/compiler";
 import replaceAssignments from "../util/replace-assignments";
 
+type StringOrIdPath = t.NodePath<t.StringLiteral> | t.NodePath<t.Identifier>;
+
 export default {
   MarkoTag: {
     exit(tag: t.NodePath<t.MarkoTag>) {
@@ -45,7 +47,6 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
 
   if (parent.isObjectProperty()) {
     const pattern = parent.parentPath as t.NodePath<t.ObjectPattern>;
-    const key = parent.get("key");
 
     if (parent.node.computed) {
       changeKey = identifier.scope.generateUidIdentifier(
@@ -54,20 +55,26 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
       pattern.pushContainer(
         "properties",
         t.objectProperty(
-          t.binaryExpression("+", key.node, t.stringLiteral("Change")),
+          t.binaryExpression(
+            "+",
+            parent.get("key").node,
+            t.stringLiteral("Change")
+          ),
           changeKey,
           true
         )
       );
-    } else if (key.isStringLiteral()) {
-      const searchKey = `${key.node.value}Change`;
+    } else {
+      const key = parent.get("key") as StringOrIdPath;
+      const searchKey = `${getStringOrIdentifierValue(key)}Change`;
       for (const prop of pattern.get("properties")) {
         if (prop.isObjectProperty()) {
           const propKey = prop.get("key");
           const propValue = prop.get("value");
           if (
-            propKey.isStringLiteral() &&
-            propKey.node.value === searchKey &&
+            !prop.node.computed &&
+            getStringOrIdentifierValue(propKey as StringOrIdPath) ===
+              searchKey &&
             propValue.isIdentifier()
           ) {
             changeKey = propValue.node;
@@ -77,36 +84,10 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
       }
 
       if (!changeKey!) {
-        pattern.pushContainer(
+        pattern.unshiftContainer(
           "properties",
           t.objectProperty(
             t.stringLiteral(searchKey),
-            (changeKey = identifier.scope.generateUidIdentifier(searchKey))
-          )
-        );
-      }
-    } else if (key.isIdentifier()) {
-      const searchKey = `${key.node.name}Change`;
-      for (const prop of pattern.get("properties")) {
-        if (prop.isObjectProperty()) {
-          const propKey = prop.get("key");
-          const propValue = prop.get("value");
-          if (
-            propKey.isIdentifier() &&
-            propKey.node.name === searchKey &&
-            propValue.isIdentifier()
-          ) {
-            changeKey = propValue.node;
-            break;
-          }
-        }
-      }
-
-      if (!changeKey!) {
-        pattern.pushContainer(
-          "properties",
-          t.objectProperty(
-            t.identifier(searchKey),
             (changeKey = identifier.scope.generateUidIdentifier(searchKey))
           )
         );
@@ -159,4 +140,8 @@ function forEachBindingIdentifier(
       fn(path as t.NodePath<t.Identifier>);
       break;
   }
+}
+
+function getStringOrIdentifierValue(path: StringOrIdPath) {
+  return path.isStringLiteral() ? path.node.value : path.node.name;
 }
