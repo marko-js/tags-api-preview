@@ -1,0 +1,15 @@
+Cannot mix "tags api" and "class api" features:
+
+<!-- use tags --> at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-detect-legacy-attrs.marko(1,1):
+> 1 | <!-- use tags -->
+    | ^
+  2 |
+  3 | <button key="btn"/>
+  4 |
+
+"key" attribute at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-detect-legacy-attrs.marko(3,9):
+  1 | <!-- use tags -->
+  2 |
+> 3 | <button key="btn"/>
+    |         ^^^^^^^^^
+  4 |

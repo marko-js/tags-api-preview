@@ -1,7 +1,0 @@
-src/__tests__/fixtures/misc/templates/error-assign-to-array-item.marko(3,3): Assignment to a destructured array will come in a future version of the tags api preview.
-  1 | <read-only/[x]/>
-  2 | <button onClick=(() => {
-> 3 |   x++;
-    |   ^^^
-  4 | })/>
-  5 |

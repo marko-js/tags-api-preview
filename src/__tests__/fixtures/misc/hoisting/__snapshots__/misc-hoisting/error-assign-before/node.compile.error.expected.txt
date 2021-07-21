@@ -1,0 +1,6 @@
+src/__tests__/fixtures/misc/hoisting/templates/error-hoisting-assign-before.marko(1,24): Assigning to a hoisted tag variable is not supported in the tags api preview.
+> 1 | <button onClick=(() => x++)/>
+    |                        ^^^
+  2 | <div>
+  3 |   <let/x=1/>
+  4 |   ${x}

@@ -1,0 +1,6 @@
+src/__tests__/fixtures/misc/hoisting/templates/error-hoisting-sync-read-before.marko(1,8): Cannot access 'x' before initialization.
+> 1 | <div>${x}</div>
+    |        ^
+  2 | <div>
+  3 |   <let/x=1/>
+  4 | </div>

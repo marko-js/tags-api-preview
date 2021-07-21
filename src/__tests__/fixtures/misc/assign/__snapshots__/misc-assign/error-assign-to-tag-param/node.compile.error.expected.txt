@@ -1,0 +1,7 @@
+src/__tests__/fixtures/misc/assign/templates/error-assign-to-tag-param.marko(3,26): Cannot assign to tag body parameters in the tags api preview.
+  1 | <!-- use tags -->
+  2 | <repeat|i|=5>
+> 3 |   <button onClick=(() => i++)>increment ${i}</button>
+    |                          ^^^
+  4 | </repeat>
+  5 |

@@ -1,0 +1,7 @@
+src/__tests__/fixtures/misc/assign/templates/error-assign-to-rest-element.marko(3,3): Cannot assign to a ...rest element.
+  1 | <read-only/{ ...x }/>
+  2 | <button onClick=(() => {
+> 3 |   x++;
+    |   ^^^
+  4 | })/>
+  5 |
