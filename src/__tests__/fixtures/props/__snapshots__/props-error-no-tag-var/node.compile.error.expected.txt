@@ -1,4 +1,0 @@
-src/__tests__/fixtures/props/templates/error-no-tag-var.marko(1,2): The <props> tag requires a tag variable to be assigned to.
-> 1 | <props/>
-    |  ^^^^^
-  2 |

@@ -1,7 +1,0 @@
-src/__tests__/fixtures/props/templates/error-nested.marko(2,4): The <props> tag can only used at the root of the template.
-  1 | <div>
-> 2 |   <props/{ value }/>
-    |    ^^^^^
-  3 |   Hello ${value}
-  4 | </div>
-  5 |

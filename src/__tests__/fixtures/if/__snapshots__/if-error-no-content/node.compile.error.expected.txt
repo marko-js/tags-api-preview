@@ -1,5 +1,5 @@
 src/__tests__/fixtures/if/templates/error-no-content.marko(2,2): The <if> tag requires body content.
-  1 | <props/{ show }/>
+  1 | <attrs/{ show }/>
 > 2 | <if=show/>
     |  ^^
   3 |

@@ -1,5 +1,0 @@
-src/__tests__/fixtures/props/templates/error-body-parameters.marko(1,2): The <props> tag does not support tag body parameters.
-> 1 | <props/{ value }|y|/>
-    |  ^^^^^
-  2 | <div>Hello ${value}</div>
-  3 |

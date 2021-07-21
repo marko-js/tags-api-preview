@@ -1,0 +1,5 @@
+src/__tests__/fixtures/attrs/templates/error-args.marko(1,2): The <attrs> tag requires a tag variable to be assigned to.
+> 1 | <attrs(y)/{ value }/>
+    |  ^^^^^
+  2 | <div>Hello ${value}</div>
+  3 |

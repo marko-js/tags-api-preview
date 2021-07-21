@@ -1,0 +1,5 @@
+src/__tests__/fixtures/attrs/templates/error-body-parameters.marko(1,2): The <attrs> tag does not support tag body parameters.
+> 1 | <attrs/{ value }|y|/>
+    |  ^^^^^
+  2 | <div>Hello ${value}</div>
+  3 |

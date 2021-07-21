@@ -1,0 +1,4 @@
+src/__tests__/fixtures/attrs/templates/error-no-tag-var.marko(1,2): The <attrs> tag requires a tag variable to be assigned to.
+> 1 | <attrs/>
+    |  ^^^^^
+  2 |

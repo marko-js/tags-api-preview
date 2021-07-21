@@ -1,7 +1,0 @@
-src/__tests__/fixtures/props/templates/error-multiple.marko(2,2): The <props> tag can only be used once within a template.
-  1 | <props/{ value: valueA }/>
-> 2 | <props/{ value: valueB }/>
-    |  ^^^^^
-  3 | <div>
-  4 |   Hello ${valueA} ${valueB}
-  5 | </div>
