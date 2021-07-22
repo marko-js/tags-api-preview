@@ -1,3 +1,27 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "Data that will be provided as a tag variable to the parent tag."
+      }
+    ]
+  },
+  "@defaultChange": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "A function that is called whenever the parent tag assigns to the base tag variable."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "return=data",
+      "description": "A tag that allows providing a tag variable to the parent tag.",
+      "snippet": "return=${1:data}"
+    }
+  ]
 }

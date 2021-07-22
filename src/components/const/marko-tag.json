@@ -1,3 +1,19 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "An expression that will be updated when it's dependencies change."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "const/name=value",
+      "description": "Defines a named reactive expression.",
+      "snippet": "const/${1:name}={2:value}"
+    }
+  ]
 }

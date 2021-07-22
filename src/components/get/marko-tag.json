@@ -1,5 +1,21 @@
 {
   "template": "./index.marko",
   "transform": "./transform",
-  "translate": "./translate"
+  "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "The name of the parent tag to get the data from."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "get/name=\"tag\"",
+      "description": "A tag that allows reading data provided by the accompanying <set> tag.",
+      "snippet": "get/${1:name}=\"${2:tagName}\""
+    }
+  ]
 }

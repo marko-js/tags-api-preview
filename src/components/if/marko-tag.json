@@ -1,0 +1,9 @@
+{
+  "transformer": "./transformer",
+  "autocomplete": [
+    {
+      "snippet": "if=${1:condition}",
+      "description": "Use to display content only if the condition is meant."
+    }
+  ]
+}

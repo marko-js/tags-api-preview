@@ -1,4 +1,28 @@
 {
   "template": "./index.marko",
-  "translate": "./translate"
+  "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "Data that can be read by an accompanying <get> tag."
+      }
+    ]
+  },
+  "@defaultChange": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "A function that is called whenever the child <get> assigns to the base tag variable."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "set=data",
+      "description": "A tag that allows providing data to a child <get> tag.",
+      "snippet": "set=${1:data}"
+    }
+  ]
 }

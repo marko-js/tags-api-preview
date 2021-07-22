@@ -1,3 +1,11 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "attributes": {},
+  "autocomplete": [
+    {
+      "displayText": "tag/<name>|<params>|",
+      "description": "Creates a reusable fragment within the template.",
+      "snippet": "tag/${1:name}|${2:param1, param2}|"
+    }
+  ]
 }

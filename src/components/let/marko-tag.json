@@ -1,12 +1,27 @@
 {
   "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "An expression which will be the initial value."
+      }
+    ]
+  },
+  "@defaultChange": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "When a function is passed, instead of updates changing the internal state the function will be called with the requested value."
+      }
+    ]
+  },
   "autocomplete": [
     {
-      "snippet": "let/${1:variable}",
-      "description": "Used to create an inline controllable state"
-    },
-    {
-      "snippet": "let/${1:variable} = ${object}"
+      "displayText": "let/name=value",
+      "description": "Defines a named controllable value.",
+      "snippet": "let/${1:name}={2:value}"
     }
   ]
 }

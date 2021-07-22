@@ -1,3 +1,11 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "attributes": {},
+  "autocomplete": [
+    {
+      "displayText": "attrs/{ key }",
+      "description": "Use to receive the attributes passed into this tag.",
+      "snippet": "attrs/{${1:value}}"
+    }
+  ]
 }

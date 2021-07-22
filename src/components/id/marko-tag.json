@@ -1,3 +1,11 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "attributes": {},
+  "autocomplete": [
+    {
+      "displayText": "id/name",
+      "description": "A tag that provides a unique id to this section of the template.",
+      "snippet": "id/${1:name}"
+    }
+  ]
 }

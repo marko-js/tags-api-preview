@@ -1,0 +1,9 @@
+{
+  "transformer": "./transformer",
+  "autocomplete": [
+    {
+      "snippet": "else-if=${1:condition}",
+      "description": "Use after an <if> or <else-if> tag to display content if those conditions do not match and this one does."
+    }
+  ]
+}

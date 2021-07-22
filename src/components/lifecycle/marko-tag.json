@@ -1,3 +1,34 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "@onMount": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "A function that is called when this part of the template is first initialized in the DOM."
+      }
+    ]
+  },
+  "@onUpdate": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "A function that is called once Marko has completed all changes related to the set of values used within the function, excluding the initial render."
+      }
+    ]
+  },
+  "@onDestroy": {
+    "type": "expression",
+    "autocomplete": [
+      {
+        "description": "A function that is called when this part of the template is removed from the DOM."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "lifecycle onMount() { ... } onUpdate() { ... } onDestroy() { ... }",
+      "description": "A tag that makes it easy to sync imperative apis with Marko's lifecycle.",
+      "snippet": "lifecycle onMount() { $0 }"
+    }
+  ]
 }

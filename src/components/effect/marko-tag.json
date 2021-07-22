@@ -1,3 +1,19 @@
 {
-  "translate": "./translate"
+  "translate": "./translate",
+  "@default": {
+    "type": "expression",
+    "required": true,
+    "autocomplete": [
+      {
+        "description": "A function that is called once Marko has completed all changes related to the set of values used within the function."
+      }
+    ]
+  },
+  "autocomplete": [
+    {
+      "displayText": "effect() { ... }",
+      "description": "A tag that allows applying an effect after Marko has updated the DOM.",
+      "snippet": "effect() { $0 }"
+    }
+  ]
 }
