@@ -13,12 +13,6 @@ const bindsByTag: Record<
 registerBind("input", "value");
 registerBind("input", "checked");
 registerBind("textarea", "value");
-registerBind("select", "value", (e) => {
-  const target = e.target as HTMLSelectElement;
-  return target.multiple
-    ? Array.from(target.selectedOptions, (option) => option.value)
-    : target.value;
-});
 
 export = (
   attrs: Record<string, unknown>,
@@ -58,13 +52,7 @@ export = (
   return resultAttrs;
 };
 
-function registerBind(
-  tag: string,
-  prop: string,
-  reader?: (e: InputEvent) => unknown
-) {
+function registerBind(tag: string, prop: string) {
   bindsByTag[tag] = bindsByTag[tag] || {};
-  bindsByTag[tag][prop] = reader
-    ? (change) => (e) => change(reader(e))
-    : (change) => (e) => change((e.target as any)[prop]);
+  bindsByTag[tag]![prop] = (change) => (e) => change((e.target as any)[prop]);
 }

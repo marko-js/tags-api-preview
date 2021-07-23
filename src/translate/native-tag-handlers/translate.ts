@@ -7,7 +7,6 @@ const changeNameReg = /Change$/;
 const bindsByTag: Record<string, undefined | string[]> = {
   input: ["value", "checked"],
   textarea: ["value"],
-  select: ["value"],
 };
 
 export default {
@@ -69,11 +68,7 @@ export default {
           const { name, value } = node;
 
           if (isHTML) {
-            if (
-              eventNameReg.test(name) ||
-              changeNameReg.test(name) ||
-              binds?.includes(name)
-            ) {
+            if (eventNameReg.test(name) || changeNameReg.test(name)) {
               attr.remove();
             }
           } else if (eventNameReg.test(name) && value) {
@@ -103,76 +98,33 @@ export default {
 
               tag.pushContainer(
                 "attributes",
-                t.markoAttribute(
-                  "onInput",
+                t.markoAttribute("onInput", t.booleanLiteral(true), null, [
                   t.arrowFunctionExpression(
                     [eId],
                     t.blockStatement([
-                      tagName === "select" && getAttr(tag, "multiple")
-                        ? t.ifStatement(
-                            t.memberExpression(
-                              t.memberExpression(eId, targetId),
-                              t.identifier("multiple")
-                            ),
-                            t.expressionStatement(
-                              t.callExpression(changeId, [
-                                t.callExpression(
-                                  t.memberExpression(
-                                    t.identifier("Array"),
-                                    t.identifier("from")
-                                  ),
-                                  [
-                                    t.memberExpression(
-                                      t.memberExpression(eId, targetId),
-                                      t.identifier("selectedOptions")
-                                    ),
-                                    t.arrowFunctionExpression(
-                                      [t.identifier("_")],
-                                      t.memberExpression(
-                                        t.identifier("_"),
-                                        t.identifier("value")
-                                      )
-                                    ),
-                                  ]
-                                ),
-                                t.memberExpression(
-                                  t.memberExpression(eId, targetId),
-                                  t.identifier(name)
-                                ),
-                              ])
-                            ),
-                            t.expressionStatement(
-                              t.callExpression(changeId, [
-                                t.memberExpression(
-                                  t.memberExpression(eId, targetId),
-                                  t.identifier(name)
-                                ),
-                              ])
-                            )
-                          )
-                        : t.expressionStatement(
-                            t.callExpression(changeId, [
-                              t.memberExpression(
-                                t.memberExpression(eId, targetId),
-                                t.identifier(name)
-                              ),
-                            ])
+                      t.expressionStatement(
+                        t.callExpression(changeId, [
+                          t.memberExpression(
+                            t.memberExpression(eId, targetId),
+                            t.identifier(name)
                           ),
+                        ])
+                      ),
                     ])
-                  )
-                )
+                  ),
+                ])
               );
 
               changeAttr.remove();
 
-              if (!isHTML && valueAttr && tagName !== "select") {
+              if (!isHTML && valueAttr) {
                 preserve.push(
                   t.isFunction(changeValue)
                     ? nameLiteral
                     : t.logicalExpression("&&", changeId, nameLiteral)
                 );
               }
-            } else if (!isHTML && valueAttr && tagName !== "select") {
+            } else if (!isHTML && valueAttr) {
               preserve.push(nameLiteral);
             }
           }

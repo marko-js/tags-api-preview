@@ -6,7 +6,8 @@ import sinonPlugin from "sinon-chai";
 import promisePlugin from "chai-as-promised";
 import createBrowser from "jsdom-context-require";
 import { compileFileSync, Config } from "@marko/compiler";
-import type * as testing from "@marko/testing-library";
+import type * as Testing from "@marko/testing-library";
+import type UserEvents from "@testing-library/user-event";
 import { VirtualConsole } from "jsdom";
 import trySnapshot, { trackError } from "./snapshot";
 
@@ -40,8 +41,10 @@ const targets = {
   web: browser.require,
 } as const;
 
-export type FixtureHelpers = testing.RenderResult &
-  typeof testing & { expect: typeof chai.expect };
+export type FixtureHelpers = Testing.RenderResult &
+  typeof Testing & { expect: typeof chai.expect } & {
+    fireEvent: typeof Testing["fireEvent"] & typeof UserEvents;
+  };
 type Step =
   | Record<string, unknown>
   | ((helpers: FixtureHelpers) => Promise<unknown> | unknown);
@@ -67,7 +70,9 @@ export default (
     for (const target in targets) {
       const load = targets[target as keyof typeof targets];
       const currentTest = it(target, async function () {
-        const helpers = load("@marko/testing-library") as typeof testing;
+        const userEvents = load("@testing-library/user-event")
+          .default as typeof UserEvents;
+        const helpers = load("@marko/testing-library") as typeof Testing;
         const title = getTitle(currentTest);
 
         await trySnapshot(
@@ -83,6 +88,10 @@ export default (
             const fixtureHelpers = {
               expect: chai.expect,
               ...helpers,
+              fireEvent: {
+                ...helpers.fireEvent,
+                ...userEvents,
+              },
               ...(await helpers.render(template, input)),
             } as FixtureHelpers;
 

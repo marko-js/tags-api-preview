@@ -1,0 +1,7 @@
+<let/checked=false/>
+<const/attrs = {
+  checked,
+  checkedChange: v => checked = v
+}/>
+<input type="checkbox" checked=checked checkedChange=(v => checked = v)/>
+<span>${checked}</span>
