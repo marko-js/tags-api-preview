@@ -1,3 +1,3 @@
 import { types as t } from "@marko/compiler";
-import nativeEventHandlers from "./native-event-handlers/translate";
-export = [nativeEventHandlers] as t.Visitor[];
+import nativeTagHandlers from "./native-tag-handlers/translate";
+export = [nativeTagHandlers] as t.Visitor[];
