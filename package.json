@@ -51,7 +51,10 @@
   ],
   "homepage": "https://github.com/marko-js/tags-api-preview",
   "keywords": [
-    "PROJECT_KEYWORDS"
+    "marko",
+    "tags",
+    "api",
+    "preview"
   ],
   "license": "MIT",
   "main": "marko.json",
