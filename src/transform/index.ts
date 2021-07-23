@@ -7,6 +7,7 @@ import featureDetection from "./feature-detection";
 import tagBodyParameters from "./tag-body-parameters";
 import customTagVar from "./custom-tag-var";
 import assignmentsToChangeCall from "./assignments-to-change-call";
+import attributeBindings from "./attribute-bindings";
 
 export = [
   featureDetection,
@@ -14,6 +15,7 @@ export = [
   cachedFunction,
   assignmentsToChangeCall,
   hoistTagVars,
+  attributeBindings,
   nativeTagVar,
   customTagVar,
   tagBodyParameters,

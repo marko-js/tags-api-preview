@@ -57,6 +57,9 @@ const featureDetectionVisitor = {
         } else if (attr.node.modifier) {
           addFeature(state, "class", "Attribute modifier", attr);
           break;
+        } else if (attr.node.bound) {
+          addFeature(state, "tags", "Bound attribute", attr);
+          break;
         }
       }
     }

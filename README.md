@@ -52,6 +52,7 @@ When `@marko/tags-api-preview` is installed, using any of the following opts int
 
 - tag variable syntax (`<div/el>`).
 - any new tag (`<let>`, `<const>`, `<effect>`, etc).
+- usage of the attribute binding syntax (`<input value:=myValue/>`).
 - a `<!-- use tags -->` comment at the top of the template
 
 There are some features that are disabled when opting into the tags api. Those features will display errors when used.
