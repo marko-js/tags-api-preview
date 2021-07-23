@@ -47,6 +47,7 @@
   "files": [
     "dist",
     "marko.json",
+    "!**/test",
     "!*.tsbuildinfo"
   ],
   "homepage": "https://github.com/marko-js/tags-api-preview",
