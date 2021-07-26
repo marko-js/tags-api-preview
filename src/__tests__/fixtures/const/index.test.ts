@@ -13,8 +13,9 @@ describe(
   "<const> state derived",
   fixture("./templates/state-derived.marko", [
     { value: 1 },
-    async ({ screen, fireEvent }) =>
-      await fireEvent.click(screen.getByText("increment")),
+    async ({ screen, fireEvent }) => {
+      await fireEvent.click(screen.getByText("increment"));
+    },
   ])
 );
 
