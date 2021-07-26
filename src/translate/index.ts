@@ -1,3 +1,4 @@
 import { types as t } from "@marko/compiler";
 import nativeTagHandlers from "./native-tag-handlers/translate";
-export = [nativeTagHandlers] as t.Visitor[];
+import trackRendering from "./track-rendering/translate";
+export = [nativeTagHandlers, trackRendering] as t.Visitor[];

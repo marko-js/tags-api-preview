@@ -1,11 +1,10 @@
+import { isRendering } from "../../translate/track-rendering";
 import patchLifecycle from "../../util/patch-lifecycle";
 
-let rendering = false;
 const hoistsKey = Symbol();
 const hoistIndexKey = Symbol();
 const hoistedSettersKey = Symbol();
 const lifecycleMethods = {
-  onRender: onRender,
   onMount: onUpdate,
   onUpdate: onUpdate,
   onDestroy: onDestroy,
@@ -37,7 +36,6 @@ export = function hoist(owner: Component, name: string, hoister: Hoister) {
       result = hoists[index];
     }
   } else {
-    onRender();
     patchLifecycle(owner, lifecycleMethods);
     owner[hoistsKey] = [(result = createHoist(owner, name, hoister))];
   }
@@ -70,21 +68,10 @@ function createHoist(owner: Component, name: string, hoister: Hoister) {
           child[hoistedSettersKey] = new Set([setOrCheckDefined]);
         }
       }
-    } else if (rendering) {
+    } else if (isRendering()) {
       throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
   };
-}
-
-function onRender() {
-  if (!rendering) {
-    rendering = true;
-    queueMicrotask(endRender);
-  }
-}
-
-function endRender() {
-  rendering = false;
 }
 
 function onUpdate(this: Component) {
