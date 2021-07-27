@@ -99,6 +99,8 @@ const featureDetectionVisitor = {
             case "import":
             case "style":
             case "html-comment":
+            case "body":
+            case "head":
               break;
             default:
               addFeature(
