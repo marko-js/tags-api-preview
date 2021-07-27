@@ -1,6 +1,7 @@
 import { types as t } from "@marko/compiler";
 import { isNativeTag, getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../../marko.json";
+import isCoreTag from "../util/is-core-tag";
 import isApi from "../util/is-api";
 
 export type Meta = {
@@ -15,7 +16,15 @@ const lifecycleRootsForProgram = new WeakMap<
   t.NodePath<t.Program>,
   Set<t.NodePath<any>>
 >();
-const tagsNeedingLifecycle = new Set(["id", "let", "effect"]);
+const tagsNeedingLifecycle = new Set([
+  "id",
+  "let",
+  "get",
+  "set",
+  "effect",
+  "return",
+  "lifecycle",
+]);
 
 export function closest(path: t.NodePath<any>) {
   let root = path;
@@ -61,18 +70,14 @@ export default {
     },
   },
   MarkoTag(tag: t.NodePath<t.MarkoTag>) {
-    if (tag.node.var) {
-      ensureLifecycle(tag);
-    } else {
-      const tagDef = getTagDef(tag);
+    const tagDef = getTagDef(tag);
 
-      if (
-        tagDef &&
-        tagDef.taglibId === taglibId &&
-        tagsNeedingLifecycle.has(tagDef.name)
-      ) {
+    if (tagDef && tagDef.taglibId === taglibId) {
+      if (tagsNeedingLifecycle.has(tagDef.name)) {
         ensureLifecycle(tag);
       }
+    } else if (tag.node.var) {
+      ensureLifecycle(tag);
     }
   },
 };
@@ -155,4 +160,8 @@ function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
       ])
     ),
   ];
+}
+
+function isIgnoredTag(tag: t.NodePath<t.MarkoTag>) {
+  return isCoreTag("attrs", tag) || isCoreTag("const", tag);
 }
