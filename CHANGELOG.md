@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/marko-js/tags-api-preview/compare/v0.0.3...v0.0.4) (2021-07-27)
+
+
+### Bug Fixes
+
+* improve autocomplete snippets ([8318d60](https://github.com/marko-js/tags-api-preview/commit/8318d60f9b1ddc556fb9237c2e1287f91e65409d))
+
 ### [0.0.3](https://github.com/marko-js/tags-api-preview/compare/v0.0.2...v0.0.3) (2021-07-27)
 
 
