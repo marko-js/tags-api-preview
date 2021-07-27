@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.3](https://github.com/marko-js/tags-api-preview/compare/v0.0.2...v0.0.3) (2021-07-27)
+
+
+### Bug Fixes
+
+* disable Object freeze in SSR mode ([293050d](https://github.com/marko-js/tags-api-preview/commit/293050d8d643729bb6d35ea815688f199bfd5fb9))
+
 ### [0.0.2](https://github.com/marko-js/tags-api-preview/compare/v0.0.1...v0.0.2) (2021-07-26)
 
 
