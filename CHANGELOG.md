@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.5](https://github.com/marko-js/tags-api-preview/compare/v0.0.4...v0.0.5) (2021-07-27)
+
+
+### Bug Fixes
+
+* ignore body/head in feature detection ([b9330e4](https://github.com/marko-js/tags-api-preview/commit/b9330e404b44eb4ec157f6523c7a472f55554224))
+* prevent unecessary component wrappers ([ba51852](https://github.com/marko-js/tags-api-preview/commit/ba518525580e4568249c433d4981873a0c709d25))
+
 ### [0.0.4](https://github.com/marko-js/tags-api-preview/compare/v0.0.3...v0.0.4) (2021-07-27)
 
 
