@@ -19,9 +19,9 @@
   },
   "autocomplete": [
     {
-      "displayText": "return=data",
+      "displayText": "return=<data>",
       "description": "A tag that allows providing a tag variable to the parent tag.",
-      "snippet": "return=${1:data}"
+      "snippet": "return=$1"
     }
   ]
 }

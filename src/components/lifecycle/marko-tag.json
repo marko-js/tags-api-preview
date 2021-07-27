@@ -28,7 +28,7 @@
     {
       "displayText": "lifecycle onMount() { ... } onUpdate() { ... } onDestroy() { ... }",
       "description": "A tag that makes it easy to sync imperative apis with Marko's lifecycle.",
-      "snippet": "lifecycle onMount() { $0 }"
+      "snippet": "lifecycle onMount() { $1 }$2"
     }
   ]
 }

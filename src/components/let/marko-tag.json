@@ -19,9 +19,9 @@
   },
   "autocomplete": [
     {
-      "displayText": "let/name=value",
+      "displayText": "let/<name>=<value>",
       "description": "Defines a named controllable value.",
-      "snippet": "let/${1:name}={2:value}"
+      "snippet": "let/${1:name}=${2:value}"
     }
   ]
 }

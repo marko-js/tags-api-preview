@@ -20,9 +20,9 @@
   },
   "autocomplete": [
     {
-      "displayText": "set=data",
+      "displayText": "set=<data>",
       "description": "A tag that allows providing data to a child <get> tag.",
-      "snippet": "set=${1:data}"
+      "snippet": "set=$1"
     }
   ]
 }

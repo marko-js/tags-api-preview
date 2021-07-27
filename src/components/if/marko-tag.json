@@ -2,7 +2,7 @@
   "transformer": "./transformer",
   "autocomplete": [
     {
-      "snippet": "if=${1:condition}",
+      "snippet": "if=$1",
       "description": "Use to display content only if the condition is meant."
     }
   ]

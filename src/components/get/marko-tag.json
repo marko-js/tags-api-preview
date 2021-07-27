@@ -13,9 +13,9 @@
   },
   "autocomplete": [
     {
-      "displayText": "get/name=\"tag\"",
+      "displayText": "get/<name>=\"<from-tag>\"",
       "description": "A tag that allows reading data provided by the accompanying <set> tag.",
-      "snippet": "get/${1:name}=\"${2:tagName}\""
+      "snippet": "get/${1:name}=\"${2:fromTag}\""
     }
   ]
 }

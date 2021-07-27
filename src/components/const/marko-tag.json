@@ -11,9 +11,9 @@
   },
   "autocomplete": [
     {
-      "displayText": "const/name=value",
+      "displayText": "const/<name>=<value>",
       "description": "Defines a named reactive expression.",
-      "snippet": "const/${1:name}={2:value}"
+      "snippet": "const/${1:name}=${2:value}"
     }
   ]
 }

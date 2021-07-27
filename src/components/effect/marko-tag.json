@@ -13,7 +13,7 @@
     {
       "displayText": "effect() { ... }",
       "description": "A tag that allows applying an effect after Marko has updated the DOM.",
-      "snippet": "effect() { $0 }"
+      "snippet": "effect() { $1 }$2"
     }
   ]
 }

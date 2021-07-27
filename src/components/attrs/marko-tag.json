@@ -3,9 +3,9 @@
   "attributes": {},
   "autocomplete": [
     {
-      "displayText": "attrs/{ key }",
+      "displayText": "attrs/{ ... }",
       "description": "Use to receive the attributes passed into this tag.",
-      "snippet": "attrs/{${1:value}}"
+      "snippet": "attrs/{ $1 }$2"
     }
   ]
 }
