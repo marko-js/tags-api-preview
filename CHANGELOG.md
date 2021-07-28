@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/marko-js/tags-api-preview/compare/v0.0.5...v0.0.6) (2021-07-28)
+
+
+### Bug Fixes
+
+* issue with preserved bound attributes on native tags ([bbea5bb](https://github.com/marko-js/tags-api-preview/commit/bbea5bb1472aa03345eac372950cef774e9e6c34))
+
 ### [0.0.5](https://github.com/marko-js/tags-api-preview/compare/v0.0.4...v0.0.5) (2021-07-27)
 
 
