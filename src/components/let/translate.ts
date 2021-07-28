@@ -75,11 +75,17 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       const changeFnId = tag.scope.generateUidIdentifier(
         `${tagVar.name}Change`
       );
-      const setFnId = tag.scope.generateUidIdentifier(`${tagVar.name}Set`);
+      const decls: t.VariableDeclarator[] = [
+        t.variableDeclarator(changeFnId, changeAttr.node.value),
+      ];
+      let setFnId: t.Identifier;
 
-      tag.replaceWith(
-        t.variableDeclaration("const", [
-          t.variableDeclarator(changeFnId, changeAttr.node.value),
+      if (t.isFunction(changeAttr.node.value)) {
+        setFnId = changeFnId;
+        decls.push(t.variableDeclarator(tagVar, defaultAttr.node.value));
+      } else {
+        setFnId = tag.scope.generateUidIdentifier(`${tagVar.name}Set`);
+        decls.push(
           t.variableDeclarator(
             setFnId,
             t.logicalExpression(
@@ -101,9 +107,11 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
               defaultAttr.node.value,
               getStateExpr
             )
-          ),
-        ])
-      );
+          )
+        );
+      }
+
+      tag.replaceWith(t.variableDeclaration("const", decls));
 
       replaceAssignments(binding, (value) =>
         t.callExpression(setFnId, [value])
