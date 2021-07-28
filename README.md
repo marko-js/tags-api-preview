@@ -24,7 +24,7 @@
 
 A glimpse into the future of Marko.
 
-For more information, check out [the announcement article](TODO)!
+For more information, check out [the announcement article](https://dev.to/ryansolid/introducing-the-marko-tags-api-preview-37o4)!
 
 # Installation
 
