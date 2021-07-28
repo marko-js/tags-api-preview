@@ -117,12 +117,8 @@ export default {
 
               changeAttr.remove();
 
-              if (!isHTML && valueAttr) {
-                preserve.push(
-                  t.isFunction(changeValue)
-                    ? nameLiteral
-                    : t.logicalExpression("&&", changeId, nameLiteral)
-                );
+              if (!isHTML && valueAttr && !t.isFunction(changeValue)) {
+                preserve.push(t.logicalExpression("&&", changeId, nameLiteral));
               }
             } else if (!isHTML && valueAttr) {
               preserve.push(nameLiteral);
