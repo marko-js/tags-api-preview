@@ -34,10 +34,11 @@ export = function (component: Component, fn: EffectFn) {
     } else {
       component[indexKey]! += 3;
       if (meta[index + 1] !== fn) {
+        const cleanup = meta[index + 2] as EffectCleanupFn | undefined;
         meta[index] = 1; // mark effect as changed
         meta[index + 1] = fn; // save new effect function
-        if (meta[index + 2]) {
-          (meta[index + 2] as EffectCleanupFn)();
+        if (cleanup) {
+          cleanup();
           meta[index + 2] = 0; // clear cleanup function
         }
       }
@@ -54,12 +55,13 @@ function runEffects(this: Component) {
   if (meta) {
     this[indexKey] = 0;
     for (let i = 0; i < meta.length; i += 3) {
+      // check if effect has changed
       if (meta[i]) {
-        // check if effect has changed
+        const fn = meta[i + 1] as EffectFn | undefined;
         meta[i] = 0; // mark effect as not changed
 
-        if (meta[i + 1]) {
-          meta[i + 2] = (meta[i + 1] as EffectFn)(); // execute effect and save cleanup
+        if (fn) {
+          meta[i + 2] = fn(); // execute effect and save cleanup
         }
       }
     }
@@ -71,7 +73,8 @@ function runCleanups(this: Component) {
 
   if (meta) {
     for (let i = 2; i < meta.length; i += 3) {
-      meta[i] && (meta[i] as EffectFn)(); // run cleanup
+      const cleanup = meta[i] as EffectCleanupFn | undefined;
+      cleanup && cleanup();
     }
   }
 }
