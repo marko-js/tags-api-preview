@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/marko-js/tags-api-preview/compare/v0.0.6...v0.0.7) (2021-07-28)
+
+
+### Bug Fixes
+
+* no longer call effect functions with a 'this' ([fa0a68a](https://github.com/marko-js/tags-api-preview/commit/fa0a68adbe85b6647c9af218bd215e2c25adadee))
+
 ### [0.0.6](https://github.com/marko-js/tags-api-preview/compare/v0.0.5...v0.0.6) (2021-07-28)
 
 
