@@ -1,7 +1,7 @@
 {
   "name": "@marko/tags-api-preview",
   "description": "A glimpse into the future of Marko.",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": "Dylan Piercey <dpiercey@ebay.com>",
   "bugs": "https://github.com/marko-js/tags-api-preview/issues",
   "devDependencies": {

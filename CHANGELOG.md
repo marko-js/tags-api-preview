@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.11](https://github.com/marko-js/tags-api-preview/compare/v0.0.10...v0.0.11) (2021-07-29)
+
+
+### Bug Fixes
+
+* issue with key not working when spreading to native tag ([ab7f6e6](https://github.com/marko-js/tags-api-preview/commit/ab7f6e6cff81e6a4abec70b78b5178a863d11760))
+
 ### [0.0.10](https://github.com/marko-js/tags-api-preview/compare/v0.0.9...v0.0.10) (2021-07-29)
 
 
