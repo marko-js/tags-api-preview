@@ -5,7 +5,7 @@ import domPlugin from "chai-dom";
 import sinonPlugin from "sinon-chai";
 import promisePlugin from "chai-as-promised";
 import createBrowser from "jsdom-context-require";
-import { compileFileSync, Config } from "@marko/compiler";
+import register from "@marko/compiler/register";
 import type * as Testing from "@marko/testing-library";
 import type FireEvent from "./fire-event";
 import { VirtualConsole } from "jsdom";
@@ -15,11 +15,15 @@ chai.use(domPlugin);
 chai.use(sinonPlugin);
 chai.use(promisePlugin);
 
-require.extensions[".marko"] = createMarkoHook("html");
+register({ meta: true, optimize: false } as any);
 
 const browser = createBrowser({
   dir: __dirname,
-  extensions: { ".marko": createMarkoHook("dom") },
+  extensions: register({
+    extensions: { ...require.extensions },
+    optimize: false,
+    output: "dom",
+  }),
   virtualConsole: new VirtualConsole().sendTo(console, {
     omitJSDOMErrors: true,
   }),
@@ -112,21 +116,6 @@ export default (
     }
   };
 };
-
-function createMarkoHook(output: Config["output"]) {
-  return (module: any, filename: string) => {
-    module._compile!(
-      compileFileSync(filename, {
-        output,
-        meta: true,
-        modules: "cjs",
-        optimize: false,
-        sourceMaps: "inline",
-      } as any).code,
-      filename
-    );
-  };
-}
 
 function getTitle(test: Mocha.Test) {
   let parent = test.parent;
