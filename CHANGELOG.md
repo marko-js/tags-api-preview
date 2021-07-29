@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/marko-js/tags-api-preview/compare/v0.0.8...v0.0.9) (2021-07-29)
+
+
+### Bug Fixes
+
+* issue with binding attr value to let ([fd5aef8](https://github.com/marko-js/tags-api-preview/commit/fd5aef87bff6374efc7af0db3a2fb27a24748677))
+
 ### [0.0.8](https://github.com/marko-js/tags-api-preview/compare/v0.0.7...v0.0.8) (2021-07-28)
 
 ### [0.0.7](https://github.com/marko-js/tags-api-preview/compare/v0.0.6...v0.0.7) (2021-07-28)
