@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import replaceAssignments from "../util/replace-assignments";
+import replaceAssignments from "../util/replace-assignments/transform";
 
 type StringOrIdPath = t.NodePath<t.StringLiteral> | t.NodePath<t.Identifier>;
 
@@ -95,7 +95,7 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
     }
   }
 
-  replaceAssignments(binding, (value) => t.callExpression(changeKey, [value]));
+  replaceAssignments(binding, changeKey!);
 }
 
 function forEachBindingIdentifier(

@@ -1,7 +1,7 @@
 import { types as t } from "@marko/compiler";
 import deepFreeze from "../../util/deep-freeze/transform";
 import { closest } from "../../transform/wrapper-component";
-import replaceAssignments from "../../util/replace-assignments";
+import replaceAssignments from "../../util/replace-assignments/transform";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
@@ -60,6 +60,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   } else {
     const meta = closest(tag.parentPath)!;
     const keyString = t.stringLiteral("" + meta.stateIndex++);
+    const newValueId = tag.scope.generateUidIdentifier(tagVar.name);
     const getStateExpr = t.conditionalExpression(
       t.binaryExpression("in", keyString, meta.state),
       t.memberExpression(meta.state, keyString, true),
@@ -71,7 +72,6 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     );
 
     if (changeAttr) {
-      const newValueId = tag.scope.generateUidIdentifier(tagVar.name);
       const changeFnId = tag.scope.generateUidIdentifier(
         `${tagVar.name}Change`
       );
@@ -113,22 +113,26 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
 
       tag.replaceWith(t.variableDeclaration("const", decls));
 
-      replaceAssignments(binding, (value) =>
-        t.callExpression(setFnId, [value])
-      );
+      replaceAssignments(binding, setFnId);
     } else {
+      const setFnId = tag.scope.generateUidIdentifier(`${tagVar.name}Set`);
       tag.replaceWith(
         t.variableDeclaration("const", [
           t.variableDeclarator(tagVar, getStateExpr),
+          t.variableDeclarator(
+            setFnId,
+            t.arrowFunctionExpression(
+              [newValueId],
+              t.callExpression(
+                t.memberExpression(meta.component, t.identifier("setState")),
+                [keyString, newValueId]
+              )
+            )
+          ),
         ])
       );
 
-      replaceAssignments(binding, (value) =>
-        t.callExpression(
-          t.memberExpression(meta.component, t.identifier("setState")),
-          [keyString, value]
-        )
-      );
+      replaceAssignments(binding, setFnId);
     }
   }
 };

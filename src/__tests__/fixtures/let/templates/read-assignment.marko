@@ -1,0 +1,9 @@
+<attrs/{ onAssign, onRead }/>
+<let/count=0/>
+
+<div>${count}</div>
+<button onClick=(() => {
+  onRead(count);
+  onAssign(count++);
+  onRead(count);
+})>Increment</button>

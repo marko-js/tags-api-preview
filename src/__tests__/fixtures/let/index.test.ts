@@ -2,6 +2,8 @@ import { spy, resetHistory } from "sinon";
 import fixture, { FixtureHelpers } from "../../fixture";
 
 const valueChange = spy();
+const onAssign = spy();
+const onRead = spy();
 const increment = click("Increment");
 
 describe(
@@ -16,6 +18,28 @@ describe(
     increment,
     { value: 2, valueChange() {} },
     increment,
+  ])
+);
+
+describe.only(
+  "<let> read assignment",
+  fixture("./templates/read-assignment.marko", [
+    { value: 1, onAssign, onRead },
+    async (helpers) => {
+      await increment(helpers);
+      helpers.expect(onAssign).to.have.been.calledOnceWith(1);
+      helpers.expect(onRead).to.have.been.calledTwice;
+      helpers.expect(onRead.args[0][0]).to.equal(0);
+      helpers.expect(onRead.args[1][0]).to.equal(0);
+      resetHistory();
+
+      await increment(helpers);
+      helpers.expect(onAssign).to.have.been.calledOnceWith(2);
+      helpers.expect(onRead).to.have.been.calledTwice;
+      helpers.expect(onRead.args[0][0]).to.equal(1);
+      helpers.expect(onRead.args[1][0]).to.equal(1);
+      resetHistory();
+    },
   ])
 );
 

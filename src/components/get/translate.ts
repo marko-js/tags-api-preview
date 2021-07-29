@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import replaceAssignments from "../../util/replace-assignments";
+import replaceAssignments from "../../util/replace-assignments/transform";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.get("var") as t.NodePath<t.LVal>;
@@ -13,7 +13,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     );
 
     params.push(changeId);
-    replaceAssignments(binding, (value) => t.callExpression(changeId, [value]));
+    replaceAssignments(binding, changeId);
   }
 
   for (const param of params) {
