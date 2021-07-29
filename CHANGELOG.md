@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.10](https://github.com/marko-js/tags-api-preview/compare/v0.0.9...v0.0.10) (2021-07-29)
+
+
+### Bug Fixes
+
+* allow reading from state assignments ([702f40f](https://github.com/marko-js/tags-api-preview/commit/702f40ffd1a53597290ef7201a18f1f54f1c2cd5))
+
 ### [0.0.9](https://github.com/marko-js/tags-api-preview/compare/v0.0.8...v0.0.9) (2021-07-29)
 
 
