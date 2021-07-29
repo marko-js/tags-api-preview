@@ -33,6 +33,8 @@ export default {
 
         for (const attr of attrs) {
           if (attr.isMarkoAttribute()) {
+            if (attr.node.name === "key") continue;
+
             properties.push(
               t.objectProperty(t.identifier(attr.node.name), attr.node.value)
             );
