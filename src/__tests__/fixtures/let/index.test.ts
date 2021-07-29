@@ -10,6 +10,16 @@ describe(
 );
 
 describe(
+  "<let> bound",
+  fixture("./templates/bound.marko", [
+    { value: 1, valueChange() {} },
+    increment,
+    { value: 2, valueChange() {} },
+    increment,
+  ])
+);
+
+describe(
   "<let> with default change",
   fixture("./templates/with-default-change.marko", [
     { value: 1, valueChange },

@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 
-export default {
+const AttributeVisitor = {
   MarkoAttribute(attr) {
     if (!attr.node.bound) {
       return;
@@ -23,5 +23,14 @@ export default {
         )
       )
     );
+  },
+} as t.Visitor;
+
+export default {
+  Program(program) {
+    // We must translate all attribute bindings first,
+    // otherwise subsequent transforms will not see the
+    // assignments.
+    program.traverse(AttributeVisitor);
   },
 } as t.Visitor;

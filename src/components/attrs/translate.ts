@@ -29,8 +29,6 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
 
   usedTag.add(tag.hub);
 
-  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
-
   tag.replaceWith(
     t.variableDeclaration("const", [
       t.variableDeclarator(
