@@ -21,7 +21,7 @@ describe(
   ])
 );
 
-describe.only(
+describe(
   "<let> read assignment",
   fixture("./templates/read-assignment.marko", [
     { value: 1, onAssign, onRead },
