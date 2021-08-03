@@ -38,12 +38,16 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     }
   }
 
+  const returnInput = buildInputExpr("_return");
   tag.replaceWith(
     t.expressionStatement(
-      t.optionalCallExpression(
-        buildInputExpr("_return"),
-        [t.objectExpression(props), t.numericLiteral(1)],
-        true
+      t.logicalExpression(
+        "&&",
+        returnInput,
+        t.callExpression(returnInput, [
+          t.objectExpression(props),
+          t.numericLiteral(1),
+        ])
       )
     )
   );
