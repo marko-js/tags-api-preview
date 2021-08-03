@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.12](https://github.com/marko-js/tags-api-preview/compare/v0.0.11...v0.0.12) (2021-08-03)
+
+
+### Bug Fixes
+
+* avoid using optional call expressions in compiled code ([b7fa29f](https://github.com/marko-js/tags-api-preview/commit/b7fa29f74d29b323b952c3071277f2fdd48bb28e))
+
 ### [0.0.11](https://github.com/marko-js/tags-api-preview/compare/v0.0.10...v0.0.11) (2021-07-29)
 
 
