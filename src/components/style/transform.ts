@@ -5,6 +5,7 @@ import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
 
 const STYLE_REG = /^style(?:\.([a-zA-Z0-9$_-]+(?:\.[a-zA-Z0-9$_-]+)*))?/;
+const styleIndexes = new WeakMap<t.Hub, number>();
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
   if (isApi(tag, "class")) return;
@@ -50,9 +51,10 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     }
   }
 
-  const styleIndex = deps.findIndex((dep) => (dep as any).style);
+  const styleIndex = styleIndexes.get(hub) || 0;
   const base = path.basename(hub.file.opts.sourceFileName as string);
   const text = node.body.body[0] as MarkoText;
+  styleIndexes.set(hub, styleIndex + 1);
 
   deps.push({
     type,
@@ -61,9 +63,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     startPos: text.start,
     endPos: text.end,
     path: `./${base}`,
-    virtualPath: `./${
-      base + (styleIndex === -1 ? "" : `.${styleIndex + 1}`)
-    }.${type}`,
+    virtualPath: `./${base + (styleIndex ? `.${styleIndex}` : "")}.${type}`,
   } as any);
 
   tag.remove();
