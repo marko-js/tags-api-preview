@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.13](https://github.com/marko-js/tags-api-preview/compare/v0.0.12...v0.0.13) (2021-08-06)
+
+
+### Bug Fixes
+
+* issue with conflicting virtual style file names ([dcd02bc](https://github.com/marko-js/tags-api-preview/commit/dcd02bcb35924467dfadfeefffdc44a5e5c1134a))
+* issues with state within loops, add test ([24fa7c6](https://github.com/marko-js/tags-api-preview/commit/24fa7c69b82c849dcd5b8029bad24763171385bb))
+
 ### [0.0.12](https://github.com/marko-js/tags-api-preview/compare/v0.0.11...v0.0.12) (2021-08-03)
 
 
