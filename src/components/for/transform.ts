@@ -74,14 +74,13 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
 
   body.set("params", byArgs as any);
   bodyVars.push(t.variableDeclarator(idId, t.callExpression(byId, byArgs)));
-
-  tag
-    .get("body")
-    .unshiftContainer(
-      "body",
-      t.markoScriptlet([t.variableDeclaration("const", bodyVars)])
-    );
-
+  const prependScriptlet = t.markoScriptlet([
+    t.variableDeclaration("const", bodyVars),
+  ]);
+  prependScriptlet.extra = { _hoistInInstance: true };
+  tag.get("body").unshiftContainer("body", prependScriptlet);
   tag.set("keyScope", idId);
+  tag.node.extra ??= {};
+  tag.node.extra.keyScope = idId; // Add keyscope to extra so it gets serialized for the translate phase.
   byAttr.remove();
 };

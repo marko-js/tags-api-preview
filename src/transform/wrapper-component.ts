@@ -1,7 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { isNativeTag, getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../../marko.json";
-import isCoreTag from "../util/is-core-tag";
 import isApi from "../util/is-api";
 
 export type Meta = {
@@ -149,19 +148,28 @@ function buildRootLifecycle(program: t.NodePath<t.Program>): t.Statement[] {
 
 function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
   const meta = tag.node.extra!.___lifecycle as Meta;
-  return [
+  const body: t.MarkoTagBody["body"] = [];
+  const result: t.Statement[] = [];
+
+  for (const child of tag.node.body.body) {
+    if (child.extra?._hoistInInstance) {
+      result.push(child);
+    } else {
+      body.push(child);
+    }
+  }
+
+  result.push(
     t.markoTag(
       t.stringLiteral("_instance"),
       [],
-      t.markoTagBody(tag.node.body.body, [
+      t.markoTagBody(body, [
         tag.scope.generateUidIdentifier("nestedComponentDef"),
         meta.component,
         meta.state,
       ])
-    ),
-  ];
-}
+    )
+  );
 
-function isIgnoredTag(tag: t.NodePath<t.MarkoTag>) {
-  return isCoreTag("attrs", tag) || isCoreTag("const", tag);
+  return result;
 }

@@ -1,0 +1,28 @@
+<let/list=[]/>
+<let/lastId=0/>
+
+<for|id, i| of=list by=(id => id)>
+  <let/count=0/>
+
+  <p>${count}</p>
+
+  <button onClick() {
+      count++;
+  }>
+    Increment ${id}
+  </button>
+
+  <button onClick() {
+    list = [...list.slice(0, i), ...list.slice(i + 1)]
+  }>
+    Remove ${id}
+  </button>
+</for>
+
+
+<button onClick() {
+  list = [...list, lastId];
+  lastId++;
+}>
+  Create
+</button>

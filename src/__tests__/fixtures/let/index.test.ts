@@ -98,6 +98,23 @@ describe(
   ])
 );
 
+describe(
+  "<let> within-keyed-loop",
+  fixture("./templates/within-keyed-loop.marko", [
+    click("Create"),
+    click("Increment 0"),
+    click("Create"),
+    click("Increment 1"),
+    click("Increment 1"),
+    click("Create"),
+    click("Increment 2"),
+    click("Increment 2"),
+    click("Increment 2"),
+    click("Remove 1"),
+    click("Remove 0"),
+  ])
+);
+
 describe("<let> error args", fixture("./templates/error-args.marko"));
 
 describe(
