@@ -71,6 +71,7 @@ function createHoist(owner: Component, name: string, hoister: Hoister) {
     } else if (isRendering()) {
       throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
+    return val;
   };
 }
 
