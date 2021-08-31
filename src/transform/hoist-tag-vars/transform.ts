@@ -62,10 +62,11 @@ export default {
                 case ReferenceType.Unknown:
                   maybeHasSyncRefsBefore = true;
                   ref.replaceWith(
-                    t.sequenceExpression([
-                      t.callExpression(hoistedId, []),
+                    t.assignmentExpression(
+                      "=",
                       ref.node as t.Identifier,
-                    ])
+                      t.callExpression(hoistedId, [])
+                    )
                   );
                   break;
               }
