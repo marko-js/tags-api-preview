@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/marko-js/tags-api-preview/compare/v0.0.13...v0.0.14) (2021-08-31)
+
+
+### Bug Fixes
+
+* eventhandler hoisting with refs ([09fbbee](https://github.com/marko-js/tags-api-preview/commit/09fbbee4e8330508b8181f837f25edd5f8816de4))
+
 ### [0.0.13](https://github.com/marko-js/tags-api-preview/compare/v0.0.12...v0.0.13) (2021-08-06)
 
 
