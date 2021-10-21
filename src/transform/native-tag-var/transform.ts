@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importDefault, isNativeTag } from "@marko/babel-utils";
+import { importDefault, isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import { closest } from "../wrapper-component";
 
 export default {
@@ -11,7 +11,7 @@ export default {
       } = tag;
       const tagVar = node.var!;
 
-      if (!tagVar || !isNativeTag(tag)) {
+      if (!tagVar || !(isNativeTag(tag) || isDynamicTag(tag))) {
         return;
       }
 
@@ -42,7 +42,7 @@ export default {
       tag.pushContainer("attributes", t.markoAttribute("key", keyString));
     },
     exit(tag) {
-      if (tag.node.var && isNativeTag(tag)) {
+      if (tag.node.var && (isNativeTag(tag) || isDynamicTag(tag))) {
         // Don't remove the tag variable until it has been hoisted.
         tag.node.var = null;
       }
