@@ -1,4 +1,4 @@
-import { importNamed, isNativeTag } from "@marko/babel-utils";
+import { importNamed, isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
 import { Visitor } from "@marko/compiler/babel-types";
 import { ensureLifecycle } from "../wrapper-component";
@@ -16,7 +16,10 @@ const depsVisitor = {
     if (binding) {
       const bindingTag = binding.path;
 
-      if (bindingTag.isMarkoTag() && !isNativeTag(bindingTag)) {
+      if (
+        bindingTag.isMarkoTag() &&
+        !(isNativeTag(bindingTag) || isDynamicTag(bindingTag))
+      ) {
         let isDep = false;
 
         if (isCoreTag("const", binding.path)) {
