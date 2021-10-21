@@ -1,0 +1,9 @@
+class {
+  handleClick() {
+    this.emit("click");
+  }
+}
+
+<button onClick("handleClick")>
+  <${input.renderBody}/>
+</button>
