@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { isNativeTag, getTagDef } from "@marko/babel-utils";
-import { taglibId } from "../../marko.json";
+import { taglibId } from "../util/taglib-id";
 import isApi from "../util/is-api";
 
 export type Meta = {
@@ -43,7 +43,7 @@ export function closest(path: t.NodePath<any>) {
       }
     }
 
-    root = root.parentPath;
+    root = root.parentPath!;
   } while (root);
 }
 
@@ -85,8 +85,8 @@ export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
   const program = tag.hub.file.path;
   let root = tag as t.NodePath;
   while (
-    (root = root.parentPath) !== program &&
-    (root = root.parentPath).node &&
+    (root = root.parentPath!) !== program &&
+    (root = root.parentPath!).node &&
     isNativeTag(root as t.NodePath<t.MarkoTag>)
   );
 

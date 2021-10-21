@@ -9,7 +9,7 @@ export function buildAggregateError(
   ...paths: [string, t.NodePath][]
 ) {
   const err = new SyntaxError();
-  const fileName = path.relative(CWD, file.opts.sourceFileName as string);
+  const fileName = path.relative(CWD, file.opts.filename as string);
   const finalMsg = `${rootMsg}:\n\n${paths
     .map(
       ([msg, path]: [string, t.NodePath]) =>

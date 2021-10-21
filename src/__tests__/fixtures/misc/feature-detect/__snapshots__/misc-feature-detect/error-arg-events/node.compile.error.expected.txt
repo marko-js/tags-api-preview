@@ -7,9 +7,9 @@ Cannot mix "tags api" and "class api" features:
   3 | <button onClick("emit", "click")/>
   4 |
 
-Attribute arguments at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-detect-arg-events.marko(3,16):
+Attribute arguments at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-detect-arg-events.marko(3,17):
   1 | <!-- use tags -->
   2 |
 > 3 | <button onClick("emit", "click")/>
-    |                ^^^^^^
+    |                 ^^^^^^
   4 |

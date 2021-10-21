@@ -1,6 +1,8 @@
 {
-  "extends": "@istanbuljs/nyc-config-typescript",
+  "all": true,
+  "include": ["src/**/*"],
   "reporter": ["text", "lcov"],
-  "include": ["src/**/*.{ts,marko}"],
-  "exclude": ["**/__tests__"]
+  "extension": [".ts", ".marko"],
+  "exclude": ["**/__tests__", "**/*.d.ts"],
+  "parserPlugins": ["objectRestSpread", "typescript"]
 }

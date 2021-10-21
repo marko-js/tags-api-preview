@@ -6,7 +6,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     ? "can only be used once within a template"
     : tag.node.var
     ? "does not support a tag variable"
-    : !tag.parentPath.parentPath.isProgram()
+    : !tag.parentPath.parentPath!.isProgram()
     ? "can only used at the root of the template"
     : !tag.node.attributes.length
     ? "requires a default attribute"

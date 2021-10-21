@@ -1,39 +1,43 @@
 import fs from "fs";
 import path from "path";
-import glob from "globby";
-import { build } from "esbuild";
+import glob from "fast-glob";
+import { build, BuildOptions } from "esbuild";
 
 (async () => {
-  const assets = [];
   const entryPoints = [];
   const srcdir = path.resolve("src");
   const outdir = path.resolve("dist");
-  const files = await glob(["**", "!*.d.ts", "!**/__tests__"], {
+  const files = glob.stream(["**", "!*.d.ts", "!**/__tests__"], {
     cwd: srcdir,
-  });
+  }) as AsyncIterable<string>;
 
-  for (const file of files) {
+  for await (const file of files) {
     if (path.extname(file) === ".ts") {
       entryPoints.push(path.resolve(srcdir, file));
     } else {
-      assets.push(file);
+      const outfile = path.join(outdir, file);
+      await fs.promises.mkdir(path.dirname(outfile), { recursive: true });
+      await fs.promises.copyFile(path.join(srcdir, file), outfile);
     }
   }
 
+  const opts: BuildOptions = {
+    outdir,
+    entryPoints,
+    outbase: srcdir,
+    platform: "node",
+    target: ["es2019"],
+  };
+
   await Promise.all([
-    Promise.all(
-      assets.map(async (file) => {
-        const outfile = path.join(outdir, file);
-        await fs.promises.mkdir(path.dirname(outfile), { recursive: true });
-        await fs.promises.copyFile(path.join(srcdir, file), outfile);
-      })
-    ),
     build({
-      outdir,
-      entryPoints,
+      ...opts,
       format: "cjs",
-      outbase: srcdir,
-      target: ["es2019"],
+    }),
+    build({
+      ...opts,
+      format: "esm",
+      outExtension: { ".js": ".mjs" },
     }),
   ]);
 })().catch((err) => {

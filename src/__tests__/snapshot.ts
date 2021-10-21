@@ -41,8 +41,8 @@ export default async function trySnapshot(
           assert.strictEqual(data, expected);
         } catch (err) {
           await fs.promises.writeFile(actualFile, data, "utf-8");
-          err.message = path.relative(process.cwd(), actualFile);
-          err.snapshot = true;
+          (err as Error).message = path.relative(process.cwd(), actualFile);
+          (err as any).snapshot = true;
           throw err;
         }
       }
@@ -54,7 +54,7 @@ export default async function trySnapshot(
   try {
     await runner(utils);
   } catch (err) {
-    if (err.snapshot) throw err;
+    if ((err as any).snapshot) throw err;
 
     if (UPDATE) {
       await Promise.all(

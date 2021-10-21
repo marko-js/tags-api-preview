@@ -1,6 +1,6 @@
 import { getTagDef, isDynamicTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
-import { taglibId } from "../../marko.json";
+import { taglibId } from "../util/taglib-id";
 import { buildAggregateError } from "../util/build-aggregate-error";
 
 type Feature = {

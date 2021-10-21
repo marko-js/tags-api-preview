@@ -1,4 +1,4 @@
-export = function assign<V extends unknown, T extends (value: V) => unknown>(
+export = function assign<V, T extends (value: V) => unknown>(
   fn: T,
   value: V
 ): V {

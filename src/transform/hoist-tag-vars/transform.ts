@@ -164,7 +164,7 @@ function getReferenceType(ref: t.NodePath) {
   // Special case iife's
   while (
     scope.path.key === "callee" &&
-    scope.path.parentPath.isCallExpression()
+    scope.path.parentPath!.isCallExpression()
   ) {
     scope = scope.parent;
   }

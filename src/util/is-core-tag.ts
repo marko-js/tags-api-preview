@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 import { getTagDef } from "@marko/babel-utils";
-import { taglibId } from "../../marko.json";
+import { taglibId } from "../util/taglib-id";
 export default function isCoreTag(
   name: string,
   tag: t.NodePath
