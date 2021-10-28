@@ -6,6 +6,11 @@ describe(
 );
 
 describe(
+  "<attrs> after get",
+  fixture("./templates/after-get/index.marko", { value: "World" })
+);
+
+describe(
   "<attrs> error args",
   fixture("./templates/error-args.marko", { value: "World" })
 );

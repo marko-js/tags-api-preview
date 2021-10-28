@@ -2,6 +2,8 @@ import fixture, { FixtureHelpers } from "../../fixture";
 
 describe("<return> basic", fixture("./templates/basic.marko"));
 
+describe("<return> after get", fixture("./templates/after-get/index.marko"));
+
 describe("<return> spread", fixture("./templates/spread.marko"));
 
 describe("<return> read multiple", fixture("./templates/read-multiple.marko"));

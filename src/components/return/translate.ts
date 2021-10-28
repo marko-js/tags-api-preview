@@ -1,4 +1,5 @@
 import { types as t } from "@marko/compiler";
+import isAtRoot from "../../util/is-at-root";
 const usedTag = new WeakSet<t.Hub>();
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
@@ -6,7 +7,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     ? "can only be used once within a template"
     : tag.node.var
     ? "does not support a tag variable"
-    : !tag.parentPath.parentPath!.isProgram()
+    : !isAtRoot(tag)
     ? "can only used at the root of the template"
     : !tag.node.attributes.length
     ? "requires a default attribute"

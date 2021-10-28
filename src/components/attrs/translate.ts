@@ -1,5 +1,6 @@
 import { types as t } from "@marko/compiler";
 import deepFreeze from "../../util/deep-freeze/transform";
+import isAtRoot from "../../util/is-at-root";
 const usedTag = new WeakSet<t.Hub>();
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
@@ -8,7 +9,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     ? "can only be used once within a template"
     : !tagVar
     ? "requires a tag variable to be assigned to"
-    : !tag.parentPath.parentPath!.isProgram()
+    : !isAtRoot(tag)
     ? "can only used at the root of the template"
     : tag.node.attributes.length > 0
     ? "does not support attributes"
