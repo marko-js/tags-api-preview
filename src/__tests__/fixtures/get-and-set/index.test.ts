@@ -9,6 +9,15 @@ describe(
 );
 
 describe(
+  "<get> read & assign to missing context",
+  fixture("./templates/missing-context.marko", [
+    async ({ screen, fireEvent }) => {
+      await fireEvent.click(screen.getByText("increment"));
+    },
+  ])
+);
+
+describe(
   "<get> & <set> assign to mutable set",
   fixture("./templates/assign-to-mutable-set.marko", [
     { defaultChange },

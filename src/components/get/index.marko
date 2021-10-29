@@ -47,4 +47,5 @@ class {
   }
 }
 
-<${input.renderBody}(component.data.default, component.data.defaultChange)/>
+$ var data = component.data || {};
+<${input.renderBody}(data.default, data.defaultChange)/>
