@@ -25,5 +25,6 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     sibling.remove();
   }
 
+  tag.scope.crawl();
   tag.node.var = null;
 };

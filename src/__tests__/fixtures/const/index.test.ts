@@ -4,6 +4,8 @@ describe("<const> basic", fixture("./templates/basic.marko"));
 
 describe("<const> destructuring", fixture("./templates/destructuring.marko"));
 
+describe("<const> after get", fixture("./templates/after-get/index.marko"));
+
 describe(
   "<const> input derived",
   fixture("./templates/input-derived.marko", [{ value: 1 }, { value: 2 }])
