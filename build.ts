@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import glob from "fast-glob";
-import { build, BuildOptions } from "esbuild";
+import { build } from "esbuild";
 
 (async () => {
   const entryPoints = [];
@@ -21,25 +21,14 @@ import { build, BuildOptions } from "esbuild";
     }
   }
 
-  const opts: BuildOptions = {
+  await build({
     outdir,
     entryPoints,
+    format: "cjs",
     outbase: srcdir,
     platform: "node",
     target: ["es2019"],
-  };
-
-  await Promise.all([
-    build({
-      ...opts,
-      format: "cjs",
-    }),
-    build({
-      ...opts,
-      format: "esm",
-      outExtension: { ".js": ".mjs" },
-    }),
-  ]);
+  });
 })().catch((err) => {
   console.error(err);
   process.exit(1);
