@@ -30,12 +30,23 @@ export default function replaceAssignments(
     }
 
     if (value) {
-      assignment.replaceWith(
-        t.callExpression(importDefault(file, __dirname, "assign"), [
-          fnExpression,
-          value,
-        ])
-      );
+      const parent = assignment.parentPath!;
+      if (
+        // If the assignment was from a bound attribute
+        // we just replace the attr value with the change function.
+        parent.isFunction() &&
+        parent.parentPath!.isMarkoAttribute() &&
+        parent.parentPath!.node.extra?.___wasBound
+      ) {
+        parent.replaceWith(fnExpression);
+      } else {
+        assignment.replaceWith(
+          t.callExpression(importDefault(file, __dirname, "assign"), [
+            fnExpression,
+            value,
+          ])
+        );
+      }
     }
   }
 }

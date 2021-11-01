@@ -13,16 +13,18 @@ const AttributeVisitor = {
     }
 
     const tempId = t.identifier("_");
-    attr.node.bound = false;
-    attr.insertAfter(
-      t.markoAttribute(
-        `${attr.node.name}Change`,
-        t.arrowFunctionExpression(
-          [tempId],
-          t.assignmentExpression("=", value.node, tempId)
-        )
+
+    const changeAttr = t.markoAttribute(
+      `${attr.node.name}Change`,
+      t.arrowFunctionExpression(
+        [tempId],
+        t.assignmentExpression("=", value.node, tempId)
       )
     );
+
+    attr.node.bound = false;
+    changeAttr.extra = { ___wasBound: true };
+    attr.insertAfter(changeAttr);
   },
 } as t.Visitor;
 

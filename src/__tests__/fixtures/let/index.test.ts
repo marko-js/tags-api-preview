@@ -12,11 +12,21 @@ describe(
 );
 
 describe(
-  "<let> bound",
+  "<let> bound controlled",
   fixture("./templates/bound.marko", [
     { value: 1, valueChange() {} },
     increment,
     { value: 2, valueChange() {} },
+    increment,
+  ])
+);
+
+describe(
+  "<let> bound uncontrolled",
+  fixture("./templates/bound.marko", [
+    { value: 1 },
+    { value: 2 },
+    increment,
     increment,
   ])
 );
