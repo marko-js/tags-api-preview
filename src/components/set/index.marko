@@ -28,8 +28,7 @@ $ {
 <${input.renderBody}/>
 
 $ {
-  if (typeof window === "object" && !component.___rendered) {
-    component.___rendered = true;
+  if (typeof window === "object" && typeof component.emit === "function") {
     component.emit("___changed");
   }
 

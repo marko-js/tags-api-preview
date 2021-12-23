@@ -26,7 +26,7 @@ class {
 
     if (this.provider) {
       if (typeof window === "object") {
-        this.sub = this.subscribeTo(this.provider).on("___change", this.sync);
+        this.sub = this.subscribeTo(this.provider).on("___changed", this.sync);
       }
 
       this.data = this.provider.input;

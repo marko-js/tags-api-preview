@@ -70,6 +70,15 @@ describe(
 );
 
 describe(
+  "<get> & <set> update provided value",
+  fixture("./templates/update-provided-value/index.marko", [
+    async ({ screen, fireEvent }) => {
+      await fireEvent.click(screen.getByText("increment"));
+    },
+  ])
+);
+
+describe(
   "<get> & <set> reference by tag name",
   fixture("./templates/reference-by-tag-name/index.marko")
 );
