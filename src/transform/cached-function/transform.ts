@@ -6,10 +6,13 @@ import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
 type DepsVisitorState =
-  | { shallow?: undefined; deps?: Set<string> }
-  | { shallow: true; deps?: true };
+  | { root: t.NodePath; shallow?: undefined; deps?: Set<string> }
+  | { root: t.NodePath; shallow: true; deps?: true };
 
 const depsVisitor = {
+  Function(fn, state) {
+    if (fn === state.root) fn.skip();
+  },
   ReferencedIdentifier: ((identifier, state) => {
     const { name } = identifier.node;
     const binding = identifier.scope.getBinding(name);
@@ -26,7 +29,7 @@ const depsVisitor = {
           // Const tag reflects the default value as dependencies.
           const nestedState: DepsVisitorState = state.shallow
             ? state
-            : { shallow: true };
+            : { root: state.root, shallow: true };
           getAttr(bindingTag, "default")!.traverse(depsVisitor, nestedState);
           isDep = !!nestedState.deps;
         } else {
@@ -60,7 +63,7 @@ export default {
       return;
     }
 
-    const state: DepsVisitorState & { deps?: Set<string> } = {};
+    const state: DepsVisitorState & { deps?: Set<string> } = { root: fn };
     fn.skip();
     fn.traverse(depsVisitor, state);
 
