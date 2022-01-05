@@ -1,6 +1,6 @@
 import path from "path";
 import { types as t } from "@marko/compiler";
-import utils from "@marko/babel-utils";
+import * as utils from "@marko/babel-utils";
 import getAttr from "../../util/get-attr";
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {

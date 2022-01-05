@@ -28,8 +28,8 @@ import { build } from "esbuild";
     outbase: srcdir,
     platform: "node",
     target: ["es2019"],
+    define: {
+      "process.env.NODE_ENV": "'production'",
+    },
   });
-})().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+})();

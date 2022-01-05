@@ -1,6 +1,7 @@
 import { types as t } from "@marko/compiler";
 import { importDefault, isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import { closest } from "../wrapper-component";
+import isCoreTag from "../../util/is-core-tag";
 
 export default {
   MarkoTag: {
@@ -11,7 +12,12 @@ export default {
       } = tag;
       const tagVar = node.var!;
 
-      if (!tagVar || !(isNativeTag(tag) || isDynamicTag(tag))) {
+      if (
+        !(
+          tagVar &&
+          ((isNativeTag(tag) && !isCoreTag("style", tag)) || isDynamicTag(tag))
+        )
+      ) {
         return;
       }
 
