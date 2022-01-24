@@ -19,7 +19,9 @@ const featureDetectionVisitor = {
     }
   },
   MarkoScriptlet(scriptlet, state) {
-    addFeature(state, "class", "Scriptlet", scriptlet);
+    if (!scriptlet.node.static) {
+      addFeature(state, "class", "Scriptlet", scriptlet);
+    }
   },
   MarkoClass(markoClass, state) {
     addFeature(state, "class", "Class block", markoClass.get("body"));
