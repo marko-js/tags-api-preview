@@ -4,6 +4,7 @@ import { taglibId } from "../util/taglib-id";
 import isApi from "../util/is-api";
 
 export type Meta = {
+  client: boolean;
   component: t.Identifier;
   state: t.Identifier;
   stateIndex: number;
@@ -58,9 +59,11 @@ export default {
       if (isApi(program, "tags")) {
         for (const root of lifecycleRootsForProgram.get(program)!) {
           if (root === program) {
-            program.node.body = buildRootLifecycle(program).concat(
-              program.node.body
-            );
+            if ((root.node.extra.___lifecycle as Meta).client) {
+              program.node.body = buildRootLifecycle(program).concat(
+                program.node.body
+              );
+            }
           } else {
             root.node.body.body = buildNestedLifecycle(root);
           }
@@ -73,7 +76,10 @@ export default {
 
     if (tagDef && tagDef.taglibId === taglibId) {
       if (tagsNeedingLifecycle.has(tagDef.name)) {
-        ensureLifecycle(tag);
+        ensureLifecycle(
+          tag,
+          !(tagDef.name === "id" && tag.parent.type === "Program")
+        );
       }
     } else if (tag.node.var) {
       ensureLifecycle(tag);
@@ -81,7 +87,7 @@ export default {
   },
 };
 
-export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
+export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>, client = true) {
   const program = tag.hub.file.path;
   let root = tag as t.NodePath;
   while (
@@ -92,10 +98,13 @@ export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
 
   if (root.node) {
     const roots = lifecycleRootsForProgram.get(program)!;
+    let extra = root.node.extra;
 
-    if (!roots.has(root)) {
-      const extra = root.node.extra;
+    if (roots.has(root)) {
+      if (client) (extra!.___lifecycle as Meta).client = true;
+    } else {
       const meta: Meta = {
+        client,
         component: root.scope.generateUidIdentifier("component"),
         state: root.scope.generateUidIdentifier("state"),
         stateIndex: 0,
@@ -108,11 +117,11 @@ export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>) {
       if (extra) {
         extra.___lifecycle = meta;
       } else {
-        root.node.extra = { ___lifecycle: meta };
+        extra = root.node.extra = { ___lifecycle: meta };
       }
     }
 
-    return root.node.extra!.___lifecycle as Meta;
+    return extra!.___lifecycle as Meta;
   }
 }
 
@@ -161,7 +170,7 @@ function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
 
   result.push(
     t.markoTag(
-      t.stringLiteral("_instance"),
+      t.stringLiteral(meta.client ? "_instance" : "_instance-stateless"),
       [],
       t.markoTagBody(body, [
         tag.scope.generateUidIdentifier("nestedComponentDef"),
