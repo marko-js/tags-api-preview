@@ -32,7 +32,10 @@ async function updatePackageExports() {
       };
     }
 
-    const exportMap: any = {};
+    const exportMap: any = {
+      "./marko.json": "./marko.json",
+    };
+
     const files = glob.stream([
       "dist/**",
       "!*.d.ts",
