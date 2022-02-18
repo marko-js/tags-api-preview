@@ -6,22 +6,44 @@ import getAttr from "../../util/get-attr";
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;
   const defaultAttr = getAttr(tag, "default")!;
-  const errorMessage = !defaultAttr
-    ? "'default' attribute is required"
-    : tag.node.attributes.length > 1
-    ? "only supports the 'default' attribute"
-    : !tag.node.var
-    ? "requires a tag variable"
-    : tag.node.arguments
-    ? "does not support arguments"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.body.body.length
-    ? "does not support body content"
-    : undefined;
+  const errorMessage =
+    defaultAttr && tag.node.attributes.length > 1
+      ? "only supports the 'default' attribute"
+      : !tag.node.var
+      ? "requires a tag variable"
+      : tag.node.arguments
+      ? "does not support arguments"
+      : tag.node.body.params.length
+      ? "does not support tag body parameters"
+      : tag.node.body.body.length
+      ? "does not support body content"
+      : undefined;
 
   if (errorMessage) {
     throw tag.get("name").buildCodeFrameError(`The <get> tag ${errorMessage}.`);
+  }
+
+  if (!defaultAttr) {
+    for (const name in tag.get("var").getBindingIdentifiers()) {
+      for (const violation of tag.scope.getOwnBinding(name)!
+        .constantViolations) {
+        throw violation.buildCodeFrameError(
+          "Cannot mutate the global context."
+        );
+      }
+    }
+
+    tag.replaceWith(
+      t.markoScriptlet([
+        t.variableDeclaration("const", [
+          t.variableDeclarator(
+            tag.node.var!,
+            t.memberExpression(t.identifier("out"), t.identifier("global"))
+          ),
+        ]),
+      ])
+    );
+    return;
   }
 
   let fromValue = defaultAttr.node.value;

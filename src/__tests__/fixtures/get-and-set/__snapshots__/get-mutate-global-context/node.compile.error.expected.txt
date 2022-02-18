@@ -1,0 +1,7 @@
+src/__tests__/fixtures/get-and-set/templates/error-assign-global-context.marko(3,3): Cannot mutate the global context.
+  1 | <get/{ message }/>
+  2 | <button onClick() {
+> 3 |   message = "World";
+    |   ^^^^^^^^^^^^^^^^^
+  4 | }>${message}</button>
+  5 |

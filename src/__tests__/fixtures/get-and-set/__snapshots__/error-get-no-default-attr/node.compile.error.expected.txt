@@ -1,5 +1,0 @@
-src/__tests__/fixtures/get-and-set/templates/error-get-no-default-attr.marko(1,2): The <get> tag 'default' attribute is required.
-> 1 | <get/val/>
-    |  ^^^
-  2 | <div>${val}</div>
-  3 |

@@ -93,6 +93,13 @@ describe(
   fixture("./templates/provide-across-children/index.marko")
 );
 
+describe(
+  "<get> global context",
+  fixture("./templates/get-global-context.marko", {
+    $global: { message: "hello" },
+  })
+);
+
 describe("error <get> args", fixture("./templates/error-get-args.marko"));
 
 describe(
@@ -111,13 +118,13 @@ describe(
 );
 
 describe(
-  "error <get> missing tag",
-  fixture("./templates/error-get-missing-tag.marko")
+  "<get> mutate global context",
+  fixture("./templates/error-assign-global-context.marko")
 );
 
 describe(
-  "error <get> no default attr",
-  fixture("./templates/error-get-no-default-attr.marko")
+  "error <get> missing tag",
+  fixture("./templates/error-get-missing-tag.marko")
 );
 
 describe(

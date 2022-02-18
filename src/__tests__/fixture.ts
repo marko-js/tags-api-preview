@@ -92,7 +92,7 @@ export default (
               expect: chai.expect,
               ...helpers,
               fireEvent,
-              ...(await helpers.render(template, input)),
+              ...(await helpers.render(template, { ...input })),
             } as FixtureHelpers;
 
             await snapshot("html", fixtureHelpers.container);
