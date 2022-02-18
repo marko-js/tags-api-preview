@@ -50,7 +50,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   file.path.scope.crawl();
   const binding = tag.scope.getBinding(tagVar.name)!;
 
-  if (server || !binding.constantViolations.length) {
+  if (server) {
     file.path.scope.crawl();
     tag.replaceWith(
       t.variableDeclaration("const", [

@@ -157,6 +157,15 @@ describe(
   fixture("./templates/error-no-tag-var.marko")
 );
 
+describe(
+  "<let> without assignments saves initial value",
+  fixture("./templates/without-assignments-saves-initial-value.marko", [
+    { value: 1 },
+    { value: 2 },
+    { value: 3 },
+  ])
+);
+
 function click(text: string) {
   return async ({ fireEvent, screen }: FixtureHelpers) =>
     await fireEvent.click(screen.getByText(text));
