@@ -36,7 +36,7 @@ export default {
             if (attr.node.name === "key") continue;
 
             properties.push(
-              t.objectProperty(t.identifier(attr.node.name), attr.node.value)
+              t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
             );
           } else {
             properties.push(t.spreadElement(attr.node.value));

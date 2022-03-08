@@ -25,7 +25,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
         }
 
         properties.push(
-          t.objectProperty(t.identifier(attr.node.name), attr.node.value)
+          t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
         );
       } else {
         errorMessage = `does not support ...spread attributes`;

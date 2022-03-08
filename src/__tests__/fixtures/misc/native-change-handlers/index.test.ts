@@ -33,6 +33,17 @@ describe("misc native tag change handlers", () => {
   );
 
   describe(
+    "text input spread with dash attr",
+    fixture("./templates/text-input-spread-with-dash-attr.marko", [
+      async ({ screen, fireEvent }) => {
+        await fireEvent.type(screen.getByDisplayValue("Hello"), " World", {
+          delay: 0,
+        });
+      },
+    ])
+  );
+
+  describe(
     "checkbox input spread",
     fixture("./templates/checkbox-input-spread.marko", [
       async ({ screen, fireEvent }) => {
