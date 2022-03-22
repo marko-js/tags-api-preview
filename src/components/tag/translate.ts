@@ -1,32 +1,43 @@
 import { types as t } from "@marko/compiler";
 import assertNoAssignments from "../../util/assert-no-assignments";
+const IDENTIFIERS = new WeakMap<t.NodePath<t.MarkoTag>, t.Identifier>();
 
-export = function transform(tag: t.NodePath<t.MarkoTag>) {
-  const tagVar = tag.node.var! as t.Identifier;
-  const body = tag.node.body;
-  const errorMessage = tag.node.attributes.length
-    ? "does not support attributes"
-    : !tagVar
-    ? "requires a tag variable"
-    : !t.isIdentifier(tagVar)
-    ? "cannot have a destructured tag variable"
-    : tag.node.arguments
-    ? "does not support arguments"
-    : !body.body.length
-    ? "requires body content"
-    : undefined;
+export = {
+  enter(tag: t.NodePath<t.MarkoTag>) {
+    const tagVar = tag.node.var! as t.Identifier;
+    const body = tag.node.body;
+    const errorMessage = tag.node.attributes.length
+      ? "does not support attributes"
+      : !tagVar
+      ? "requires a tag variable"
+      : !t.isIdentifier(tagVar)
+      ? "cannot have a destructured tag variable"
+      : tag.node.arguments
+      ? "does not support arguments"
+      : !body.body.length
+      ? "requires body content"
+      : undefined;
 
-  if (errorMessage) {
-    throw tag.get("name").buildCodeFrameError(`The <tag> tag ${errorMessage}.`);
-  }
+    if (errorMessage) {
+      throw tag
+        .get("name")
+        .buildCodeFrameError(`The <tag> tag ${errorMessage}.`);
+    }
 
-  assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
+    assertNoAssignments(tag.get("var") as t.NodePath<t.PatternLike>);
 
-  tag.replaceWith(
-    t.functionDeclaration(
-      tagVar,
-      [t.identifier("out"), ...body.params],
-      t.blockStatement(body.body)
-    )
-  );
+    // We must clear the var to avoid the default translator complaining
+    // but we store it in a weakmap so we can read on exit.
+    IDENTIFIERS.set(tag, tagVar);
+    tag.node.var = null;
+  },
+  exit(tag: t.NodePath<t.MarkoTag>) {
+    tag.replaceWith(
+      t.functionDeclaration(
+        IDENTIFIERS.get(tag)!,
+        [t.identifier("out"), ...tag.node.body.params],
+        t.blockStatement(tag.node.body.body)
+      )
+    );
+  },
 };

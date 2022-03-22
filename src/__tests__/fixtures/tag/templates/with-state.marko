@@ -1,0 +1,23 @@
+<attrs/{ items }/>
+
+<tag/item|{ label, items }|>
+  <let/isChecked = false/>
+  <li>
+    <input type="checkbox" checked:=isChecked>
+    ${label}
+
+    <if=items>
+      <ul>
+        <for|value| of=items>
+            <item ...value />
+        </for>
+      </ul>
+    </if>
+  </li>
+</tag>
+
+<ul>
+  <for|value| of=items>
+    <item ...value />
+  </for>
+</ul>
