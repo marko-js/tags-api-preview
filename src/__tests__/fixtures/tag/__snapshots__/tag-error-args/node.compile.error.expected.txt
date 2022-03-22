@@ -1,4 +1,4 @@
-src/__tests__/fixtures/tag/templates/error-args.marko(1,2): The <tag> tag does not support attributes.
+src/__tests__/fixtures/tag/templates/error-args.marko(1,2): The <tag> tag does not support arguments.
 > 1 | <tag(y)/myTag|{ name }|>
     |  ^^^
   2 |   <div>Hello ${name}</div>

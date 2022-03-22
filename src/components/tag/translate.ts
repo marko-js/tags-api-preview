@@ -6,14 +6,14 @@ export = {
   enter(tag: t.NodePath<t.MarkoTag>) {
     const tagVar = tag.node.var! as t.Identifier;
     const body = tag.node.body;
-    const errorMessage = tag.node.attributes.length
+    const errorMessage = tag.node.arguments
+      ? "does not support arguments"
+      : tag.node.attributes.length
       ? "does not support attributes"
       : !tagVar
       ? "requires a tag variable"
       : !t.isIdentifier(tagVar)
       ? "cannot have a destructured tag variable"
-      : tag.node.arguments
-      ? "does not support arguments"
       : !body.body.length
       ? "requires body content"
       : undefined;
