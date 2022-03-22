@@ -38,7 +38,10 @@ export default async function trySnapshot(
           .catch(noop);
 
         try {
-          assert.strictEqual(data, expected);
+          assert.strictEqual(
+            normalizeWindowsStuff(data),
+            normalizeWindowsStuff(expected)
+          );
         } catch (err) {
           await fs.promises.writeFile(actualFile, data, "utf-8");
           (err as Error).message = path.relative(process.cwd(), actualFile);
@@ -95,7 +98,7 @@ function ensureNoErrors() {
   }
 }
 
-function format(data: any) {
+function format(data: any): string {
   if (data) {
     if ("nodeType" in data) {
       return defaultSerializer(defaultNormalizer(data));
@@ -108,6 +111,10 @@ function format(data: any) {
   }
 
   return JSON.stringify(data);
+}
+
+function normalizeWindowsStuff(data: string | void) {
+  return data ? data.replace(/\r/g, "").replace(/\\/g, "/") : data;
 }
 
 function noop() {}
