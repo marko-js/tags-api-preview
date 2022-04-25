@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import mocha from "mocha";
 import * as chai from "chai";
@@ -6,16 +7,37 @@ import sinonPlugin from "sinon-chai";
 import promisePlugin from "chai-as-promised";
 import createBrowser from "jsdom-context-require";
 import register from "@marko/compiler/register";
+import { patchRequire, patchFs } from "fs-monkey";
+import { fs as vfs } from "memfs";
+import { ufs } from "unionfs";
 import type * as Testing from "@marko/testing-library";
 import type FireEvent from "./fire-event";
 import { VirtualConsole } from "jsdom";
 import trySnapshot, { trackError } from "./snapshot";
 
+ufs.use({ ...fs }).use(vfs as any);
+
+require.extensions[".css"] = () => {};
+require.extensions[".less"] = () => {};
+patchFs(ufs);
+patchRequire(ufs);
 chai.use(domPlugin);
 chai.use(sinonPlugin);
 chai.use(promisePlugin);
 
-register({ meta: true, optimize: false } as any);
+const resolveVirtualDependency: import("@marko/compiler").Config["resolveVirtualDependency"] =
+  (filename, { virtualPath, code }) => {
+    const dir = path.resolve(filename, "..");
+    vfs.mkdirpSync(dir);
+    vfs.writeFileSync(path.resolve(dir, virtualPath), code);
+    return virtualPath;
+  };
+
+register({
+  meta: true,
+  optimize: false,
+  resolveVirtualDependency,
+} as any);
 
 const browser = createBrowser({
   dir: __dirname,
@@ -23,6 +45,7 @@ const browser = createBrowser({
     extensions: { ...require.extensions },
     optimize: false,
     output: "dom",
+    resolveVirtualDependency,
   }),
   virtualConsole: new VirtualConsole().sendTo(console, {
     omitJSDOMErrors: true,
