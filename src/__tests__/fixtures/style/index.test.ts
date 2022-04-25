@@ -24,6 +24,8 @@ describe("<style> basic", () => {
   });
 });
 
+describe("<style> module", fixture("./templates/module.marko"));
+
 describe("<style> custom lang", () => {
   fixture("./templates/custom-lang.marko")();
 
@@ -81,5 +83,3 @@ describe(
   "<style> error no content",
   fixture("./templates/error-no-content.marko")
 );
-
-describe("<style> error tag var", fixture("./templates/error-tag-var.marko"));
