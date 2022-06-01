@@ -1,11 +1,5 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
-  "changelog": [
-    "@changesets/changelog-github",
-    {
-      "repo": "marko-js/tags-api-preview"
-    }
-  ],
   "updateInternalDependencies": "patch",
   "baseBranch": "main",
   "access": "public",

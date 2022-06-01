@@ -8,7 +8,6 @@
     "magic-string": "^0.26.1"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
     "@marko/compiler": "^5.21.3",
     "@marko/fixture-snapshots": "^2.1.7",
@@ -77,9 +76,8 @@
     "lint:eslint": "eslint -f visualstudio .",
     "lint:prettier": "prettier \"./**/*{.ts,.js,.json,.md,.yml,rc}\"",
     "mocha": "cross-env NODE_ENV=test mocha \"./src/**/__tests__/**/*.test.ts\"",
-    "postpublish": "tsx publish.mts post",
     "prepare": "husky install",
-    "publish": "npm run build && tsx publish.mts pre && changeset publish",
+    "publish": "npm run build && tsx publish.mts pre && changeset publish && tsx publish.mts post",
     "report": "open ./coverage/lcov-report/index.html",
     "test": "npm run mocha -- --watch",
     "test:inspect": "npm test -- --inspect",
