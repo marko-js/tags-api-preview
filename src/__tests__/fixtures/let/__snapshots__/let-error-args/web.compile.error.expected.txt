@@ -1,4 +1,4 @@
-src/__tests__/fixtures/let/templates/error-args.marko(1,2): The <let> tag does not support the "/count=0" attribute.
+src/__tests__/fixtures/let/templates/error-args.marko(1,2): The <let> tag does not support arguments.
 > 1 | <let(y)/count=0/>
     |  ^^^
   2 | <div>${count}</div>

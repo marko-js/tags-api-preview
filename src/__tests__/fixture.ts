@@ -52,8 +52,8 @@ const browser = createBrowser({
   }),
 } as any);
 
-browser.window.onerror = trackError as any;
-browser.window.onunhandledrejection = trackError as any;
+browser.window.onerror = trackError;
+browser.window.onunhandledrejection = trackError;
 process.on("uncaughtException", trackError);
 process.on("unhandledRejection", trackError);
 

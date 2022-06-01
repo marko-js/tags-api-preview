@@ -83,8 +83,14 @@ export default async function trySnapshot(
   }
 }
 
-export function trackError(err: string | Error) {
-  relatedErrors.push(typeof err === "string" ? new Error(err) : err);
+export function trackError(err: string | Error | Event) {
+  relatedErrors.push(
+    typeof err === "string"
+      ? new Error(err)
+      : (err as ErrorEvent).type === "error"
+      ? (err as ErrorEvent).error
+      : (err as Error)
+  );
 }
 
 function ensureNoErrors() {

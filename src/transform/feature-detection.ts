@@ -1,5 +1,5 @@
 import { getTagDef, isDynamicTag } from "@marko/babel-utils";
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import { taglibId } from "../util/taglib-id";
 import { buildAggregateError } from "../util/build-aggregate-error";
 
@@ -53,7 +53,7 @@ const featureDetectionVisitor = {
             state,
             "class",
             "Attribute arguments",
-            attr.get("arguments")[0]
+            (attr.get("arguments") as t.NodePath<t.Expression>[])[0]
           );
           break;
         } else if (attr.node.modifier) {

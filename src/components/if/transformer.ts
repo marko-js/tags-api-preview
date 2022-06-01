@@ -1,4 +1,4 @@
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
 

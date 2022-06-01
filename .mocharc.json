@@ -3,5 +3,5 @@
   "extension": ["js", "ts"],
   "enable-source-maps": true,
   "watchFiles": ["src/**/*.ts", "src/**/*.marko"],
-  "require": ["esbuild-register"]
+  "require": ["tsx"]
 }
