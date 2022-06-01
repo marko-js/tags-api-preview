@@ -1,4 +1,4 @@
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import replaceAssignments from "../../util/replace-assignments/transform";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {

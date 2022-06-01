@@ -1,5 +1,5 @@
 export = function hoist(
-  owner: any,
+  _owner: any,
   name: string,
   hoister: (val: unknown) => void
 ) {

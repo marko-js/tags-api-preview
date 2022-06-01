@@ -1,6 +1,7 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
+    "rootDir": "src",
     "lib": ["dom", "ESNext", "scripthost"],
     "strict": true,
     "outDir": "dist",
@@ -10,11 +11,19 @@
     "incremental": true,
     "module": "CommonJS",
     "stripInternal": true,
+    "noUnusedLocals": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "preserveConstEnums": true,
+    "noUnusedParameters": true,
+    "allowUnusedLabels": false,
+    "noImplicitReturns": false,
+    "noImplicitOverride": true,
     "emitDeclarationOnly": true,
+    "allowUnreachableCode": false,
+    "importsNotUsedAsValues": "error",
+    "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   }

@@ -1,4 +1,4 @@
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import { getTagDef } from "@marko/babel-utils";
 import { taglibId } from "../util/taglib-id";
 export default function isCoreTag(

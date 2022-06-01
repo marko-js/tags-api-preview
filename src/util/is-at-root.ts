@@ -1,4 +1,4 @@
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import isCoreTag from "./is-core-tag";
 
 export default function isAtRoot(tag: t.NodePath<t.MarkoTag>): boolean {

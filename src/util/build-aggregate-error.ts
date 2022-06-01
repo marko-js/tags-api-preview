@@ -1,5 +1,5 @@
 import path from "path";
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import { codeFrameColumns } from "@babel/code-frame";
 const CWD = process.cwd();
 

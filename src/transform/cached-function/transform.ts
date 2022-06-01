@@ -1,6 +1,5 @@
 import { importNamed, isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
-import { Visitor } from "@marko/compiler/babel-types";
 import { ensureLifecycle } from "../wrapper-component";
 import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
@@ -48,8 +47,8 @@ const depsVisitor = {
         }
       }
     }
-  }) as Visitor<DepsVisitorState>["Identifier"],
-} as Visitor<DepsVisitorState>;
+  }) as t.Visitor<DepsVisitorState>["Identifier"],
+} as t.Visitor<DepsVisitorState>;
 
 export default {
   Function(fn) {
@@ -87,7 +86,7 @@ export default {
       );
     }
   },
-} as Visitor;
+} as t.Visitor;
 
 function toIdentifier(val: string) {
   return t.identifier(val);

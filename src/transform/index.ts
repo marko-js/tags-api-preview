@@ -1,4 +1,4 @@
-import { types as t } from "@marko/compiler";
+import type { types as t } from "@marko/compiler";
 import wrapperComponent from "./wrapper-component";
 import cachedFunction from "./cached-function/transform";
 import nativeTagVar from "./native-tag-var/transform";
