@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.5.4
+
+### Patch Changes
+
+- e7c77b3: Allow missing default attribute for let tag.
+
 ## 0.5.3
 
 ### Patch Changes
