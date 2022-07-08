@@ -125,6 +125,8 @@ describe(
   ])
 );
 
+describe("<let> no default attr", fixture("./templates/no-default-attr.marko"));
+
 describe("<let> error args", fixture("./templates/error-args.marko"));
 
 describe(
@@ -145,11 +147,6 @@ describe(
 describe(
   "<let> error extra attr",
   fixture("./templates/error-extra-attr.marko")
-);
-
-describe(
-  "<let> error no default attr",
-  fixture("./templates/error-no-default-attr.marko")
 );
 
 describe(

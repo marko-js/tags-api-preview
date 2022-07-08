@@ -7,7 +7,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
   const server = file.markoOpts.output === "html";
   const tagVar = tag.node.var as t.Identifier;
-  let defaultAttr!: t.NodePath<t.MarkoAttribute>;
+  let defaultAttr: t.NodePath<t.MarkoAttribute> | undefined;
   let changeAttr: t.NodePath<t.MarkoAttribute> | undefined;
   let errorMessage: string | undefined;
 
@@ -33,8 +33,6 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       ? "requires a tag variable"
       : !t.isIdentifier(tagVar)
       ? "tag variable cannot be destructured"
-      : !defaultAttr
-      ? "must be initialized with a value"
       : tag.node.body.body.length
       ? "does not support body content"
       : tag.node.body.params.length
@@ -48,13 +46,16 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   }
 
   file.path.scope.crawl();
+  const defaultValue = defaultAttr
+    ? defaultAttr.node.value
+    : t.unaryExpression("void", t.numericLiteral(0));
   const binding = tag.scope.getBinding(tagVar.name)!;
 
   if (server) {
     file.path.scope.crawl();
     tag.replaceWith(
       t.variableDeclaration("const", [
-        t.variableDeclarator(tagVar, deepFreeze(file, defaultAttr.node.value)),
+        t.variableDeclarator(tagVar, deepFreeze(file, defaultValue)),
       ])
     );
   } else {
@@ -67,7 +68,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       t.assignmentExpression(
         "=",
         t.memberExpression(meta.state, keyString, true),
-        deepFreeze(file, defaultAttr.node.value)
+        deepFreeze(file, defaultValue)
       )
     );
 
@@ -82,7 +83,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
 
       if (t.isFunction(changeAttr.node.value)) {
         setFnId = changeFnId;
-        decls.push(t.variableDeclarator(tagVar, defaultAttr.node.value));
+        decls.push(t.variableDeclarator(tagVar, defaultValue));
       } else {
         setFnId = tag.scope.generateUidIdentifier(`${tagVar.name}Set`);
         decls.push(
@@ -102,11 +103,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
           ),
           t.variableDeclarator(
             tagVar,
-            t.conditionalExpression(
-              changeFnId,
-              defaultAttr.node.value,
-              getStateExpr
-            )
+            t.conditionalExpression(changeFnId, defaultValue, getStateExpr)
           )
         );
       }
