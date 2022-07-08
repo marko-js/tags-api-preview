@@ -1,5 +1,0 @@
-src/__tests__/fixtures/let/templates/error-no-default-attr.marko(1,2): The <let> tag must be initialized with a value.
-> 1 | <let/count/>
-    |  ^^^
-  2 | <div>${count}</div>
-  3 |
