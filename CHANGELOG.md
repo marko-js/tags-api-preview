@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.5.5
+
+### Patch Changes
+
+- 4029122: Fix issue where `_return` (used internally) was not registered as a taglib attribute
+
 ## 0.5.4
 
 ### Patch Changes
