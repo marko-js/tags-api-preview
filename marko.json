@@ -2,5 +2,10 @@
   "taglibId": "@marko/tags-api-preview",
   "tagsDir": "./src/components",
   "transform": "./src/transform",
-  "translate": "./src/translate"
+  "translate": "./src/translate",
+  "attributes": {
+    "_return": {
+      "type": "expression"
+    }
+  }
 }
