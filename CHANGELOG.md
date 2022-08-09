@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.5.6
+
+### Patch Changes
+
+- 95a14eb: Fix issue when loading the compiler hooks from native esm by avoiding \_\_dirname.
+
 ## 0.5.5
 
 ### Patch Changes
