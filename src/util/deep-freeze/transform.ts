@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importDefault } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../../util/import-runtime";
 
 export default (file: t.BabelFile, value: t.Expression) => {
   if (
@@ -11,5 +11,8 @@ export default (file: t.BabelFile, value: t.Expression) => {
     return value;
   }
 
-  return t.callExpression(importDefault(file, __dirname, "freeze"), [value]);
+  return t.callExpression(
+    importRuntimeDefault(file, "util/deep-freeze", "freeze"),
+    [value]
+  );
 };

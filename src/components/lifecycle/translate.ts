@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importDefault } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../../util/import-runtime";
 const supportedAttrNames = new Set(["onMount", "onUpdate", "onDestroy"]);
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
@@ -51,10 +51,13 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
 
   tag.replaceWith(
     t.expressionStatement(
-      t.callExpression(importDefault(file, __dirname, "lifecycle"), [
-        (file as any)._componentInstanceIdentifier,
-        t.objectExpression(properties),
-      ])
+      t.callExpression(
+        importRuntimeDefault(file, "components/lifecycle", "lifecycle"),
+        [
+          (file as any)._componentInstanceIdentifier,
+          t.objectExpression(properties),
+        ]
+      )
     )
   );
 };

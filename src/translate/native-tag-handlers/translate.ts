@@ -1,5 +1,6 @@
 import { types as t } from "@marko/compiler";
-import { isNativeTag, importDefault } from "@marko/babel-utils";
+import { isNativeTag } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../../util/import-runtime";
 import isApi from "../../util/is-api";
 import getAttr from "../../util/get-attr";
 const eventNameReg = /^on[A-Z]/;
@@ -49,7 +50,11 @@ export default {
           "attributes",
           t.markoSpreadAttribute(
             t.callExpression(
-              importDefault(file, __dirname, "extractHandlers"),
+              importRuntimeDefault(
+                file,
+                "translate/native-tag-handlers",
+                "extractHandlers"
+              ),
               isHTML
                 ? [t.objectExpression(properties)]
                 : [

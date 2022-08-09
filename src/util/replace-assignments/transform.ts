@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importDefault } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../../util/import-runtime";
 import deepFreeze from "../deep-freeze/transform";
 
 export default function replaceAssignments(
@@ -41,10 +41,10 @@ export default function replaceAssignments(
         parent.replaceWith(fnExpression);
       } else {
         assignment.replaceWith(
-          t.callExpression(importDefault(file, __dirname, "assign"), [
-            fnExpression,
-            value,
-          ])
+          t.callExpression(
+            importRuntimeDefault(file, "util/replace-assignments", "assign"),
+            [fnExpression, value]
+          )
         );
       }
     }

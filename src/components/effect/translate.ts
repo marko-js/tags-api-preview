@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importDefault } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../../util/import-runtime";
 import getAttr from "../../util/get-attr";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
@@ -33,10 +33,13 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
 
   tag.replaceWith(
     t.expressionStatement(
-      t.callExpression(importDefault(file, __dirname, "effect"), [
-        (file as any)._componentInstanceIdentifier,
-        getAttr(tag, "default")!.node.value,
-      ])
+      t.callExpression(
+        importRuntimeDefault(file, "components/effect", "effect"),
+        [
+          (file as any)._componentInstanceIdentifier,
+          getAttr(tag, "default")!.node.value,
+        ]
+      )
     )
   );
 };

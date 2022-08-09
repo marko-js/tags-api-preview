@@ -1,15 +1,12 @@
-import path from "path";
 import { types as t } from "@marko/compiler";
 import {
   isNativeTag,
   isDynamicTag,
   isAttributeTag,
   getTagDef,
-  importDefault,
 } from "@marko/babel-utils";
+import { importRuntimeDefault } from "../util/import-runtime";
 import { closest } from "./wrapper-component";
-
-const returnRuntimePath = path.join(__dirname, "../components/return");
 
 export default {
   MarkoTag: {
@@ -39,7 +36,11 @@ export default {
             t.variableDeclarator(
               returnValueId,
               t.callExpression(
-                importDefault(tag.hub.file, returnRuntimePath, "return"),
+                importRuntimeDefault(
+                  tag.hub.file,
+                  "components/return",
+                  "return"
+                ),
                 [meta.component]
               )
             ),
