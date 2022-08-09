@@ -1,9 +1,10 @@
-import { importNamed, isNativeTag, isDynamicTag } from "@marko/babel-utils";
+import { isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import { types as t } from "@marko/compiler";
-import { ensureLifecycle } from "../wrapper-component";
+import { importRuntimeNamed } from "../../util/import-runtime";
 import isCoreTag from "../../util/is-core-tag";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
+import { ensureLifecycle } from "../wrapper-component";
 type DepsVisitorState =
   | { root: t.NodePath; shallow?: undefined; deps?: Set<string> }
   | { root: t.NodePath; shallow: true; deps?: true };
@@ -73,16 +74,22 @@ export default {
       )!;
 
       fn.replaceWith(
-        t.callExpression(importNamed(file, __dirname, "cache"), [
-          t.logicalExpression(
-            "||",
-            t.callExpression(importNamed(file, __dirname, "cached"), [
-              component,
-              t.arrayExpression(Array.from(state.deps, toIdentifier)),
-            ]),
-            fn.node
-          ),
-        ])
+        t.callExpression(
+          importRuntimeNamed(file, "transform/cached-function", "cache"),
+          [
+            t.logicalExpression(
+              "||",
+              t.callExpression(
+                importRuntimeNamed(file, "transform/cached-function", "cached"),
+                [
+                  component,
+                  t.arrayExpression(Array.from(state.deps, toIdentifier)),
+                ]
+              ),
+              fn.node
+            ),
+          ]
+        )
       );
     }
   },

@@ -1,7 +1,8 @@
 import { types as t } from "@marko/compiler";
-import { importDefault, isNativeTag } from "@marko/babel-utils";
-import { closest } from "../wrapper-component";
+import { isNativeTag } from "@marko/babel-utils";
 import isCoreTag from "../../util/is-core-tag";
+import { importRuntimeDefault } from "../../util/import-runtime";
+import { closest } from "../wrapper-component";
 
 type RootNodePath = t.NodePath<t.Program> | t.NodePath<t.MarkoTagBody>;
 
@@ -81,18 +82,25 @@ export default {
             hoistedDeclarators.push(
               t.variableDeclarator(
                 hoistedId,
-                t.callExpression(importDefault(file, __dirname, "hoist"), [
-                  closest(binding.scope.path as RootNodePath)!.component,
-                  t.stringLiteral(name),
-                  t.arrowFunctionExpression(
-                    [t.identifier("_")],
-                    t.assignmentExpression(
-                      "=",
-                      binding.identifier,
-                      t.identifier("_")
-                    )
+                t.callExpression(
+                  importRuntimeDefault(
+                    file,
+                    "transform/hoist-tag-vars",
+                    "hoist"
                   ),
-                ])
+                  [
+                    closest(binding.scope.path as RootNodePath)!.component,
+                    t.stringLiteral(name),
+                    t.arrowFunctionExpression(
+                      [t.identifier("_")],
+                      t.assignmentExpression(
+                        "=",
+                        binding.identifier,
+                        t.identifier("_")
+                      )
+                    ),
+                  ]
+                )
               )
             );
             initializers.push(

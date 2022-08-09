@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { importNamed } from "@marko/babel-utils";
+import { importRuntimeNamed } from "../../util/import-runtime";
 import isApi from "../../util/is-api";
 
 export default {
@@ -12,14 +12,20 @@ export default {
         ._renderBlock as t.NodePath<t.BlockStatement>;
       renderBlock.node.body = [
         t.expressionStatement(
-          t.callExpression(importNamed(file, __dirname, "begin"), [])
+          t.callExpression(
+            importRuntimeNamed(file, "translate/track-rendering", "begin"),
+            []
+          )
         ),
         t.tryStatement(
           t.blockStatement(renderBlock.node.body),
           null,
           t.blockStatement([
             t.expressionStatement(
-              t.callExpression(importNamed(file, __dirname, "end"), [])
+              t.callExpression(
+                importRuntimeNamed(file, "translate/track-rendering", "end"),
+                []
+              )
             ),
           ])
         ),

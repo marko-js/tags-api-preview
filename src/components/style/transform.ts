@@ -1,7 +1,7 @@
 import path from "path";
 import MagicString, { SourceMap } from "magic-string";
 import { types as t, Config } from "@marko/compiler";
-import { importDefault, resolveRelativePath } from "@marko/babel-utils";
+import { resolveRelativePath, importDefault } from "@marko/babel-utils";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
 
@@ -58,7 +58,11 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
   const styleIndex = styleIndexes.get(file) || 0;
   const base = path.basename(filename);
   const text = node.body.body[0] as t.MarkoText;
-  const virtualPath = `./${base + (styleIndex ? `.${styleIndex}` : "") + type}`;
+  const virtualPath = `./${
+    base +
+    (styleIndex ? `.${styleIndex}` : "") +
+    (node.var ? `.module.${type}` : type)
+  }`;
   let code = text.value;
   styleIndexes.set(file, styleIndex + 1);
 

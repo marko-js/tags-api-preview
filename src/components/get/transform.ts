@@ -1,6 +1,6 @@
 import path from "path";
 import { types as t } from "@marko/compiler";
-import * as utils from "@marko/babel-utils";
+import { getTagDefForTagName, importDefault } from "@marko/babel-utils";
 import getAttr from "../../util/get-attr";
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
@@ -51,18 +51,18 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   if (t.isStringLiteral(fromValue)) {
     const literalValue = fromValue.value;
     if (literalValue === ".") {
-      fromValue = utils.importDefault(
+      fromValue = importDefault(
         file,
         `./${path.basename(file.opts.sourceFileName as string)}`,
         "context"
       );
     } else if (literalValue.includes("/")) {
-      fromValue = utils.importDefault(file, literalValue, "context");
+      fromValue = importDefault(file, literalValue, "context");
     } else {
-      const fromTag = utils.getTagDefForTagName(file, literalValue);
+      const fromTag = getTagDefForTagName(file, literalValue);
 
       if (fromTag) {
-        fromValue = utils.importDefault(file, `<${literalValue}>`, "context");
+        fromValue = importDefault(file, `<${literalValue}>`, "context");
       } else {
         throw defaultAttr.buildCodeFrameError(
           `<get> could not find provider matching "${literalValue}".`

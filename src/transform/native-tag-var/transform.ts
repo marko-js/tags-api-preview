@@ -1,7 +1,8 @@
 import { types as t } from "@marko/compiler";
-import { importDefault, isNativeTag, isDynamicTag } from "@marko/babel-utils";
-import { closest } from "../wrapper-component";
+import { isNativeTag, isDynamicTag } from "@marko/babel-utils";
 import isCoreTag from "../../util/is-core-tag";
+import { importRuntimeDefault } from "../../util/import-runtime";
+import { closest } from "../wrapper-component";
 
 export default {
   MarkoTag: {
@@ -36,10 +37,14 @@ export default {
           t.variableDeclaration("const", [
             t.variableDeclarator(
               tagVar,
-              t.callExpression(importDefault(file, __dirname, "createRef"), [
-                meta.component,
-                keyString,
-              ])
+              t.callExpression(
+                importRuntimeDefault(
+                  file,
+                  "transform/native-tag-var",
+                  "createRef"
+                ),
+                [meta.component, keyString]
+              )
             ),
           ]),
         ])

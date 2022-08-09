@@ -1,6 +1,6 @@
 import path from "path";
 import { types as t } from "@marko/compiler";
-import * as utils from "@marko/babel-utils";
+import { importDefault } from "@marko/babel-utils";
 
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;
@@ -41,7 +41,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
     "attributes",
     t.markoAttribute(
       "___from",
-      utils.importDefault(
+      importDefault(
         file,
         `./${path.basename(file.opts.sourceFileName as string)}`,
         "context"
