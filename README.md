@@ -38,7 +38,7 @@ You can use "tags api" templates along side your existing "class api" templates.
 # Example
 
 ```marko
-<let/count=0>
+<let/count=0/>
 
 <div>${count}</div>
 <button onClick() { count++ }>
