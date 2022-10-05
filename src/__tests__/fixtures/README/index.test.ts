@@ -2,45 +2,95 @@ import * as fs from "fs";
 import * as path from "path";
 import fixture from "../../fixture";
 
+//
+// this fixture extracts all ```marko code blocks from markdown into temporary templates in order to detect compilation failure
+//
+// you may temporarily add scripts to your package.json for easier hacking on this file:
+//
+//  "scripts": {
+//    "readme-test-update": "cross-env NODE_ENV=test mocha ./src/**/__tests__/**/readme/*.test.ts --update",
+//    "readme-test": "cross-env NODE_ENV=test mocha ./src/**/__tests__/**/readme/*.test.ts",
+//    ...
+//  }
+//
+// or run those same commands using `npx` directly on the command line
+//
+
 const UPDATE =
   process.env.UPDATE_SNAPSHOTS || process.argv.includes("--update");
 
-const extractedExample = fs
-  .readFileSync(path.resolve(__dirname, "../../../../README.md"), "utf-8")
-  .split(
-    `# Example
+// this variable may be useful if in the future we want to update this fixture to check more than just the README markdown file
+const testSlug = "README-fenced-code-blocks";
+const testDescription = testSlug.replace(/-/g, " ");
 
-\`\`\`marko
-`
-  )
-  .pop()
-  .split("```")[0];
+const templateSlug = testSlug.slice(0, -1);
+const templateDescription = templateSlug.replace(/-/g, " ");
 
-fs.writeFileSync(
-  path.resolve(__dirname, "templates/README-example.marko"),
-  extractedExample
-);
+const templateDirpath = path.join(__dirname, "templates");
+const templateFilename = (index) => `${templateSlug}-${index}.marko`;
 
-const snapshotDir = path.resolve(__dirname, "__snapshots__/README-example");
+const readmeFilepath = path.resolve(__dirname, "../../../../README.md");
+const readmeContents = fs.readFileSync(readmeFilepath, "utf-8");
 
+const fencedCodeBlockRegExp = new RegExp(/(?<=```marko)([\s\S]+?)(?=```\n)/g);
+const extractedCodeBlocks = readmeContents.match(fencedCodeBlockRegExp);
+
+const snapshotDirpath = path.join(__dirname, "__snapshots__", testSlug);
 const errorFiles = [
   "node.compile.error.expected.txt",
   "web.compile.error.expected.txt",
-].map((filename) => path.join(snapshotDir, filename));
+];
+
+const templates = [];
+
+// clear out any old template files generated on the previous run
+fs.rmSync(templateDirpath, { force: true });
+fs.mkdirSync(templateDirpath);
+
+// generate new temporary tamplate files based on extracted code blocks
+extractedCodeBlocks.forEach((extractedCodeBlock, index) => {
+  const templateFilepath = path.join(templateDirpath, templateFilename(index));
+
+  fs.writeFileSync(templateFilepath, extractedCodeBlock);
+
+  templates.push({
+    slug: `${templateSlug}-${index}`,
+    description: `${templateDescription} ${index}`,
+    filename: templateFilename(index),
+    filepath: templateFilepath,
+    code: extractedCodeBlock,
+  });
+});
 
 if (UPDATE) {
-  errorFiles.forEach(
-    (filepath) => fs.existsSync(filepath) && fs.unlinkSync(filepath)
-  );
+  // clear out any potential error files left over from any previous snapshot update
+  fs.rmSync(snapshotDirpath, { force: true });
+  fs.mkdirSync(snapshotDirpath);
 } else {
-  errorFiles.forEach((filepath) => {
-    if (fs.existsSync(filepath)) {
-      throw new Error(`Example from README.md did not compile without generating an error file:
+  // throw an error if any error files have appeared in the snapshot directory for the respective code block template
+  // (this means the extracted code block does not compile and needs to be updated/fixed in the source markdown file)
+  templates.forEach((template) => {
+    errorFiles.forEach((errorFile) => {
+      const filepath = path.join(snapshotDirpath, template.slug, errorFile);
+      if (fs.existsSync(filepath)) {
+        throw new Error(`The markdown marko fenced code block:
+  ${template.code}
+found in:
+  ${readmeFilepath}
+did not compile without generating an error file:
   ${filepath}
 with contents:
   ${fs.readFileSync(filepath, "utf-8")}`);
-    }
+      }
+    });
   });
 }
 
-describe("README example", fixture("./templates/README-example.marko"));
+describe(testDescription, () => {
+  templates.forEach((template) => {
+    describe(
+      template.description,
+      fixture(path.join("templates", template.filename))
+    );
+  });
+});
