@@ -35,14 +35,23 @@ npm install @marko/tags-api-preview
 After installing the `tags-api-preview` in your project, you can immediately start using new tags and features.
 You can use "tags api" templates along side your existing "class api" templates. A [set of heuristics](#heuristics) is used to determine if the "tags api" should be enabled.
 
-# Example
+# Examples
 
 ```marko
-<let/count=0/>
+<let/count=0 />
 
 <div>${count}</div>
 <button onClick() { count++ }>
   Click me!
+</button>
+```
+
+```marko
+<let/count=0 />
+<effect() { document.title = `You clicked ${count} times` } />
+
+<button onClick() { count++ }>
+  Click me
 </button>
 ```
 
