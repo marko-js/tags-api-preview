@@ -27,13 +27,14 @@ const templateSlug = testSlug.slice(0, -1);
 const templateDescription = templateSlug.replace(/-/g, " ");
 
 const templateDirpath = path.join(__dirname, "templates");
-const templateFilename = (index) => `${templateSlug}-${index}.marko`;
+const templateFilename = (index: string | number) =>
+  `${templateSlug}-${index}.marko`;
 
 const readmeFilepath = path.resolve(__dirname, "../../../../README.md");
 const readmeContents = fs.readFileSync(readmeFilepath, "utf-8");
 
 const fencedCodeBlockRegExp = new RegExp(/(?<=```marko)([\s\S]+?)(?=```\n)/g);
-const extractedCodeBlocks = readmeContents.match(fencedCodeBlockRegExp);
+const extractedCodeBlocks = readmeContents.match(fencedCodeBlockRegExp)!;
 
 const snapshotDirpath = path.join(__dirname, "__snapshots__", testSlug);
 const errorFilenames = [
@@ -41,7 +42,7 @@ const errorFilenames = [
   "web.compile.error.expected.txt",
 ];
 
-const templates = [];
+const templates: any[] = [];
 
 // clear out any old template files generated on the previous run
 fs.rmSync(templateDirpath, { force: true, recursive: true });
