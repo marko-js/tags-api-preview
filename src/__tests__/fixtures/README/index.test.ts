@@ -36,7 +36,7 @@ const fencedCodeBlockRegExp = new RegExp(/(?<=```marko)([\s\S]+?)(?=```\n)/g);
 const extractedCodeBlocks = readmeContents.match(fencedCodeBlockRegExp);
 
 const snapshotDirpath = path.join(__dirname, "__snapshots__", testSlug);
-const errorFiles = [
+const errorFilenames = [
   "node.compile.error.expected.txt",
   "web.compile.error.expected.txt",
 ];
@@ -44,7 +44,7 @@ const errorFiles = [
 const templates = [];
 
 // clear out any old template files generated on the previous run
-fs.rmSync(templateDirpath, { force: true });
+fs.rmSync(templateDirpath, { force: true, recursive: true });
 fs.mkdirSync(templateDirpath);
 
 // generate new temporary tamplate files based on extracted code blocks
@@ -64,14 +64,14 @@ extractedCodeBlocks.forEach((extractedCodeBlock, index) => {
 
 if (UPDATE) {
   // clear out any potential error files left over from any previous snapshot update
-  fs.rmSync(snapshotDirpath, { force: true });
+  fs.rmSync(snapshotDirpath, { force: true, recursive: true });
   fs.mkdirSync(snapshotDirpath);
 } else {
   // throw an error if any error files have appeared in the snapshot directory for the respective code block template
   // (this means the extracted code block does not compile and needs to be updated/fixed in the source markdown file)
   templates.forEach((template) => {
-    errorFiles.forEach((errorFile) => {
-      const filepath = path.join(snapshotDirpath, template.slug, errorFile);
+    errorFilenames.forEach((errorFilename) => {
+      const filepath = path.join(snapshotDirpath, template.slug, errorFilename);
       if (fs.existsSync(filepath)) {
         throw new Error(`The markdown marko fenced code block:
   ${template.code}
