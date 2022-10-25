@@ -1,0 +1,10 @@
+<attrs/{ onMount, onCleanup }/>
+<let/count=0/>
+
+<span>Value: ${count}</span>
+<button onClick=(() => count++)>increment</button>
+
+<effect=(() => {
+  onMount();
+  return onCleanup;
+})/>

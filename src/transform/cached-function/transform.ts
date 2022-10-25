@@ -67,31 +67,29 @@ export default {
     fn.skip();
     fn.traverse(depsVisitor, state);
 
-    if (state.deps) {
-      const { file } = fn.hub;
-      const { component } = ensureLifecycle(
-        parentTag as t.NodePath<t.MarkoTag>
-      )!;
+    const { file } = fn.hub;
+    const { component } = ensureLifecycle(parentTag as t.NodePath<t.MarkoTag>)!;
 
-      fn.replaceWith(
-        t.callExpression(
-          importRuntimeNamed(file, "transform/cached-function", "cache"),
-          [
-            t.logicalExpression(
-              "||",
-              t.callExpression(
-                importRuntimeNamed(file, "transform/cached-function", "cached"),
-                [
-                  component,
-                  t.arrayExpression(Array.from(state.deps, toIdentifier)),
-                ]
-              ),
-              fn.node
+    fn.replaceWith(
+      t.callExpression(
+        importRuntimeNamed(file, "transform/cached-function", "cache"),
+        [
+          t.logicalExpression(
+            "||",
+            t.callExpression(
+              importRuntimeNamed(file, "transform/cached-function", "cached"),
+              [
+                component,
+                t.arrayExpression(
+                  state.deps ? Array.from(state.deps, toIdentifier) : []
+                ),
+              ]
             ),
-          ]
-        )
-      );
-    }
+            fn.node
+          ),
+        ]
+      )
+    )[0].skip();
   },
 } as t.Visitor;
 

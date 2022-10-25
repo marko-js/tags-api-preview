@@ -1,6 +1,7 @@
 import { spy, resetHistory } from "sinon";
 import fixture from "../../fixture";
 const onEl = spy();
+const onMount = spy();
 const onCount = spy();
 const onEffect = spy();
 const onCleanup = spy();
@@ -24,6 +25,33 @@ describe(
       expect(onCleanup).has.not.been.called;
 
       cleanup();
+      expect(onCleanup).has.been.calledOnce;
+      resetHistory();
+    },
+  ])
+);
+
+describe(
+  "<effect> no deps",
+  fixture("./templates/no-deps.marko", [
+    { onMount, onCleanup },
+    async ({ expect, screen, rerender, cleanup, fireEvent }) => {
+      expect(onMount).has.been.calledOnce;
+      expect(onCleanup).has.not.been.called;
+      resetHistory();
+
+      await fireEvent.click(screen.getByText("increment"));
+      expect(onMount).has.not.been.called;
+      expect(onCleanup).has.not.been.called;
+      resetHistory();
+
+      await rerender();
+      expect(onMount).has.not.been.called;
+      expect(onCleanup).has.not.been.called;
+      resetHistory();
+
+      cleanup();
+      expect(onMount).has.not.been.called;
       expect(onCleanup).has.been.calledOnce;
       resetHistory();
     },
