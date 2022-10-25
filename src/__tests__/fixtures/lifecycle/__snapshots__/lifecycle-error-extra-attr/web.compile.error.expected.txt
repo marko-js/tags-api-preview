@@ -1,6 +1,6 @@
 src/__tests__/fixtures/lifecycle/templates/error-extra-attr.marko(1,2): The <lifecycle> tag does not support the "y" attribute.
 > 1 | <lifecycle
-    |  ^
+    |  ^^^^^^^^^
   2 |   y=2
   3 |   onMount=(() => {})
   4 |   onUpdate=(() => {})

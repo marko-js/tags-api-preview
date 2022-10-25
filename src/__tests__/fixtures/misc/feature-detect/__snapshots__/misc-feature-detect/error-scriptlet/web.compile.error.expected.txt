@@ -2,7 +2,7 @@ Cannot mix "tags api" and "class api" features:
 
 <!-- use tags --> at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-detect-scriptlet.marko(1,1):
 > 1 | <!-- use tags -->
-    | ^
+    | ^^^^^^^^^^^^^^^^^
   2 |
   3 | $ console.log("hello");
   4 |
@@ -11,5 +11,5 @@ Scriptlet at src/__tests__/fixtures/misc/feature-detect/templates/error-feature-
   1 | <!-- use tags -->
   2 |
 > 3 | $ console.log("hello");
-    |  ^
+    |  ^^^^^^^^^^^^^^^^^^^^^^
   4 |
