@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.5.7
+
+### Patch Changes
+
+- 2cad83d: Fixes an issue where effects with no dependencies were running with each render instead of once.
+
 ## 0.5.6
 
 ### Patch Changes
