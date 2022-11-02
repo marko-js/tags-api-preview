@@ -30,7 +30,7 @@ const featureDetectionVisitor = {
     const name = ref.node.name;
 
     if (
-      (name === "input" || name === "component" || name === "out") &&
+      (name === "component" || name === "out") &&
       !ref.scope.hasBinding(name)
     ) {
       addFeature(state, "class", `${name} template global`, ref);

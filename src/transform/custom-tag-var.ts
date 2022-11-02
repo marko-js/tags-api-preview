@@ -18,7 +18,7 @@ export default {
       const { node } = tag;
       const tagVar = node.var as t.PatternLike;
       const tagVarReplacement = t.objectPattern([
-        t.objectProperty(t.identifier("default"), tagVar),
+        t.objectProperty(t.identifier("value"), tagVar),
       ]);
       const meta = closest(tag.parentPath)!;
       const returnValueId = tag.scope.generateUidIdentifier(

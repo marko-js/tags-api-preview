@@ -5,13 +5,13 @@ import getAttr from "../../util/get-attr";
 export = function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
 
-  const defaultAttr = getAttr(tag, "default")!;
+  const valueAttr = getAttr(tag, "value")!;
   const errorMessage = tag.node.var
     ? "does not support a tag variable"
-    : !defaultAttr
+    : !valueAttr
     ? "must be initialized with a value"
     : tag.node.attributes.length > 1
-    ? "only supports the 'default' attribute"
+    ? "only supports the 'value' attribute"
     : tag.node.body.body.length
     ? "does not support body content"
     : tag.node.body.params.length
@@ -37,7 +37,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
         importRuntimeDefault(file, "components/effect", "effect"),
         [
           (file as any)._componentInstanceIdentifier,
-          getAttr(tag, "default")!.node.value,
+          getAttr(tag, "value")!.node.value,
         ]
       )
     )
