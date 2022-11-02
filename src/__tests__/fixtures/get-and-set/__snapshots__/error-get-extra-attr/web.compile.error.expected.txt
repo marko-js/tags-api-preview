@@ -1,4 +1,4 @@
-src/__tests__/fixtures/get-and-set/templates/error-get-extra-attr.marko(2,4): The <get> tag only supports the 'default' attribute.
+src/__tests__/fixtures/get-and-set/templates/error-get-extra-attr.marko(2,4): The <get> tag only supports the 'value' attribute.
   1 | <set=1>
 > 2 |   <get/val="." y=2/>
     |    ^^^
