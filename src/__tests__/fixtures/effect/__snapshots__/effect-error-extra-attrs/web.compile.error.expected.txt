@@ -1,4 +1,4 @@
-src/__tests__/fixtures/effect/templates/error-extra-attrs.marko(1,2): The <effect> tag only supports the 'default' attribute.
+src/__tests__/fixtures/effect/templates/error-extra-attrs.marko(1,2): The <effect> tag only supports the 'value' attribute.
 > 1 | <effect=(() => {}) y=1/>
     |  ^^^^^^
   2 | <div/>
