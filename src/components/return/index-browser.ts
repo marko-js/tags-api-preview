@@ -43,8 +43,8 @@ function createReturn(component: Component) {
     if (write) {
       if (
         curValue &&
-        (curValue.default !== newVal!.default ||
-          curValue.defaultChange !== newVal!.defaultChange)
+        (curValue.value !== newVal!.value ||
+          curValue.valueChange !== newVal!.valueChange)
       ) {
         component.forceUpdate();
       }

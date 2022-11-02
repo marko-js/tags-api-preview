@@ -1,7 +1,7 @@
 import { spy, resetHistory } from "sinon";
 import fixture from "../../fixture";
 
-const defaultChange = spy();
+const valueChange = spy();
 
 describe(
   "<get> & <set> self reference",
@@ -20,16 +20,16 @@ describe(
 describe(
   "<get> & <set> assign to mutable set",
   fixture("./templates/assign-to-mutable-set.marko", [
-    { defaultChange },
+    { valueChange },
     async ({ expect, screen, rerender, fireEvent }) => {
-      expect(defaultChange).has.not.been.called;
+      expect(valueChange).has.not.been.called;
 
       await fireEvent.click(screen.getByText("increment"));
-      expect(defaultChange).calledOnceWith(2);
+      expect(valueChange).calledOnceWith(2);
       resetHistory();
 
       await rerender();
-      expect(defaultChange).has.not.been.called;
+      expect(valueChange).has.not.been.called;
     },
   ])
 );
@@ -37,16 +37,16 @@ describe(
 describe(
   "<get> & <set> assign to nested mutable set",
   fixture("./templates/assign-to-nested-mutable-set.marko", [
-    { defaultChange },
+    { valueChange },
     async ({ expect, screen, rerender, fireEvent }) => {
-      expect(defaultChange).has.not.been.called;
+      expect(valueChange).has.not.been.called;
 
       await fireEvent.click(screen.getByText("increment"));
-      expect(defaultChange).calledOnceWith(2);
+      expect(valueChange).calledOnceWith(2);
       resetHistory();
 
       await rerender();
-      expect(defaultChange).has.not.been.called;
+      expect(valueChange).has.not.been.called;
     },
   ])
 );
