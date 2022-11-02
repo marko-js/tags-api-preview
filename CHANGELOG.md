@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.5.8
+
+### Patch Changes
+
+- d11e8f7: Pin peerDependency to current version of Marko.
+
 ## 0.5.7
 
 ### Patch Changes
