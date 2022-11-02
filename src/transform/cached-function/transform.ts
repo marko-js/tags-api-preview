@@ -30,7 +30,7 @@ const depsVisitor = {
           const nestedState: DepsVisitorState = state.shallow
             ? state
             : { root: state.root, shallow: true };
-          getAttr(bindingTag, "default")!.traverse(depsVisitor, nestedState);
+          getAttr(bindingTag, "value")!.traverse(depsVisitor, nestedState);
           isDep = !!nestedState.deps;
         } else {
           isDep = true;

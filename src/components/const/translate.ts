@@ -5,13 +5,13 @@ import assertNoAssignments from "../../util/assert-no-assignments";
 
 export = (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
-  const defaultAttr = getAttr(tag, "default")!;
+  const valueAttr = getAttr(tag, "value")!;
   const errorMessage = !tagVar
     ? "requires a tag variable to be assigned to"
-    : !defaultAttr
+    : !valueAttr
     ? "must be initialized with a value"
     : tag.node.attributes.length > 1
-    ? "only supports the 'default' attribute"
+    ? "only supports the 'value' attribute"
     : tag.node.body.body.length
     ? "does not support body content"
     : tag.node.body.params.length
@@ -32,7 +32,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
     t.variableDeclaration("const", [
       t.variableDeclarator(
         tagVar,
-        deepFreeze(tag.hub.file, defaultAttr.node.value)
+        deepFreeze(tag.hub.file, valueAttr.node.value)
       ),
     ])
   );

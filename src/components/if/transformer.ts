@@ -8,15 +8,15 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   if (isApi(tag, "class") || seen.has(tag)) return;
   seen.add(tag);
 
-  const defaultAttr = getAttr(tag, "default")!;
+  const valueAttr = getAttr(tag, "value")!;
   const errorMessage = tag.node.var
     ? "does not support a tag variable"
     : tag.node.arguments?.length
     ? "does not support arguments, the tags api uses '<if=condition>' instead"
-    : !defaultAttr
+    : !valueAttr
     ? "must be given a value"
     : tag.node.attributes.length > 1
-    ? "only supports the 'default' attribute"
+    ? "only supports the 'value' attribute"
     : !tag.node.body.body.length
     ? "requires body content"
     : tag.node.body.params.length
@@ -31,6 +31,6 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
       );
   }
 
-  tag.node.arguments = [defaultAttr.node.value];
+  tag.node.arguments = [valueAttr.node.value];
   tag.node.attributes = [];
 };

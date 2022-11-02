@@ -28,7 +28,7 @@ export default {
       t.assignmentPattern(
         t.objectPattern([
           t.objectProperty(
-            t.identifier("default"),
+            t.identifier("value"),
             t.assignmentPattern(
               t.arrayPattern(body.node.params as t.PatternLike[]),
               t.arrayExpression([])

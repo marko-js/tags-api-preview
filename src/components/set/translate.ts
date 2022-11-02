@@ -9,8 +9,8 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   for (const attr of tag.get("attributes")) {
     if (attr.isMarkoAttribute()) {
       switch (attr.node.name) {
-        case "default":
-        case "defaultChange":
+        case "value":
+        case "valueChange":
           continue;
       }
     }
@@ -22,7 +22,7 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
   errorMessage =
     errorMessage ||
     (!tag.node.attributes.length
-      ? "requires a default attribute"
+      ? "requires a value attribute"
       : tag.node.var
       ? "does not support a tag variable"
       : tag.node.arguments?.length

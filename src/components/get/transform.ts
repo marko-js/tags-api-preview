@@ -5,10 +5,10 @@ import getAttr from "../../util/get-attr";
 
 export = function transform(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;
-  const defaultAttr = getAttr(tag, "default")!;
+  const valueAttr = getAttr(tag, "value")!;
   const errorMessage =
-    defaultAttr && tag.node.attributes.length > 1
-      ? "only supports the 'default' attribute"
+    valueAttr && tag.node.attributes.length > 1
+      ? "only supports the 'value' attribute"
       : !tag.node.var
       ? "requires a tag variable"
       : tag.node.arguments
@@ -23,7 +23,7 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
     throw tag.get("name").buildCodeFrameError(`The <get> tag ${errorMessage}.`);
   }
 
-  if (!defaultAttr) {
+  if (!valueAttr) {
     for (const name in tag.get("var").getBindingIdentifiers()) {
       for (const violation of tag.scope.getOwnBinding(name)!
         .constantViolations) {
@@ -46,7 +46,7 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
     return;
   }
 
-  let fromValue = defaultAttr.node.value;
+  let fromValue = valueAttr.node.value;
 
   if (t.isStringLiteral(fromValue)) {
     const literalValue = fromValue.value;
@@ -64,12 +64,12 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
       if (fromTag) {
         fromValue = importDefault(file, `<${literalValue}>`, "context");
       } else {
-        throw defaultAttr.buildCodeFrameError(
+        throw valueAttr.buildCodeFrameError(
           `<get> could not find provider matching "${literalValue}".`
         );
       }
     }
 
-    defaultAttr.set("value", fromValue);
+    valueAttr.set("value", fromValue);
   }
 };
