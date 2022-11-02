@@ -1,5 +1,13 @@
 # @marko/tags-api-preview
 
+## 0.6.0
+
+### Minor Changes
+
+- 3d36e82: Allow using top level input rather than just <attrs/> tag.
+- 3d36e82: Switch to new default attribute name (value instead of default).
+- 3d36e82: Member expressions now are accounted for when determining function dependencies.
+
 ## 0.5.8
 
 ### Patch Changes
