@@ -8,11 +8,11 @@ class {
     this.sync = this.sync.bind(this);
   }
   onInput(input, out) {
-    var from = input.default;
+    var from = input.value;
 
     if (!from || !from.render) {
       throw new Error(
-        "Invalid component constructor provided as <get> 'default' attribute. Got: " +
+        "Invalid component constructor provided as <get> 'value' attribute. Got: " +
           from
       );
     }
@@ -38,8 +38,8 @@ class {
     var prevData = this.data;
     this.data = this.provider.input;
     if (
-      this.data.default !== prevData.default ||
-      this.data.defaultChange !== prevData.defaultChange
+      this.data.value !== prevData.value ||
+      this.data.valueChange !== prevData.valueChange
     ) {
       this.forceUpdate();
       this.update();
@@ -48,4 +48,4 @@ class {
 }
 
 $ var data = component.data || {};
-<${input.renderBody}(data.default, data.defaultChange)/>
+<${input.renderBody}(data.value, data.valueChange)/>

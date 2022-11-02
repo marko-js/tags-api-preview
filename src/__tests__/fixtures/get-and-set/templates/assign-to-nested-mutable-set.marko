@@ -1,5 +1,5 @@
-<attrs/{ defaultChange }/>
-<set={ x: 1, xChange: defaultChange }>
+<attrs/{ valueChange }/>
+<set={ x: 1, xChange: valueChange }>
   <get/{ x }="."/>
   <div>${x}</div>
   <button onClick=(() => x++)>increment</button>

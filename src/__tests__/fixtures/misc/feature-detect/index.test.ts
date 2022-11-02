@@ -49,11 +49,6 @@ describe("misc feature detect", () => {
   );
 
   describe(
-    "error reference input",
-    fixture("./templates/error-feature-detect-reference-input.marko")
-  );
-
-  describe(
     "error reference out",
     fixture("./templates/error-feature-detect-reference-out.marko")
   );

@@ -1,7 +1,7 @@
 {
   "template": "./index.marko",
   "translate": "./translate",
-  "@default": {
+  "@value": {
     "type": "expression",
     "required": true,
     "autocomplete": [
@@ -10,7 +10,7 @@
       }
     ]
   },
-  "@defaultChange": {
+  "@valueChange": {
     "type": "expression",
     "autocomplete": [
       {

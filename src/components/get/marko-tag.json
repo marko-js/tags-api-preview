@@ -2,7 +2,7 @@
   "template": "./index.marko",
   "transform": "./transform",
   "translate": "./translate",
-  "@default": {
+  "@value": {
     "type": "expression",
     "required": true,
     "autocomplete": [

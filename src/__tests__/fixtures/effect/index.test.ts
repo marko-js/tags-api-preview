@@ -32,6 +32,27 @@ describe(
 );
 
 describe(
+  "<effect> input member expression",
+  fixture("./templates/input-member-expression.marko", [
+    { onCount, other: "other1", value: { a: 1, b: 2 } },
+    async ({ expect, rerender }) => {
+      expect(onCount).calledOnceWith(2);
+      resetHistory();
+
+      await rerender({ onCount, other: "other2", value: { a: 1, b: 2 } });
+      expect(onCount).has.not.been.called;
+
+      await rerender({ onCount, other: "other2", value: { a: 3, b: 2 } });
+      expect(onCount).has.not.been.called;
+
+      await rerender({ onCount, other: "other2", value: { a: 3, b: 4 } });
+      expect(onCount).calledOnceWith(4);
+      resetHistory();
+    },
+  ])
+);
+
+describe(
   "<effect> no deps",
   fixture("./templates/no-deps.marko", [
     { onMount, onCleanup },
