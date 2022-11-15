@@ -64,7 +64,7 @@
   "license": "MIT",
   "main": "marko.json",
   "peerDependencies": {
-    "marko": ">= 5.23.0"
+    "marko": ">= 5.22.0"
   },
   "repository": {
     "type": "git",
