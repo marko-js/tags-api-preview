@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.6.1
+
+### Patch Changes
+
+- 9c703ff: Fix incorrect Marko peerDependency.
+
 ## 0.6.0
 
 ### Minor Changes
