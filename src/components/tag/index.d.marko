@@ -1,0 +1,7 @@
+export interface Input<TagInput, TagReturn> {
+  renderBody: Marko.Body<[TagInput], TagReturn>;
+}
+
+static declare abstract class Tag<TagInput, TagReturn> extends Marko.Template<TagInput, TagReturn> {}
+
+return = (1 as any as Tag<TagInput, TagReturn>);
