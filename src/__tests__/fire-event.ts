@@ -17,6 +17,6 @@ export default {
       return [k, v];
     })
   ) as unknown as {
-    [Key in keyof typeof userEvent]: Promisify<typeof userEvent[Key]>;
+    [Key in keyof typeof userEvent]: Promisify<(typeof userEvent)[Key]>;
   }),
 };

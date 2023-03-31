@@ -20,7 +20,7 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   const body = tag.get("body");
   const { scope } = body;
   const idId = scope.generateUidIdentifier("id");
-  const params = body.get("params");
+  const params = body.get("params") as any;
 
   if (byAttr.get("value").isIdentifier()) {
     byId = byAttr.node.value;

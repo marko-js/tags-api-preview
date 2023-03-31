@@ -5,7 +5,7 @@ import isApi from "../util/is-api";
 export default {
   MarkoTag(tag) {
     const body = tag.get("body");
-    const params = body.get("params");
+    const params = body.get("params") as any;
     const tagDef = getTagDef(tag);
 
     if (isApi(tag, "class") || !params.length || tagDef?.translator) {
