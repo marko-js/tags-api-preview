@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.6.2
+
+### Patch Changes
+
+- 862b41b: Add typescript types.
+
 ## 0.6.1
 
 ### Patch Changes
