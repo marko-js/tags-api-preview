@@ -1,0 +1,8 @@
+<attrs/{ value }/>
+<let/getCount() { return value; }/>
+
+<div>${getCount()}</div>
+<button onClick=(() => {
+  const newCount = getCount() + 1;
+  getCount = () => newCount;
+})>Increment</button>

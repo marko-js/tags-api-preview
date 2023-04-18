@@ -1,6 +1,6 @@
 import type { types as t } from "@marko/compiler";
 import wrapperComponent from "./wrapper-component";
-import cachedFunction from "./cached-function/transform";
+import cachedValues from "./cached-values/transform";
 import nativeTagVar from "./native-tag-var/transform";
 import hoistTagVars from "./hoist-tag-vars/transform";
 import featureDetection from "./feature-detection";
@@ -12,7 +12,7 @@ import attributeBindings from "./attribute-bindings";
 export = [
   featureDetection,
   wrapperComponent,
-  cachedFunction,
+  cachedValues,
   assignmentsToChangeCall,
   hoistTagVars,
   attributeBindings,

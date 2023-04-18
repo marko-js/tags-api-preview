@@ -1,0 +1,8 @@
+<let/enabled = false/>
+<let/count = 0/>
+<const/dynamicMessage = enabled ? () => `hello ${count}` : undefined/>
+
+<div>Count: ${count}</div>
+<div>Message: ${dynamicMessage?.()}</div>
+<button onClick=(() => count++)>Increment</button>
+<button onClick=(() => enabled = !enabled)>Toggle</button>

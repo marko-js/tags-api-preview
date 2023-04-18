@@ -163,6 +163,15 @@ describe(
   ])
 );
 
+describe(
+  "<let> with cacheable value",
+  fixture("./templates/with-cacheable-value.marko", [
+    { value: 1 },
+    increment,
+    increment,
+  ])
+);
+
 function click(text: string) {
   return async ({ fireEvent, screen }: FixtureHelpers) =>
     await fireEvent.click(screen.getByText(text));
