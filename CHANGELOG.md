@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.0
+
+### Minor Changes
+
+- b6bc25d: Improve caching to be more like Marko 6. Fixes an issue with conditionally caching functions.
+
 ## 0.6.2
 
 ### Patch Changes
