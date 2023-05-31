@@ -10,12 +10,19 @@ interface Deps {
 }
 
 interface DepsVisitorState {
+  parent: t.Node;
+  node: t.Node;
   parentTag: t.NodePath;
   deps: Deps | undefined;
   shouldCache: boolean;
 }
 
 const depsVisitor = {
+  enter(path, state) {
+    if (path.parent === state.parent && path.node !== state.node) {
+      path.skip();
+    }
+  },
   Function(_, state) {
     state.shouldCache = true;
   },
@@ -117,19 +124,22 @@ export default {
 
 function cacheExprIfNeeded(
   parentTag: t.NodePath<t.MarkoTag>,
-  expr: t.NodePath<any>
+  exprPath: t.NodePath<any>
 ) {
+  const parentPath = exprPath.parentPath!;
   const state: DepsVisitorState = {
     parentTag,
+    node: exprPath.node,
+    parent: parentPath.node,
     deps: undefined,
     shouldCache: false,
   };
-  expr.traverse(depsVisitor, state);
+  parentPath.traverse(depsVisitor, state);
 
   if (state.shouldCache) {
-    const { file } = expr.hub;
+    const { file } = exprPath.hub;
     const { component } = ensureLifecycle(parentTag)!;
-    expr
+    exprPath
       .replaceWith(
         t.callExpression(
           importRuntimeNamed(file, "transform/cached-values", "cache"),
@@ -143,7 +153,7 @@ function cacheExprIfNeeded(
                   t.arrayExpression(state.deps ? toDepsArray(state.deps) : []),
                 ]
               ),
-              expr.node
+              exprPath.node
             ),
           ]
         )
