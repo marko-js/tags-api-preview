@@ -55,22 +55,25 @@ const depsVisitor = {
         const curDeps = deps[name];
         if (curDeps === true) return;
 
-        if (
-          parent.isMemberExpression() &&
-          (!parent.node.computed ||
-            isStringOrNumericLiteral(parent.node.property.type))
-        ) {
-          const prop = parent.node.property as
-            | t.Identifier
-            | t.StringLiteral
-            | t.NumericLiteral;
-          parent = parent.parentPath;
-          deps = curDeps || (deps[name] = {} as Deps);
-          name = prop.type === "Identifier" ? prop.name : prop.value + "";
-        } else {
-          deps[name] = true;
-          return;
+        if (parent.isMemberExpression()) {
+          const literalName = getPropertyNameLiteral(parent.node);
+          if (
+            literalName !== undefined &&
+            !(
+              parent.parentPath.isCallExpression() &&
+              parent.parentPath.node.callee === parent.node &&
+              !isEventHandlerName(literalName)
+            )
+          ) {
+            parent = parent.parentPath;
+            deps = curDeps || (deps[name] = {} as Deps);
+            name = literalName;
+            continue;
+          }
         }
+
+        deps[name] = true;
+        return;
         // eslint-disable-next-line no-constant-condition
       } while (true);
     }
@@ -174,6 +177,19 @@ function* getDefaultExpressions(
   }
 }
 
+function getPropertyNameLiteral(memberExpression: t.MemberExpression) {
+  if (memberExpression.computed) {
+    if (isStringOrNumericLiteral(memberExpression.property.type)) {
+      return (
+        (memberExpression.property as t.StringLiteral | t.NumericLiteral)
+          .value + ""
+      );
+    }
+  } else if (memberExpression.property.type === "Identifier") {
+    return memberExpression.property.name;
+  }
+}
+
 function isStringOrNumericLiteral(type: string) {
   switch (type) {
     case "StringLiteral":
@@ -182,6 +198,10 @@ function isStringOrNumericLiteral(type: string) {
     default:
       return false;
   }
+}
+
+function isEventHandlerName(name: string) {
+  return /^on[A-Z]/.test(name);
 }
 
 function toDepsArray(

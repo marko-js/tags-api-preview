@@ -22,6 +22,16 @@ describe(
 );
 
 describe(
+  "<const> state derived from prototype function",
+  fixture("./templates/state-derived-prototype-function.marko", [
+    { value: 1 },
+    async ({ screen, fireEvent }) => {
+      await fireEvent.click(screen.getByText("increment"));
+    },
+  ])
+);
+
+describe(
   "<const> assignment error",
   fixture("./templates/error-assignment.marko")
 );
