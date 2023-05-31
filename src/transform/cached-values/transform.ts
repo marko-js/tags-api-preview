@@ -10,12 +10,19 @@ interface Deps {
 }
 
 interface DepsVisitorState {
+  parent: t.Node;
+  node: t.Node;
   parentTag: t.NodePath;
   deps: Deps | undefined;
   shouldCache: boolean;
 }
 
 const depsVisitor = {
+  enter(path, state) {
+    if (path.parent === state.parent && path.node !== state.node) {
+      path.skip();
+    }
+  },
   Function(_, state) {
     state.shouldCache = true;
   },
@@ -55,22 +62,25 @@ const depsVisitor = {
         const curDeps = deps[name];
         if (curDeps === true) return;
 
-        if (
-          parent.isMemberExpression() &&
-          (!parent.node.computed ||
-            isStringOrNumericLiteral(parent.node.property.type))
-        ) {
-          const prop = parent.node.property as
-            | t.Identifier
-            | t.StringLiteral
-            | t.NumericLiteral;
-          parent = parent.parentPath;
-          deps = curDeps || (deps[name] = {} as Deps);
-          name = prop.type === "Identifier" ? prop.name : prop.value + "";
-        } else {
-          deps[name] = true;
-          return;
+        if (parent.isMemberExpression()) {
+          const literalName = getPropertyNameLiteral(parent.node);
+          if (
+            literalName !== undefined &&
+            !(
+              parent.parentPath.isCallExpression() &&
+              parent.parentPath.node.callee === parent.node &&
+              !isEventHandlerName(literalName)
+            )
+          ) {
+            parent = parent.parentPath;
+            deps = curDeps || (deps[name] = {} as Deps);
+            name = literalName;
+            continue;
+          }
         }
+
+        deps[name] = true;
+        return;
         // eslint-disable-next-line no-constant-condition
       } while (true);
     }
@@ -114,19 +124,22 @@ export default {
 
 function cacheExprIfNeeded(
   parentTag: t.NodePath<t.MarkoTag>,
-  expr: t.NodePath<any>
+  exprPath: t.NodePath<any>
 ) {
+  const parentPath = exprPath.parentPath!;
   const state: DepsVisitorState = {
     parentTag,
+    node: exprPath.node,
+    parent: parentPath.node,
     deps: undefined,
     shouldCache: false,
   };
-  expr.traverse(depsVisitor, state);
+  parentPath.traverse(depsVisitor, state);
 
   if (state.shouldCache) {
-    const { file } = expr.hub;
+    const { file } = exprPath.hub;
     const { component } = ensureLifecycle(parentTag)!;
-    expr
+    exprPath
       .replaceWith(
         t.callExpression(
           importRuntimeNamed(file, "transform/cached-values", "cache"),
@@ -140,7 +153,7 @@ function cacheExprIfNeeded(
                   t.arrayExpression(state.deps ? toDepsArray(state.deps) : []),
                 ]
               ),
-              expr.node
+              exprPath.node
             ),
           ]
         )
@@ -174,6 +187,19 @@ function* getDefaultExpressions(
   }
 }
 
+function getPropertyNameLiteral(memberExpression: t.MemberExpression) {
+  if (memberExpression.computed) {
+    if (isStringOrNumericLiteral(memberExpression.property.type)) {
+      return (
+        (memberExpression.property as t.StringLiteral | t.NumericLiteral)
+          .value + ""
+      );
+    }
+  } else if (memberExpression.property.type === "Identifier") {
+    return memberExpression.property.name;
+  }
+}
+
 function isStringOrNumericLiteral(type: string) {
   switch (type) {
     case "StringLiteral":
@@ -182,6 +208,10 @@ function isStringOrNumericLiteral(type: string) {
     default:
       return false;
   }
+}
+
+function isEventHandlerName(name: string) {
+  return /^on[A-Z]/.test(name);
 }
 
 function toDepsArray(
