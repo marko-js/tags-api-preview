@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.1
+
+### Patch Changes
+
+- 49637c2: improve member expression caching
+
 ## 0.7.0
 
 ### Minor Changes
