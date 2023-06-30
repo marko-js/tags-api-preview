@@ -3,7 +3,8 @@
   "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "sourceType": "module",
-    "impliedStrict": true
+    "impliedStrict": true,
+    "warnOnUnsupportedTypeScriptVersion": false
   },
   "env": {
     "node": true,
