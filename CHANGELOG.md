@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.2
+
+### Patch Changes
+
+- d6f4d64: Fix incorrect types for the get/set tags.
+
 ## 0.7.1
 
 ### Patch Changes
