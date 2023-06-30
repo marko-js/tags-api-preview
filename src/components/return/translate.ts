@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 import isAtRoot from "../../util/is-at-root";
 const usedTag = new WeakSet<t.Hub>();
 
-export = (tag: t.NodePath<t.MarkoTag>) => {
+export default (tag: t.NodePath<t.MarkoTag>) => {
   const errorMessage = usedTag.has(tag.hub)
     ? "can only be used once within a template"
     : tag.node.var

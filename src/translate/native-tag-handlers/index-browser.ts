@@ -14,7 +14,7 @@ registerBind("input", "value");
 registerBind("input", "checked");
 registerBind("textarea", "value");
 
-export = (
+export default (
   attrs: Record<string, unknown>,
   def: any,
   tag: string,

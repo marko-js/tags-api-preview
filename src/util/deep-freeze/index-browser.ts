@@ -1,4 +1,4 @@
-export = function deepFreeze(val: unknown) {
+export default function deepFreeze(val: unknown) {
   if (!Object.isFrozen(val) && typeof val !== "function") {
     Object.freeze(val);
     for (const key in val as Record<string, unknown>) {
@@ -7,4 +7,4 @@ export = function deepFreeze(val: unknown) {
   }
 
   return val;
-};
+}

@@ -1,5 +1,5 @@
 import { spy, resetHistory } from "sinon";
-import fixture, { FixtureHelpers } from "../../fixture";
+import fixture, { type FixtureHelpers } from "../../fixture";
 
 const valueChange = spy();
 const onAssign = spy();

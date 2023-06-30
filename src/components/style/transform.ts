@@ -1,6 +1,6 @@
 import path from "path";
 import MagicString, { SourceMap } from "magic-string";
-import { types as t, Config } from "@marko/compiler";
+import { types as t, type Config } from "@marko/compiler";
 import { resolveRelativePath, importDefault } from "@marko/babel-utils";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
@@ -8,7 +8,7 @@ import isApi from "../../util/is-api";
 const STYLE_REG = /^style((?:\.[^\s\\/:*?"<>|({]+)+)?/;
 const styleIndexes = new WeakMap<t.BabelFile, number>();
 
-export = (tag: t.NodePath<t.MarkoTag>) => {
+export default (tag: t.NodePath<t.MarkoTag>) => {
   if (isApi(tag, "class")) return;
 
   const {
@@ -123,7 +123,7 @@ export = (tag: t.NodePath<t.MarkoTag>) => {
       endPos: text.end,
       path: `./${base}`,
       virtualPath,
-    } as const;
+    } as any;
     deps.push(dep);
     tag.remove();
   }

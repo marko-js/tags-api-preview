@@ -2,7 +2,7 @@ import path from "path";
 import { types as t } from "@marko/compiler";
 import { importDefault } from "@marko/babel-utils";
 
-export = function translate(tag: t.NodePath<t.MarkoTag>) {
+export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;
   let errorMessage: string | undefined;
 
@@ -48,4 +48,4 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       )
     )
   );
-};
+}

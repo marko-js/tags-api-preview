@@ -1,4 +1,4 @@
-export = function hoist(
+export default function hoist(
   _owner: any,
   name: string,
   hoister: (val: unknown) => void
@@ -12,4 +12,4 @@ export = function hoist(
       throw new ReferenceError(`Cannot access '${name}' before initialization`);
     }
   };
-};
+}

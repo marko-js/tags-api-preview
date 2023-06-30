@@ -14,7 +14,7 @@ const lifecycleMethods = {
   onUpdate: resetIndex,
 };
 
-export = function getReturn(component: Component) {
+export default function getReturn(component: Component) {
   const meta = component[metaKey];
   const index = component[indexKey];
   let val: ReturnType<typeof createReturn>;
@@ -31,7 +31,7 @@ export = function getReturn(component: Component) {
   }
 
   return val;
-};
+}
 
 function resetIndex(this: Component) {
   this[indexKey] = 0;

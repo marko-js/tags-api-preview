@@ -1,4 +1,4 @@
-export = function (): unknown {
+export default function (): unknown {
   let curValue: unknown;
   return (newVal?: boolean, write?: 1) => {
     if (write) {
@@ -7,4 +7,4 @@ export = function (): unknown {
 
     return curValue;
   };
-};
+}

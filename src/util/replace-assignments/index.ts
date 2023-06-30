@@ -1,4 +1,4 @@
-export = function assign<V, T extends (value: V) => unknown>(
+export default function assign<V, T extends (value: V) => unknown>(
   fn: T,
   value: V
 ): V {
@@ -8,4 +8,4 @@ export = function assign<V, T extends (value: V) => unknown>(
   }
 
   throw new TypeError("Assignment to constant variable.");
-};
+}

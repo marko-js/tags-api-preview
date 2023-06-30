@@ -3,7 +3,7 @@ import deepFreeze from "../../util/deep-freeze/transform";
 import isAtRoot from "../../util/is-at-root";
 const usedTag = new WeakSet<t.Hub>();
 
-export = (tag: t.NodePath<t.MarkoTag>) => {
+export default (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
   const errorMessage = usedTag.has(tag.hub)
     ? "can only be used once within a template"

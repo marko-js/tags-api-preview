@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 import assertNoAssignments from "../../util/assert-no-assignments";
 const IDENTIFIERS = new WeakMap<t.NodePath<t.MarkoTag>, t.Identifier>();
 
-export = {
+export default {
   enter(tag: t.NodePath<t.MarkoTag>) {
     const tagVar = tag.node.var! as t.Identifier;
     const body = tag.node.body;
