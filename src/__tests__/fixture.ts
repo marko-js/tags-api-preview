@@ -28,7 +28,7 @@ chai.use(promisePlugin);
 const resolveVirtualDependency: import("@marko/compiler").Config["resolveVirtualDependency"] =
   (filename, { virtualPath, code }) => {
     const dir = path.resolve(filename, "..");
-    vfs.mkdirpSync(dir);
+    vfs.mkdirSync(dir, { recursive: true });
     vfs.writeFileSync(path.resolve(dir, virtualPath), code);
     return virtualPath;
   };

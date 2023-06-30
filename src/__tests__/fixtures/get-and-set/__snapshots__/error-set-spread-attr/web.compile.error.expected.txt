@@ -1,7 +1,7 @@
-src/__tests__/fixtures/get-and-set/templates/error-set-spread-attr.marko(2,2): The <set> tag does not support the "...setValue" attribute.
-  1 | <const/setValue = { value: 1 }/>
-> 2 | <set ...setValue>
-    |  ^^^
-  3 |   <div/>
-  4 | </set>
-  5 |
+CompileError
+      1 | <const/setValue = { value: 1 }/>
+    > 2 | <set ...setValue>
+        |  ^^^ The <set> tag does not support the "...setValue" attribute.
+      3 |   <div/>
+      4 | </set>
+      5 |

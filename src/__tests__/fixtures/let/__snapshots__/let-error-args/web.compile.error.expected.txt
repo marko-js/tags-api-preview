@@ -1,5 +1,5 @@
-src/__tests__/fixtures/let/templates/error-args.marko(1,2): The <let> tag does not support arguments.
-> 1 | <let(y)/count=0/>
-    |  ^^^
-  2 | <div>${count}</div>
-  3 |
+CompileError
+    > 1 | <let(y)/count=0/>
+        |  ^^^ The <let> tag does not support arguments.
+      2 | <div>${count}</div>
+      3 |

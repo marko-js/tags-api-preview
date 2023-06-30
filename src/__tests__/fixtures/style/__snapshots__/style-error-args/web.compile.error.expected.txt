@@ -1,6 +1,6 @@
-src/__tests__/fixtures/style/templates/error-args.marko(1,2): The <style> tag does not support arguments.
-> 1 | <style(y)>
-    |  ^^^^^
-  2 |   .test {
-  3 |     color: green
-  4 |   }
+CompileError
+    > 1 | <style(y)>
+        |  ^^^^^ The <style> tag does not support arguments.
+      2 |   .test {
+      3 |     color: green
+      4 |   }

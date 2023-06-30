@@ -1,4 +1,4 @@
-src/__tests__/fixtures/const/templates/error-args.marko(1,2): The <const> tag does not support arguments.
-> 1 | <const(y)/x=1/>
-    |  ^^^^^
-  2 |
+CompileError
+    > 1 | <const(y)/x=1/>
+        |  ^^^^^ The <const> tag does not support arguments.
+      2 |

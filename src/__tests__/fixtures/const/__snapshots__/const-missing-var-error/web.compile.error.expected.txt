@@ -1,4 +1,4 @@
-src/__tests__/fixtures/const/templates/error-no-var.marko(1,2): The <const> tag requires a tag variable to be assigned to.
-> 1 | <const="Hello"/>
-    |  ^^^^^
-  2 |
+CompileError
+    > 1 | <const="Hello"/>
+        |  ^^^^^ The <const> tag requires a tag variable to be assigned to.
+      2 |

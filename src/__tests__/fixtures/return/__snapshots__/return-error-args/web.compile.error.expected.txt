@@ -1,4 +1,4 @@
-src/__tests__/fixtures/return/templates/error-args.marko(1,2): The <return> tag does not support arguments.
-> 1 | <return(y)=1/>
-    |  ^^^^^^
-  2 |
+CompileError
+    > 1 | <return(y)=1/>
+        |  ^^^^^^ The <return> tag does not support arguments.
+      2 |

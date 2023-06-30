@@ -1,4 +1,4 @@
-src/__tests__/fixtures/const/templates/error-no-default-attr.marko(1,2): The <const> tag must be initialized with a value.
-> 1 | <const/x/>
-    |  ^^^^^
-  2 |
+CompileError
+    > 1 | <const/x/>
+        |  ^^^^^ The <const> tag must be initialized with a value.
+      2 |

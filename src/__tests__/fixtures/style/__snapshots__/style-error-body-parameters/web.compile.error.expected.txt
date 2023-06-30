@@ -1,6 +1,6 @@
-src/__tests__/fixtures/style/templates/error-body-parameters.marko(1,2): The <style> tag does not support tag body parameters.
-> 1 | <style|y|>
-    |  ^^^^^
-  2 |   .test {
-  3 |     color: green
-  4 |   }
+CompileError
+    > 1 | <style|y|>
+        |  ^^^^^ The <style> tag does not support tag body parameters.
+      2 |   .test {
+      3 |     color: green
+      4 |   }

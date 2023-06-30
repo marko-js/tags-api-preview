@@ -1,5 +1,5 @@
-src/__tests__/fixtures/let/templates/error-body-content.marko(1,2): The <let> tag does not support body content.
-> 1 | <let/count=0>Hello</let>
-    |  ^^^
-  2 | <div>${count}</div>
-  3 |
+CompileError
+    > 1 | <let/count=0>Hello</let>
+        |  ^^^ The <let> tag does not support body content.
+      2 | <div>${count}</div>
+      3 |

@@ -1,6 +1,6 @@
-src/__tests__/fixtures/style/templates/error-class-attr.marko(1,2): The <style> tag invalid class attribute.
-> 1 | <style.less class="test">
-    |  ^^^^^
-  2 |   .test {
-  3 |     color: green
-  4 |   }
+CompileError
+    > 1 | <style.less class="test">
+        |  ^^^^^ The <style> tag invalid class attribute.
+      2 |   .test {
+      3 |     color: green
+      4 |   }

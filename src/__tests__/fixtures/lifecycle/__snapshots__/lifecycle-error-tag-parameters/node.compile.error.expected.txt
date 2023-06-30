@@ -1,6 +1,6 @@
-src/__tests__/fixtures/lifecycle/templates/error-tag-parameters.marko(1,2): The <lifecycle> tag does not support tag body parameters.
-> 1 | <lifecycle|y|
-    |  ^^^^^^^^^
-  2 |   onMount=(() => {})
-  3 |   onUpdate=(() => {})
-  4 |   onDestroy=(() => {})
+CompileError
+    > 1 | <lifecycle|y|
+        |  ^^^^^^^^^ The <lifecycle> tag does not support tag body parameters.
+      2 |   onMount=(() => {})
+      3 |   onUpdate=(() => {})
+      4 |   onDestroy=(() => {})

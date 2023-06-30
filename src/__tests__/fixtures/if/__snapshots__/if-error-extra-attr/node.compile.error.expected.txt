@@ -1,7 +1,7 @@
-src/__tests__/fixtures/if/templates/error-extra-attr.marko(2,2): The <if> tag only supports the 'value' attribute.
-  1 | <attrs/{ show }/>
-> 2 | <if=show y=2>
-    |  ^^
-  3 |   Hello world!
-  4 | </if>
-  5 |
+CompileError
+      1 | <attrs/{ show }/>
+    > 2 | <if=show y=2>
+        |  ^^ The <if> tag only supports the 'value' attribute.
+      3 |   Hello world!
+      4 | </if>
+      5 |

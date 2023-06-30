@@ -1,7 +1,7 @@
-src/__tests__/fixtures/attrs/templates/error-nested.marko(2,4): The <attrs> tag can only used at the root of the template.
-  1 | <div>
-> 2 |   <attrs/{ value }/>
-    |    ^^^^^
-  3 |   Hello ${value}
-  4 | </div>
-  5 |
+CompileError
+      1 | <div>
+    > 2 |   <attrs/{ value }/>
+        |    ^^^^^ The <attrs> tag can only used at the root of the template.
+      3 |   Hello ${value}
+      4 | </div>
+      5 |

@@ -1,7 +1,7 @@
-src/__tests__/fixtures/get-and-set/templates/error-get-args.marko(2,4): The <get> tag does not support arguments.
-  1 | <set=1>
-> 2 |   <get(y)/x="."/>
-    |    ^^^
-  3 |   <div>${val}</div>
-  4 | </set>
-  5 |
+CompileError
+      1 | <set=1>
+    > 2 |   <get(y)/x="."/>
+        |    ^^^ The <get> tag does not support arguments.
+      3 |   <div>${val}</div>
+      4 | </set>
+      5 |

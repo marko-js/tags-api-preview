@@ -1,6 +1,6 @@
-src/__tests__/fixtures/style/templates/error-no-content.marko(1,2): The <style> tag requires body content.
-> 1 | <style/>
-    |  ^^^^^
-  2 |
-  3 | <div/el/>
-  4 |
+CompileError
+    > 1 | <style/>
+        |  ^^^^^ The <style> tag requires body content.
+      2 |
+      3 | <div/el/>
+      4 |

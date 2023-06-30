@@ -1,6 +1,6 @@
-src/__tests__/fixtures/get-and-set/templates/error-set-body-parameters.marko(1,2): The <set> tag does not support tag body parameters.
-> 1 | <set|y|=1>
-    |  ^^^
-  2 |   <div/>
-  3 | </set>
-  4 |
+CompileError
+    > 1 | <set|y|=1>
+        |  ^^^ The <set> tag does not support tag body parameters.
+      2 |   <div/>
+      3 | </set>
+      4 |
