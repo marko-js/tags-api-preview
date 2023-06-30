@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 import { importRuntimeDefault } from "../../util/import-runtime";
 import getAttr from "../../util/get-attr";
 
-export = function translate(tag: t.NodePath<t.MarkoTag>) {
+export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
 
   const valueAttr = getAttr(tag, "value")!;
@@ -42,4 +42,4 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       )
     )
   );
-};
+}

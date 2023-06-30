@@ -3,7 +3,7 @@ import getAttr from "../../util/get-attr";
 import deepFreeze from "../../util/deep-freeze/transform";
 import assertNoAssignments from "../../util/assert-no-assignments";
 
-export = (tag: t.NodePath<t.MarkoTag>) => {
+export default (tag: t.NodePath<t.MarkoTag>) => {
   const tagVar = tag.node.var!;
   const valueAttr = getAttr(tag, "value")!;
   const errorMessage = !tagVar

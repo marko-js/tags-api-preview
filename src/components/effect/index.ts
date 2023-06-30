@@ -23,7 +23,7 @@ const lifecycleMethods = {
   onDestroy: runCleanups,
 };
 
-export = function (component: Component, fn: EffectFn) {
+export default function (component: Component, fn: EffectFn) {
   // Effect meta data stored in an array of [fn, deps, changed]
   const meta = component[metaKey];
   const index = component[indexKey];
@@ -47,7 +47,7 @@ export = function (component: Component, fn: EffectFn) {
     patchLifecycle(component, lifecycleMethods);
     component[metaKey] = [1, fn, 0];
   }
-};
+}
 
 function runEffects(this: Component) {
   const meta = this[metaKey]!;

@@ -2,7 +2,7 @@ import { types as t } from "@marko/compiler";
 import { closest } from "../../transform/wrapper-component";
 import assertNoAssignments from "../../util/assert-no-assignments";
 
-export = function translate(tag: t.NodePath<t.MarkoTag>) {
+export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.node.var as t.Identifier;
 
   const errorMessage = !tagVar
@@ -37,4 +37,4 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       ),
     ])
   );
-};
+}

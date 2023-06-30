@@ -1,3 +1,3 @@
-export = function deepFreeze(val: unknown) {
+export default function deepFreeze(val: unknown) {
   return val;
-};
+}

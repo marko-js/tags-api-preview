@@ -4,7 +4,7 @@ import isApi from "../../util/is-api";
 
 const visited = new WeakSet<t.NodePath<t.MarkoTag>>();
 
-export = function transform(tag: t.NodePath<t.MarkoTag>) {
+export default function transform(tag: t.NodePath<t.MarkoTag>) {
   if (isApi(tag, "class") || visited.has(tag)) {
     return;
   }
@@ -83,4 +83,4 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
   tag.node.extra ??= {};
   tag.node.extra.keyScope = idId; // Add keyscope to extra so it gets serialized for the translate phase.
   byAttr.remove();
-};
+}

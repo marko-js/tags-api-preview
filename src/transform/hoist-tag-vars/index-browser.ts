@@ -24,7 +24,11 @@ declare class Component {
   forceUpdate(): void;
 }
 
-export = function hoist(owner: Component, name: string, hoister: Hoister) {
+export default function hoist(
+  owner: Component,
+  name: string,
+  hoister: Hoister
+) {
   const hoists = owner[hoistsKey];
   const index = owner[hoistIndexKey];
   let result;
@@ -41,7 +45,7 @@ export = function hoist(owner: Component, name: string, hoister: Hoister) {
   }
 
   return result;
-};
+}
 
 function createHoist(owner: Component, name: string, hoister: Hoister) {
   let initialized = false;

@@ -1,5 +1,5 @@
 import { resetHistory, spy } from "sinon";
-import fixture, { FixtureHelpers } from "../../../fixture";
+import fixture, { type FixtureHelpers } from "../../../fixture";
 const increment = click("Increment");
 const toggle = click("Toggle");
 

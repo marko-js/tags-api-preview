@@ -5,7 +5,7 @@ declare class Component {
   getEl(key: string): Element;
 }
 
-export = function createElGetter(owner: Component, key: string) {
+export default function createElGetter(owner: Component, key: string) {
   return (
     owner[key] ||
     (owner[key] = () => {
@@ -15,4 +15,4 @@ export = function createElGetter(owner: Component, key: string) {
       return owner.getEl(key);
     })
   );
-};
+}

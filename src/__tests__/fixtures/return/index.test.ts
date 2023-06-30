@@ -1,4 +1,4 @@
-import fixture, { FixtureHelpers } from "../../fixture";
+import fixture, { type FixtureHelpers } from "../../fixture";
 
 describe("<return> basic", fixture("./templates/basic.marko"));
 

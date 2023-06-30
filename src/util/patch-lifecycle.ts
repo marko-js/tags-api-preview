@@ -2,7 +2,7 @@ const extensionsKey = Symbol();
 type anyFn = (...args: unknown[]) => unknown;
 type Methods = Record<string, anyFn>;
 
-export = function (component: any, methods: Methods) {
+export default function (component: any, methods: Methods) {
   const proto = component.__proto__;
   const extensions = proto[extensionsKey];
 
@@ -19,7 +19,7 @@ export = function (component: any, methods: Methods) {
   }
 
   return false;
-};
+}
 
 function addMethods(proto: any, methods: Methods) {
   for (const name in methods) {

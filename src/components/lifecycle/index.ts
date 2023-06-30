@@ -27,7 +27,7 @@ const lifecycleMethods = {
   onDestroy: runDestroy,
 };
 
-export = function (component: Component, cur: LifecycleHandlers = {}) {
+export default function (component: Component, cur: LifecycleHandlers = {}) {
   const meta = component[metaKey];
   const index = component[indexKey];
 
@@ -49,7 +49,7 @@ export = function (component: Component, cur: LifecycleHandlers = {}) {
     patchLifecycle(component, lifecycleMethods);
     component[metaKey] = [0, cur];
   }
-};
+}
 
 function runMount(this: Component) {
   const meta = this[metaKey]!;

@@ -3,7 +3,7 @@ import deepFreeze from "../../util/deep-freeze/transform";
 import { closest } from "../../transform/wrapper-component";
 import replaceAssignments from "../../util/replace-assignments/transform";
 
-export = function translate(tag: t.NodePath<t.MarkoTag>) {
+export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const { file } = tag.hub;
   const server = file.markoOpts.output === "html";
   const tagVar = tag.node.var as t.Identifier;
@@ -132,4 +132,4 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
       replaceAssignments(binding, setFnId);
     }
   }
-};
+}

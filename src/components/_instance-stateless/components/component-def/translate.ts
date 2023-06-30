@@ -1,6 +1,6 @@
 import { types as t } from "@marko/compiler";
 
-export = (path: t.NodePath<t.MarkoTag>) => {
+export default (path: t.NodePath<t.MarkoTag>) => {
   path.replaceWith(
     t.variableDeclaration("var", [
       t.variableDeclarator(

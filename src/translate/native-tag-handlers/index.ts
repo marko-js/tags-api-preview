@@ -1,5 +1,5 @@
 const ignoreReg = /^on[A-Z]|Change$/;
-export = (from: Record<string, unknown>) => {
+export default (from: Record<string, unknown>) => {
   const attrs: Record<string, unknown> = {};
 
   for (const key in from) {

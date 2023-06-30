@@ -1,2 +1,2 @@
 import ifTransform from "../if/transformer";
-export = ifTransform;
+export default ifTransform;

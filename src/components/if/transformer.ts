@@ -4,7 +4,7 @@ import isApi from "../../util/is-api";
 
 const seen = new WeakSet<t.NodePath<t.MarkoTag>>();
 
-export = function transform(tag: t.NodePath<t.MarkoTag>) {
+export default function transform(tag: t.NodePath<t.MarkoTag>) {
   if (isApi(tag, "class") || seen.has(tag)) return;
   seen.add(tag);
 
@@ -33,4 +33,4 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
 
   tag.node.arguments = [valueAttr.node.value];
   tag.node.attributes = [];
-};
+}

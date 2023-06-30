@@ -9,7 +9,7 @@ import customTagVar from "./custom-tag-var";
 import assignmentsToChangeCall from "./assignments-to-change-call";
 import attributeBindings from "./attribute-bindings";
 
-export = [
+export default [
   featureDetection,
   wrapperComponent,
   cachedValues,

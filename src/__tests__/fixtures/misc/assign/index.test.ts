@@ -1,4 +1,4 @@
-import fixture, { FixtureHelpers } from "../../../fixture";
+import fixture, { type FixtureHelpers } from "../../../fixture";
 
 const increment = click("increment");
 

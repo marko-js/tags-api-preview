@@ -3,7 +3,7 @@ import { types as t } from "@marko/compiler";
 import { getTagDefForTagName, importDefault } from "@marko/babel-utils";
 import getAttr from "../../util/get-attr";
 
-export = function transform(tag: t.NodePath<t.MarkoTag>) {
+export default function transform(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;
   const valueAttr = getAttr(tag, "value")!;
   const errorMessage =
@@ -72,4 +72,4 @@ export = function transform(tag: t.NodePath<t.MarkoTag>) {
 
     valueAttr.set("value", fromValue);
   }
-};
+}

@@ -1,7 +1,7 @@
 import type { types as t } from "@marko/compiler";
 import replaceAssignments from "../../util/replace-assignments/transform";
 
-export = function translate(tag: t.NodePath<t.MarkoTag>) {
+export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.get("var") as t.NodePath<t.LVal>;
   const body = tag.get("body");
   const params: t.LVal[] = [tagVar.node];
@@ -27,4 +27,4 @@ export = function translate(tag: t.NodePath<t.MarkoTag>) {
 
   tag.scope.crawl();
   tag.node.var = null;
-};
+}
