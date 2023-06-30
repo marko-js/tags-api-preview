@@ -1,6 +1,6 @@
-src/__tests__/fixtures/get-and-set/templates/error-set-args.marko(1,2): The <set> tag does not support arguments.
-> 1 | <set(x)=1>
-    |  ^^^
-  2 |   <div/>
-  3 | </set>
-  4 |
+CompileError
+    > 1 | <set(x)=1>
+        |  ^^^ The <set> tag does not support arguments.
+      2 |   <div/>
+      3 | </set>
+      4 |

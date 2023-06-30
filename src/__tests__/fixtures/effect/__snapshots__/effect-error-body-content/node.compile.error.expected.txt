@@ -1,5 +1,5 @@
-src/__tests__/fixtures/effect/templates/error-body-content.marko(1,2): The <effect> tag does not support body content.
-> 1 | <effect=(() => {})>Hello</effect>
-    |  ^^^^^^
-  2 | <div/>
-  3 |
+CompileError
+    > 1 | <effect=(() => {})>Hello</effect>
+        |  ^^^^^^ The <effect> tag does not support body content.
+      2 | <div/>
+      3 |

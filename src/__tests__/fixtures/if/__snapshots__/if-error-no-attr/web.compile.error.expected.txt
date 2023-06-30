@@ -1,7 +1,7 @@
-src/__tests__/fixtures/if/templates/error-no-attr.marko(2,2): The <if> tag must be given a value.
-  1 | <attrs/{ show }/>
-> 2 | <if>
-    |  ^^
-  3 |   Hello world!
-  4 | </if>
-  5 |
+CompileError
+      1 | <attrs/{ show }/>
+    > 2 | <if>
+        |  ^^ The <if> tag must be given a value.
+      3 |   Hello world!
+      4 | </if>
+      5 |

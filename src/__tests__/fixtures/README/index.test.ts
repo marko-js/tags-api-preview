@@ -46,7 +46,7 @@ const templates: any[] = [];
 
 // clear out any old template files generated on the previous run
 fs.rmSync(templateDirpath, { force: true, recursive: true });
-fs.mkdirSync(templateDirpath);
+fs.mkdirSync(templateDirpath, { recursive: true });
 
 // generate new temporary tamplate files based on extracted code blocks
 extractedCodeBlocks.forEach((extractedCodeBlock, index) => {
@@ -66,7 +66,7 @@ extractedCodeBlocks.forEach((extractedCodeBlock, index) => {
 if (UPDATE) {
   // clear out any potential error files left over from any previous snapshot update
   fs.rmSync(snapshotDirpath, { force: true, recursive: true });
-  fs.mkdirSync(snapshotDirpath);
+  fs.mkdirSync(snapshotDirpath, { recursive: true });
 } else {
   // throw an error if any error files have appeared in the snapshot directory for the respective code block template
   // (this means the extracted code block does not compile and needs to be updated/fixed in the source markdown file)

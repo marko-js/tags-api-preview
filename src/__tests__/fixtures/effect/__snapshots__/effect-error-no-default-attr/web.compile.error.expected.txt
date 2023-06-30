@@ -1,5 +1,5 @@
-src/__tests__/fixtures/effect/templates/error-no-default-attr.marko(1,2): The <effect> tag must be initialized with a value.
-> 1 | <effect/>
-    |  ^^^^^^
-  2 | <div/>
-  3 |
+CompileError
+    > 1 | <effect/>
+        |  ^^^^^^ The <effect> tag must be initialized with a value.
+      2 | <div/>
+      3 |

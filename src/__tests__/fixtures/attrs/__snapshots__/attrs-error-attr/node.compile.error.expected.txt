@@ -1,5 +1,5 @@
-src/__tests__/fixtures/attrs/templates/error-attr.marko(1,2): The <attrs> tag does not support attributes.
-> 1 | <attrs/{ value } y=2/>
-    |  ^^^^^
-  2 | <div>Hello ${value}</div>
-  3 |
+CompileError
+    > 1 | <attrs/{ value } y=2/>
+        |  ^^^^^ The <attrs> tag does not support attributes.
+      2 | <div>Hello ${value}</div>
+      3 |

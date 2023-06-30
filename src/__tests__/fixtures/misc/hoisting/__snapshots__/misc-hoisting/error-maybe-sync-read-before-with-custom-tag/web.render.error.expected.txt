@@ -1,1 +1,2 @@
-Cannot access 'x' before initialization
+ReferenceError: Cannot access 'x' before initialization
+    at /src/__tests__/fixtures/misc/hoisting/templates/error-hoisting-maybe-sync-read-before-with-custom-tag.marko

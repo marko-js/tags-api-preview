@@ -1,6 +1,6 @@
-src/__tests__/fixtures/get-and-set/templates/error-set-extra-attr.marko(1,2): The <set> tag does not support the "y=2" attribute.
-> 1 | <set=1 y=2>
-    |  ^^^
-  2 |   <div/>
-  3 | </set>
-  4 |
+CompileError
+    > 1 | <set=1 y=2>
+        |  ^^^ The <set> tag does not support the "y=2" attribute.
+      2 |   <div/>
+      3 | </set>
+      4 |

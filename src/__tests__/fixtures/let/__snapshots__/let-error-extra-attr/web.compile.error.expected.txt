@@ -1,5 +1,5 @@
-src/__tests__/fixtures/let/templates/error-extra-attr.marko(1,2): The <let> tag does not support the "y=2" attribute.
-> 1 | <let/count=0 y=2/>
-    |  ^^^
-  2 | <div>${count}</div>
-  3 |
+CompileError
+    > 1 | <let/count=0 y=2/>
+        |  ^^^ The <let> tag does not support the "y=2" attribute.
+      2 | <div>${count}</div>
+      3 |

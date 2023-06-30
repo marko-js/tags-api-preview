@@ -1,7 +1,7 @@
-src/__tests__/fixtures/get-and-set/templates/error-get-body-parameters.marko(2,4): The <get> tag does not support tag body parameters.
-  1 | <set=1>
-> 2 |   <get/x|y|="."/>
-    |    ^^^
-  3 |   <div>${val}</div>
-  4 | </set>
-  5 |
+CompileError
+      1 | <set=1>
+    > 2 |   <get/x|y|="."/>
+        |    ^^^ The <get> tag does not support tag body parameters.
+      3 |   <div>${val}</div>
+      4 | </set>
+      5 |

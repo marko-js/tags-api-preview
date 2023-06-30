@@ -1,5 +1,5 @@
-src/__tests__/fixtures/effect/templates/error-tag-variable.marko(1,2): The <effect> tag does not support a tag variable.
-> 1 | <effect/x=(() => {})/>
-    |  ^^^^^^
-  2 | <div/>
-  3 |
+CompileError
+    > 1 | <effect/x=(() => {})/>
+        |  ^^^^^^ The <effect> tag does not support a tag variable.
+      2 | <div/>
+      3 |

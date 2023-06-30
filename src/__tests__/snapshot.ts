@@ -111,8 +111,14 @@ function format(data: any): string {
     }
 
     if (data.stack) {
-      // eslint-disable-next-line no-control-regex
-      return data.message.replace(/\x1B[[(?);]{0,2}(;?\d)*./g, "");
+      return (
+        data.stack
+          // eslint-disable-next-line no-control-regex
+          .replace(/\x1B[[(?);]{0,2}(;?\d)*./g, "")
+          .replaceAll(process.cwd(), "")
+          .replace(/\r?\n +at (?![/\\]src[/\\])[^\n]+$/gm, "")
+          .replace(/(\r?\n +at [/\\]src[/\\].*[^\n]):\d+:\d+$/gm, "$1")
+      );
     }
   }
 

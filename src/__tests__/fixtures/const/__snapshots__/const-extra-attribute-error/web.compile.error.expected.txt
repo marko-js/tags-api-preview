@@ -1,4 +1,4 @@
-src/__tests__/fixtures/const/templates/error-extra-attr.marko(1,2): The <const> tag only supports the 'value' attribute.
-> 1 | <const/x=1 y=2/>
-    |  ^^^^^
-  2 |
+CompileError
+    > 1 | <const/x=1 y=2/>
+        |  ^^^^^ The <const> tag only supports the 'value' attribute.
+      2 |

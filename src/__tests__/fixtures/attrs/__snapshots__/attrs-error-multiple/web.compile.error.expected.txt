@@ -1,7 +1,7 @@
-src/__tests__/fixtures/attrs/templates/error-multiple.marko(2,2): The <attrs> tag can only be used once within a template.
-  1 | <attrs/{ value: valueA }/>
-> 2 | <attrs/{ value: valueB }/>
-    |  ^^^^^
-  3 | <div>
-  4 |   Hello ${valueA} ${valueB}
-  5 | </div>
+CompileError
+      1 | <attrs/{ value: valueA }/>
+    > 2 | <attrs/{ value: valueB }/>
+        |  ^^^^^ The <attrs> tag can only be used once within a template.
+      3 | <div>
+      4 |   Hello ${valueA} ${valueB}
+      5 | </div>

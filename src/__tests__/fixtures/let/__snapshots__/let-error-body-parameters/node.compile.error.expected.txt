@@ -1,5 +1,5 @@
-src/__tests__/fixtures/let/templates/error-body-parameters.marko(1,2): The <let> tag does not support tag body parameters.
-> 1 | <let/count|y|=0/>
-    |  ^^^
-  2 | <div>${count}</div>
-  3 |
+CompileError
+    > 1 | <let/count|y|=0/>
+        |  ^^^ The <let> tag does not support tag body parameters.
+      2 | <div>${count}</div>
+      3 |

@@ -1,5 +1,5 @@
-src/__tests__/fixtures/effect/templates/error-body-parameters.marko(1,2): The <effect> tag does not support tag body parameters.
-> 1 | <effect|x|=(() => {})/>
-    |  ^^^^^^
-  2 | <div/>
-  3 |
+CompileError
+    > 1 | <effect|x|=(() => {})/>
+        |  ^^^^^^ The <effect> tag does not support tag body parameters.
+      2 | <div/>
+      3 |

@@ -1,7 +1,7 @@
-src/__tests__/fixtures/get-and-set/templates/error-get-body-content.marko(2,4): The <get> tag does not support body content.
-  1 | <set=1>
-> 2 |   <get/x=".">Hello</get>
-    |    ^^^
-  3 |   <div>${val}</div>
-  4 | </set>
-  5 |
+CompileError
+      1 | <set=1>
+    > 2 |   <get/x=".">Hello</get>
+        |    ^^^ The <get> tag does not support body content.
+      3 |   <div>${val}</div>
+      4 | </set>
+      5 |

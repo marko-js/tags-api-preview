@@ -1,6 +1,6 @@
-src/__tests__/fixtures/if/templates/error-body-parameters.marko(2,2): The <if> tag does not support tag body parameters.
-  1 | <attrs/{ show }/>
-> 2 | <if|x|=show>
-    |  ^^
-  3 |   Hello world!
-  4 | </if>
+CompileError
+      1 | <attrs/{ show }/>
+    > 2 | <if|x|=show>
+        |  ^^ The <if> tag does not support tag body parameters.
+      3 |   Hello world!
+      4 | </if>

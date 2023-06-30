@@ -1,6 +1,6 @@
-src/__tests__/fixtures/return/templates/error-nested.marko(2,4): The <return> tag can only used at the root of the template.
-  1 | <div>
-> 2 |   <return=1/>
-    |    ^^^^^^
-  3 | </div>
-  4 |
+CompileError
+      1 | <div>
+    > 2 |   <return=1/>
+        |    ^^^^^^ The <return> tag can only used at the root of the template.
+      3 | </div>
+      4 |

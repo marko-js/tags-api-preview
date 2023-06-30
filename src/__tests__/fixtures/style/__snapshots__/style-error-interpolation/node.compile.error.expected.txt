@@ -1,8 +1,8 @@
-src/__tests__/fixtures/style/templates/error-interpolation.marko(3,12): The <style> tag does not support dynamic placeholders.
-  1 | <style>
-  2 |   .test {
-> 3 |     color: ${"green"}
-    |            ^^^^^^^^^^
-  4 |   }
-  5 | </style>
-  6 |
+CompileError
+      1 | <style>
+      2 |   .test {
+    > 3 |     color: ${"green"}
+        |            ^^^^^^^^^^ The <style> tag does not support dynamic placeholders.
+      4 |   }
+      5 | </style>
+      6 |

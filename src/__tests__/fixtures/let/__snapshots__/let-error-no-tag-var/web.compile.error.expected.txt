@@ -1,4 +1,4 @@
-src/__tests__/fixtures/let/templates/error-no-tag-var.marko(1,2): The <let> tag requires a tag variable.
-> 1 | <let=0/>
-    |  ^^^
-  2 |
+CompileError
+    > 1 | <let=0/>
+        |  ^^^ The <let> tag requires a tag variable.
+      2 |
