@@ -1,6 +1,6 @@
-export interface Input {
+// @ts-expect-error 'VariableType' is declared but its value is never read. (It is only used to set the type of the return)
+export interface Input<VariableType = unknown> {
   value: string;
 }
 
-// TODO: this could be better.
-return = 1 as unknown;
+return = 1 as VariableType;
