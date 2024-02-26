@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.3
+
+### Patch Changes
+
+- 87c09f8: Improve get tag type by accepting an optional type parameter that specifies the returned value type
+
 ## 0.7.2
 
 ### Patch Changes
