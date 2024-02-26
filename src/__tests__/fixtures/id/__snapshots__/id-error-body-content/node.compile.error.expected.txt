@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <id/firstNameId>Hello</id>
         |  ^^ The <id> tag does not support body content.
       2 | <input id=firstNameId/>

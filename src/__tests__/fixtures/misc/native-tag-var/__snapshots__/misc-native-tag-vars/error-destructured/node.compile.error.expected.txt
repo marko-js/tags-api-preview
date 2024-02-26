@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ onValue }/>
       2 | <effect=(() => onValue(el()))/>
     > 3 | <div/{ el }>Hello</div>

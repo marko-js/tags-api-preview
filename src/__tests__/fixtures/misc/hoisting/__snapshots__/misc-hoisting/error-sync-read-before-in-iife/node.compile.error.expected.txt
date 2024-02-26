@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <div>${(() => x)()}</div>
         |               ^ Cannot access 'x' before initialization.
       2 | <div>

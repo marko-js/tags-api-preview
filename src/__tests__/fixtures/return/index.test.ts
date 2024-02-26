@@ -10,7 +10,7 @@ describe("<return> read multiple", fixture("./templates/read-multiple.marko"));
 
 describe(
   "<return> write from parent",
-  fixture("./templates/write-from-parent.marko", [click("increment")])
+  fixture("./templates/write-from-parent.marko", [click("increment")]),
 );
 
 describe(
@@ -22,31 +22,31 @@ describe(
     { max: 3 },
     click("increment"),
     click("increment"),
-  ])
+  ]),
 );
 
 describe("<return> error args", fixture("./templates/error-args.marko"));
 
 describe(
   "<return> error body content",
-  fixture("./templates/error-body-content.marko")
+  fixture("./templates/error-body-content.marko"),
 );
 
 describe(
   "<return> error body parameters",
-  fixture("./templates/error-body-parameters.marko")
+  fixture("./templates/error-body-parameters.marko"),
 );
 
 describe(
   "<return> error multiple",
-  fixture("./templates/error-multiple.marko")
+  fixture("./templates/error-multiple.marko"),
 );
 
 describe("<return> error nested", fixture("./templates/error-nested.marko"));
 
 describe(
   "<return> error no default attr",
-  fixture("./templates/error-no-default-attr.marko")
+  fixture("./templates/error-no-default-attr.marko"),
 );
 
 describe("<return> error tag var", fixture("./templates/error-tag-var.marko"));

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <attrs/>
         |  ^^^^^ The <attrs> tag requires a tag variable to be assigned to.
       2 |

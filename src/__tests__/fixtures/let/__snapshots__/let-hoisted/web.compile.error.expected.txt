@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       5 | </div>
       6 |
     > 7 | <button onClick=(() => count++)>Increment</button>

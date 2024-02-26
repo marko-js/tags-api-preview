@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ show }/>
     > 2 | <if(show)>
         |  ^^ The <if> tag does not support arguments, the tags api uses '<if=condition>' instead.

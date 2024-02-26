@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <const(y)/x=1/>
         |  ^^^^^ The <const> tag does not support arguments.
       2 |

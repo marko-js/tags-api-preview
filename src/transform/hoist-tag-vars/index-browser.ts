@@ -27,7 +27,7 @@ declare class Component {
 export default function hoist(
   owner: Component,
   name: string,
-  hoister: Hoister
+  hoister: Hoister,
 ) {
   const hoists = owner[hoistsKey];
   const index = owner[hoistIndexKey];
@@ -53,7 +53,7 @@ function createHoist(owner: Component, name: string, hoister: Hoister) {
 
   return function setOrCheckDefined(
     child?: Component | true,
-    newVal?: unknown
+    newVal?: unknown,
   ) {
     if (child) {
       if (initialized || child === true) {

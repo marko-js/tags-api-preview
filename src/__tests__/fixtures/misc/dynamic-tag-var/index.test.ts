@@ -16,6 +16,6 @@ describe("misc dynamic tag vars", () => {
           .that.has.text("Hello");
         resetHistory();
       },
-    ])
+    ]),
   );
 });

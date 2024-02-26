@@ -13,6 +13,6 @@ export default (file: t.BabelFile, value: t.Expression) => {
 
   return t.callExpression(
     importRuntimeDefault(file, "util/deep-freeze", "freeze"),
-    [value]
+    [value],
   );
 };

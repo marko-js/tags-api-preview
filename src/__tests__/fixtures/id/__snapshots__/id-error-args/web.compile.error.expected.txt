@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <id(x)/firstNameId/>
         |  ^^ The <id> tag does not support arguments.
       2 | <input id=firstNameId/>

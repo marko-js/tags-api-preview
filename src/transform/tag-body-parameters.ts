@@ -18,7 +18,7 @@ export default {
         const [assignment] = binding.constantViolations;
         if (assignment) {
           throw assignment.buildCodeFrameError(
-            "Cannot assign to tag body parameters in the tags api preview."
+            "Cannot assign to tag body parameters in the tags api preview.",
           );
         }
       }
@@ -31,11 +31,11 @@ export default {
             t.identifier("value"),
             t.assignmentPattern(
               t.arrayPattern(body.node.params as t.PatternLike[]),
-              t.arrayExpression([])
-            )
+              t.arrayExpression([]),
+            ),
           ),
         ]),
-        t.objectExpression([])
+        t.objectExpression([]),
       ),
     ];
   },

@@ -20,7 +20,7 @@ describe("misc native tag event handlers", () => {
         expect(onValue).has.been.calledOnceWith(2);
         resetHistory();
       },
-    ])
+    ]),
   );
 
   describe(
@@ -35,6 +35,6 @@ describe("misc native tag event handlers", () => {
         expect(onValue).has.been.calledOnceWith(1);
         resetHistory();
       },
-    ])
+    ]),
   );
 });

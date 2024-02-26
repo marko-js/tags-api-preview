@@ -6,18 +6,18 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
   const errorMessage = usedTag.has(tag.hub)
     ? "can only be used once within a template"
     : tag.node.var
-    ? "does not support a tag variable"
-    : !isAtRoot(tag)
-    ? "can only used at the root of the template"
-    : !tag.node.attributes.length
-    ? "requires a default attribute"
-    : tag.node.body.body.length
-    ? "does not support body content"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.arguments?.length
-    ? "does not support arguments"
-    : undefined;
+      ? "does not support a tag variable"
+      : !isAtRoot(tag)
+        ? "can only used at the root of the template"
+        : !tag.node.attributes.length
+          ? "requires a default attribute"
+          : tag.node.body.body.length
+            ? "does not support body content"
+            : tag.node.body.params.length
+              ? "does not support tag body parameters"
+              : tag.node.arguments?.length
+                ? "does not support arguments"
+                : undefined;
 
   if (errorMessage) {
     throw tag
@@ -32,7 +32,7 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
   for (const attr of tag.get("attributes")) {
     if (attr.isMarkoAttribute()) {
       props.push(
-        t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
+        t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value),
       );
     } else {
       props.push(t.spreadElement(attr.node.value));
@@ -48,9 +48,9 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
         t.callExpression(returnInput, [
           t.objectExpression(props),
           t.numericLiteral(1),
-        ])
-      )
-    )
+        ]),
+      ),
+    ),
   );
 };
 

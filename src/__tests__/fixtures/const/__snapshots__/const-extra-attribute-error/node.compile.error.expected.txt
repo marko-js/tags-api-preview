@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <const/x=1 y=2/>
         |  ^^^^^ The <const> tag only supports the 'value' attribute.
       2 |

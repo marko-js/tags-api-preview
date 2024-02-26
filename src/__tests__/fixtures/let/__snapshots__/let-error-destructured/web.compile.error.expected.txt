@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <let/{ count }={ count: 0 }/>
         |  ^^^ The <let> tag tag variable cannot be destructured.
       2 | <div>${count}</div>

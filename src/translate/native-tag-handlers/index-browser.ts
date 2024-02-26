@@ -18,7 +18,7 @@ export default (
   attrs: Record<string, unknown>,
   def: any,
   tag: string,
-  meta: Record<string, unknown> & { pa?: string[] }
+  meta: Record<string, unknown> & { pa?: string[] },
 ) => {
   const binds = bindsByTag[tag];
   const resultAttrs: Record<string, unknown> = {};

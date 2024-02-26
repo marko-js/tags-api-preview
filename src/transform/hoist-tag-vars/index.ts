@@ -1,7 +1,7 @@
 export default function hoist(
   _owner: any,
   name: string,
-  hoister: (val: unknown) => void
+  hoister: (val: unknown) => void,
 ) {
   let initialized = false;
   return (child: any, val?: unknown) => {

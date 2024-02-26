@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <id/firstNameId|y|/>
         |  ^^ The <id> tag does not support tag body parameters.
       2 | <input id=firstNameId/>

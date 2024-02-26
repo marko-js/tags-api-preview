@@ -66,20 +66,20 @@ describe("<style> error attrs", fixture("./templates/error-attrs.marko"));
 
 describe(
   "<style> error body parameters",
-  fixture("./templates/error-body-parameters.marko")
+  fixture("./templates/error-body-parameters.marko"),
 );
 
 describe(
   "<style> error class attr",
-  fixture("./templates/error-class-attr.marko")
+  fixture("./templates/error-class-attr.marko"),
 );
 
 describe(
   "<style> error interpolation",
-  fixture("./templates/error-interpolation.marko")
+  fixture("./templates/error-interpolation.marko"),
 );
 
 describe(
   "<style> error no content",
-  fixture("./templates/error-no-content.marko")
+  fixture("./templates/error-no-content.marko"),
 );

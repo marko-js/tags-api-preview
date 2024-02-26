@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <tag/{ myTag }|{ name }|>
         |  ^^^ The <tag> tag cannot have a destructured tag variable.
       2 |   <div>Hello ${name}</div>

@@ -6,7 +6,7 @@ export default (bindingPath: t.NodePath<t.PatternLike>) => {
 
     if (assignment) {
       throw assignment.buildCodeFrameError(
-        "Reference is a constant and cannot be assigned."
+        "Reference is a constant and cannot be assigned.",
       );
     }
   }

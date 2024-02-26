@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <set=1>
     > 2 |   <get/val="." y=2/>
         |    ^^^ The <get> tag only supports the 'value' attribute.

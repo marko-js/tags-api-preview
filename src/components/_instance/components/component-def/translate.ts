@@ -5,8 +5,8 @@ export default (path: t.NodePath<t.MarkoTag>) => {
     t.variableDeclaration("var", [
       t.variableDeclarator(
         t.identifier("componentDef"),
-        (path.hub.file as any)._componentDefIdentifier
+        (path.hub.file as any)._componentDefIdentifier,
       ),
-    ])
+    ]),
   );
 };

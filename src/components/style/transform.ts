@@ -28,16 +28,16 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
     node.attributes.length > 0
       ? "does not support attributes"
       : !node.body.body.length
-      ? "requires body content"
-      : node.body.params.length
-      ? "does not support tag body parameters"
-      : node.arguments?.length
-      ? "does not support arguments"
-      : typeValue &&
-        (!typeValue.isStringLiteral() ||
-          `.${typeValue.node.value.replace(/ /g, ".")}` !== type)
-      ? "invalid class attribute"
-      : undefined;
+        ? "requires body content"
+        : node.body.params.length
+          ? "does not support tag body parameters"
+          : node.arguments?.length
+            ? "does not support arguments"
+            : typeValue &&
+                (!typeValue.isStringLiteral() ||
+                  `.${typeValue.node.value.replace(/ /g, ".")}` !== type)
+              ? "invalid class attribute"
+              : undefined;
 
   if (errorMessage) {
     throw tag
@@ -49,7 +49,7 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
     for (const child of tag.get("body").get("body")) {
       if (!child.isMarkoText()) {
         throw child.buildCodeFrameError(
-          "The <style> tag does not support dynamic placeholders."
+          "The <style> tag does not support dynamic placeholders.",
         );
       }
     }
@@ -73,7 +73,7 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
 
     if (!resolveVirtualDependency) {
       throw tag.buildCodeFrameError(
-        `@marko/tags-api-preview: the "resolveVirtualDependency" option must be supplied when using "style" with a tag variable.`
+        `@marko/tags-api-preview: the "resolveVirtualDependency" option must be supplied when using "style" with a tag variable.`,
       );
     }
 
@@ -100,7 +100,7 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
         virtualPath,
         map,
         code,
-      })
+      }),
     );
 
     deps.push(resolved);
@@ -109,10 +109,10 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
         t.variableDeclaration("const", [
           t.variableDeclarator(
             node.var,
-            importDefault(file, resolved, "style")
+            importDefault(file, resolved, "style"),
           ),
         ]),
-      ])
+      ]),
     );
   } else {
     const dep = {

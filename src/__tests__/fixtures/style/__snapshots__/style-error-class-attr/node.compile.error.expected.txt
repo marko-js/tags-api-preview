@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <style.less class="test">
         |  ^^^^^ The <style> tag invalid class attribute.
       2 |   .test {

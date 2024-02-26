@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <get/{ message }/>
       2 | <button onClick() {
     > 3 |   message = "World";

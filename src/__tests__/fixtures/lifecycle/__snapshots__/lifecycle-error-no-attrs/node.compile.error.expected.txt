@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <lifecycle/>
         |  ^^^^^^^^^ The <lifecycle> tag requires an onMount, onUpdate or onDestroy attribute.
       2 |

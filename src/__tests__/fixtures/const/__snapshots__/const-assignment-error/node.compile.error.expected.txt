@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <const/x = 1/>
     > 2 | <button onClick=(() => x++)>increment</button>
         |                        ^^^ Reference is a constant and cannot be assigned.

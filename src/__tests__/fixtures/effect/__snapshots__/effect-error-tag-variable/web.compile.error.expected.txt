@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <effect/x=(() => {})/>
         |  ^^^^^^ The <effect> tag does not support a tag variable.
       2 | <div/>

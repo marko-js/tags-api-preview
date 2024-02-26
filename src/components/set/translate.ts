@@ -24,14 +24,14 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
     (!tag.node.attributes.length
       ? "requires a value attribute"
       : tag.node.var
-      ? "does not support a tag variable"
-      : tag.node.arguments?.length
-      ? "does not support arguments"
-      : tag.node.body.params.length
-      ? "does not support tag body parameters"
-      : !tag.node.body.body.length
-      ? "requires body content"
-      : undefined);
+        ? "does not support a tag variable"
+        : tag.node.arguments?.length
+          ? "does not support arguments"
+          : tag.node.body.params.length
+            ? "does not support tag body parameters"
+            : !tag.node.body.body.length
+              ? "requires body content"
+              : undefined);
 
   if (errorMessage) {
     throw tag.get("name").buildCodeFrameError(`The <set> tag ${errorMessage}.`);
@@ -44,8 +44,8 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
       importDefault(
         file,
         `./${path.basename(file.opts.sourceFileName as string)}`,
-        "context"
-      )
-    )
+        "context",
+      ),
+    ),
   );
 }

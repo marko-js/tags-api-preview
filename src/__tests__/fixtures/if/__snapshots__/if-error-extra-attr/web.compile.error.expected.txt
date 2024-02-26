@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ show }/>
     > 2 | <if=show y=2>
         |  ^^ The <if> tag only supports the 'value' attribute.

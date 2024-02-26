@@ -124,7 +124,7 @@ export default {
 
 function cacheExprIfNeeded(
   parentTag: t.NodePath<t.MarkoTag>,
-  exprPath: t.NodePath<any>
+  exprPath: t.NodePath<any>,
 ) {
   const parentPath = exprPath.parentPath!;
   const state: DepsVisitorState = {
@@ -151,19 +151,19 @@ function cacheExprIfNeeded(
                 [
                   component,
                   t.arrayExpression(state.deps ? toDepsArray(state.deps) : []),
-                ]
+                ],
               ),
-              exprPath.node
+              exprPath.node,
             ),
-          ]
-        )
+          ],
+        ),
       )[0]
       .skip();
   }
 }
 
 function* getDefaultExpressions(
-  val: t.NodePath<any>
+  val: t.NodePath<any>,
 ): Generator<t.NodePath<t.Expression>, void> {
   switch (val.node.type) {
     case "ArrayPattern":
@@ -173,11 +173,11 @@ function* getDefaultExpressions(
       break;
     case "ObjectPattern":
       for (const prop of (val as t.NodePath<t.ObjectPattern>).get(
-        "properties"
+        "properties",
       )) {
         if (prop.node.type === "RestElement") continue;
         yield* getDefaultExpressions(
-          (prop as t.NodePath<t.ObjectProperty>).get("value")
+          (prop as t.NodePath<t.ObjectProperty>).get("value"),
         );
       }
       break;
@@ -217,7 +217,7 @@ function isEventHandlerName(name: string) {
 function toDepsArray(
   deps: Deps,
   object?: t.Expression,
-  arr: (t.Identifier | t.MemberExpression)[] = []
+  arr: (t.Identifier | t.MemberExpression)[] = [],
 ) {
   for (const name in deps) {
     const dep = deps[name];

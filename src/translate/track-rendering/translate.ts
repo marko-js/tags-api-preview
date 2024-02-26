@@ -14,8 +14,8 @@ export default {
         t.expressionStatement(
           t.callExpression(
             importRuntimeNamed(file, "translate/track-rendering", "begin"),
-            []
-          )
+            [],
+          ),
         ),
         t.tryStatement(
           t.blockStatement(renderBlock.node.body),
@@ -24,10 +24,10 @@ export default {
             t.expressionStatement(
               t.callExpression(
                 importRuntimeNamed(file, "translate/track-rendering", "end"),
-                []
-              )
+                [],
+              ),
             ),
-          ])
+          ]),
         ),
       ];
     },

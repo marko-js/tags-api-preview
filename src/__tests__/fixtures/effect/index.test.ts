@@ -28,7 +28,7 @@ describe(
       expect(onCleanup).has.been.calledOnce;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -49,7 +49,7 @@ describe(
       expect(onCount).calledOnceWith(4);
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -76,7 +76,7 @@ describe(
       expect(onCleanup).has.been.calledOnce;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -101,7 +101,7 @@ describe(
       expect(onCleanup).has.been.calledTwice;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -112,7 +112,7 @@ describe(
       expect(onEl).calledOnceWith(screen.getByText("child"));
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -123,7 +123,7 @@ describe(
       expect(onEl).calledOnceWith(screen.getByText("child"));
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -150,7 +150,7 @@ describe(
       expect(onCleanup).has.not.been.called;
       resetHistory();
     },
-  ])
+  ]),
 );
 describe(
   "<effect> missing function",
@@ -171,32 +171,32 @@ describe(
       await rerender({ onEffect });
       expect(onEffect).to.have.been.calledOnce;
     },
-  ])
+  ]),
 );
 
 describe("<effect> error args", fixture("./templates/error-args.marko"));
 
 describe(
   "<effect> error body content",
-  fixture("./templates/error-body-content.marko")
+  fixture("./templates/error-body-content.marko"),
 );
 
 describe(
   "<effect> error body parameters",
-  fixture("./templates/error-body-parameters.marko")
+  fixture("./templates/error-body-parameters.marko"),
 );
 
 describe(
   "<effect> error extra attrs",
-  fixture("./templates/error-extra-attrs.marko")
+  fixture("./templates/error-extra-attrs.marko"),
 );
 
 describe(
   "<effect> error no default attr",
-  fixture("./templates/error-no-default-attr.marko")
+  fixture("./templates/error-no-default-attr.marko"),
 );
 
 describe(
   "<effect> error tag variable",
-  fixture("./templates/error-tag-variable.marko")
+  fixture("./templates/error-tag-variable.marko"),
 );

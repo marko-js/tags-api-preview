@@ -31,7 +31,7 @@ describe(
       expect(onCount).has.not.been.called;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -61,7 +61,7 @@ describe(
       expect(onCount).has.not.been.called;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -91,37 +91,37 @@ describe(
       expect(onCount).has.not.been.called;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe("<lifecycle> error args", fixture("./templates/error-args.marko"));
 
 describe(
   "<lifecycle> error body content",
-  fixture("./templates/error-body-content.marko")
+  fixture("./templates/error-body-content.marko"),
 );
 
 describe(
   "<lifecycle> error extra attr",
-  fixture("./templates/error-extra-attr.marko")
+  fixture("./templates/error-extra-attr.marko"),
 );
 
 describe(
   "<lifecycle> error no attrs",
-  fixture("./templates/error-no-attrs.marko")
+  fixture("./templates/error-no-attrs.marko"),
 );
 
 describe(
   "<lifecycle> error spread attr",
-  fixture("./templates/error-spread-attr.marko")
+  fixture("./templates/error-spread-attr.marko"),
 );
 
 describe(
   "<lifecycle> error tag parameters",
-  fixture("./templates/error-tag-parameters.marko")
+  fixture("./templates/error-tag-parameters.marko"),
 );
 
 describe(
   "<lifecycle> error tag var",
-  fixture("./templates/error-tag-var.marko")
+  fixture("./templates/error-tag-var.marko"),
 );

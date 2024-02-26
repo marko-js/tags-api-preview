@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <attrs(y)/{ value }/>
         |  ^^^^^ The <attrs> tag does not support arguments.
       2 | <div>Hello ${value}</div>

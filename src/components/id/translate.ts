@@ -8,16 +8,16 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const errorMessage = !tagVar
     ? "requires a tag variable"
     : !t.isIdentifier(tagVar)
-    ? "does not a destructured tag variable"
-    : tag.node.attributes.length
-    ? "does not support attributes"
-    : tag.node.arguments
-    ? "does not support arguments"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.body.body.length
-    ? "does not support body content"
-    : undefined;
+      ? "does not a destructured tag variable"
+      : tag.node.attributes.length
+        ? "does not support attributes"
+        : tag.node.arguments
+          ? "does not support arguments"
+          : tag.node.body.params.length
+            ? "does not support tag body parameters"
+            : tag.node.body.body.length
+              ? "does not support body content"
+              : undefined;
 
   if (errorMessage) {
     throw tag.get("name").buildCodeFrameError(`The <id> tag ${errorMessage}.`);
@@ -32,9 +32,9 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
         tagVar,
         t.callExpression(
           t.memberExpression(meta.component, t.identifier("elId")),
-          [t.stringLiteral(`@${meta.refIndex++}`)]
-        )
+          [t.stringLiteral(`@${meta.refIndex++}`)],
+        ),
       ),
-    ])
+    ]),
   );
 }

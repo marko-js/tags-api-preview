@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <id/>
         |  ^^ The <id> tag requires a tag variable.
       2 |

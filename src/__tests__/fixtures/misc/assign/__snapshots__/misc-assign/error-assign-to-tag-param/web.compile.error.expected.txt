@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <!-- use tags -->
       2 | <repeat|i|=5>
     > 3 |   <button onClick=(() => i++)>increment ${i}</button>

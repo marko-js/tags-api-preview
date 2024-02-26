@@ -18,8 +18,8 @@ const AttributeVisitor = {
       `${attr.node.name}Change`,
       t.arrowFunctionExpression(
         [tempId],
-        t.assignmentExpression("=", value.node, tempId)
-      )
+        t.assignmentExpression("=", value.node, tempId),
+      ),
     );
 
     attr.node.bound = false;

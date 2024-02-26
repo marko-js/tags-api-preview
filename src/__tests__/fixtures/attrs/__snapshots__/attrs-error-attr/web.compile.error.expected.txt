@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <attrs/{ value } y=2/>
         |  ^^^^^ The <attrs> tag does not support attributes.
       2 | <div>Hello ${value}</div>

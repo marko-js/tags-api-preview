@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <const/x=1>
         |  ^^^^^ The <const> tag does not support body content.
       2 |   Hello!

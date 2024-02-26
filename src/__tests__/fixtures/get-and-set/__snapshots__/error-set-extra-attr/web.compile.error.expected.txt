@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <set=1 y=2>
         |  ^^^ The <set> tag does not support the "y=2" attribute.
       2 |   <div/>

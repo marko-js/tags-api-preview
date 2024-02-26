@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <get/x="missing-tag"/>
         |       ^^^^^^^^^^^^^^ <get> could not find provider matching "missing-tag".
       2 | <div>${val}</div>

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       4 |   onDestroy() {}
       5 | }/>
     > 6 | <lifecycle ...handlers/>

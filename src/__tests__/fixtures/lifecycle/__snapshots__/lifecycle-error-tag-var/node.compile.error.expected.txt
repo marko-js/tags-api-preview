@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <lifecycle/y
         |  ^^^^^^^^^ The <lifecycle> tag does not support a tag variable.
       2 |   onMount=(() => {})

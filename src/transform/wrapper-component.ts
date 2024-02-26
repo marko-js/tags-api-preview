@@ -61,7 +61,7 @@ export default {
           if (root === program) {
             if ((root.node.extra.___lifecycle as Meta).client) {
               program.node.body = buildRootLifecycle(program).concat(
-                program.node.body
+                program.node.body,
               );
             }
           } else {
@@ -78,7 +78,7 @@ export default {
       if (tagsNeedingLifecycle.has(tagDef.name)) {
         ensureLifecycle(
           tag,
-          !(tagDef.name === "id" && tag.parent.type === "Program")
+          !(tagDef.name === "id" && tag.parent.type === "Program"),
         );
       }
     } else if (tag.node.var) {
@@ -139,12 +139,12 @@ function buildRootLifecycle(program: t.NodePath<t.Program>): t.Statement[] {
               t.assignmentExpression(
                 "=",
                 t.memberExpression(t.thisExpression(), t.identifier("state")),
-                t.objectExpression([])
-              )
+                t.objectExpression([]),
+              ),
             ),
-          ])
+          ]),
         ),
-      ])
+      ]),
     ),
     t.markoScriptlet([
       t.variableDeclaration("var", [
@@ -176,8 +176,8 @@ function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
         tag.scope.generateUidIdentifier("nestedComponentDef"),
         meta.component,
         meta.state,
-      ])
-    )
+      ]),
+    ),
   );
 
   return result;
