@@ -91,7 +91,7 @@ describe(testDescription, () => {
   templates.forEach((template) => {
     describe(
       template.description,
-      fixture(path.join("templates", template.filename))
+      fixture(path.join("templates", template.filename)),
     );
   });
 });

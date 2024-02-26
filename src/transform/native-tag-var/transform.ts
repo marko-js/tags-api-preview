@@ -26,7 +26,7 @@ export default {
         throw tag
           .get("var")
           .buildCodeFrameError(
-            "A tag variable on a native tag cannot be destructured."
+            "A tag variable on a native tag cannot be destructured.",
           );
       }
 
@@ -41,13 +41,13 @@ export default {
                 importRuntimeDefault(
                   file,
                   "transform/native-tag-var",
-                  "createRef"
+                  "createRef",
                 ),
-                [meta.component, keyString]
-              )
+                [meta.component, keyString],
+              ),
             ),
           ]),
-        ])
+        ]),
       );
 
       tag.pushContainer("attributes", t.markoAttribute("key", keyString));

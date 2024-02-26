@@ -12,12 +12,12 @@ export default (path: t.NodePath<t.MarkoTag>) => {
       t.variableDeclaration("var", [
         t.variableDeclarator(
           (file as any)._componentDefIdentifier,
-          node.body.params[0] as t.Identifier
+          node.body.params[0] as t.Identifier,
         ),
         t.variableDeclarator(
           (file as any)._componentInstanceIdentifier,
-          node.body.params[1] as t.Identifier
+          node.body.params[1] as t.Identifier,
         ),
-      ])
+      ]) as any,
     );
 };

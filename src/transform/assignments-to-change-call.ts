@@ -13,7 +13,7 @@ export default {
 
       forEachBindingIdentifier(
         tagVar as t.NodePath<t.PatternLike>,
-        updateAssignmentsForIdentifier
+        updateAssignmentsForIdentifier,
       );
     },
   },
@@ -31,7 +31,7 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
 
   if (parent.isRestElement()) {
     throw assignments[0].buildCodeFrameError(
-      "Cannot assign to a ...rest element."
+      "Cannot assign to a ...rest element.",
     );
   }
 
@@ -41,7 +41,7 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
 
   if (parent.isArrayPattern()) {
     throw assignments[0].buildCodeFrameError(
-      "Assignment to a destructured array will come in a future version of the tags api preview."
+      "Assignment to a destructured array will come in a future version of the tags api preview.",
     );
   }
 
@@ -50,7 +50,7 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
 
     if (parent.node.computed) {
       changeKey = identifier.scope.generateUidIdentifier(
-        `${identifier.node.name}Change`
+        `${identifier.node.name}Change`,
       );
       pattern.pushContainer(
         "properties",
@@ -58,11 +58,11 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
           t.binaryExpression(
             "+",
             parent.get("key").node,
-            t.stringLiteral("Change")
+            t.stringLiteral("Change"),
           ),
           changeKey,
-          true
-        )
+          true,
+        ),
       );
     } else {
       const key = parent.get("key") as StringOrIdPath;
@@ -88,8 +88,8 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
           "properties",
           t.objectProperty(
             t.stringLiteral(searchKey),
-            (changeKey = identifier.scope.generateUidIdentifier(searchKey))
-          )
+            (changeKey = identifier.scope.generateUidIdentifier(searchKey)),
+          ),
         );
       }
     }
@@ -100,18 +100,18 @@ function updateAssignmentsForIdentifier(identifier: t.NodePath<t.Identifier>) {
 
 function forEachBindingIdentifier(
   path: t.NodePath<t.PatternLike>,
-  fn: (identifier: t.NodePath<t.Identifier>) => void
+  fn: (identifier: t.NodePath<t.Identifier>) => void,
 ): void {
   switch (path.node.type) {
     case "ObjectPattern":
       for (const prop of (path as t.NodePath<t.ObjectPattern>).get(
-        "properties"
+        "properties",
       )) {
         forEachBindingIdentifier(
           prop.isObjectProperty()
             ? (prop.get("value") as t.NodePath<t.PatternLike>)
             : (prop as t.NodePath<t.RestElement>),
-          fn
+          fn,
         );
       }
       break;
@@ -123,17 +123,17 @@ function forEachBindingIdentifier(
     case "RestElement":
       forEachBindingIdentifier(
         (path as t.NodePath<t.RestElement>).get(
-          "argument"
+          "argument",
         ) as t.NodePath<t.PatternLike>,
-        fn
+        fn,
       );
       break;
     case "AssignmentPattern":
       forEachBindingIdentifier(
         (path as t.NodePath<t.AssignmentPattern>).get(
-          "left"
+          "left",
         ) as t.NodePath<t.PatternLike>,
-        fn
+        fn,
       );
       break;
     case "Identifier":

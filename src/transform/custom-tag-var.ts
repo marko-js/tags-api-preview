@@ -22,7 +22,7 @@ export default {
       ]);
       const meta = closest(tag.parentPath)!;
       const returnValueId = tag.scope.generateUidIdentifier(
-        `${(tag.node.name as t.StringLiteral).value}Return`
+        `${(tag.node.name as t.StringLiteral).value}Return`,
       );
       tag.set("var", tagVarReplacement);
 
@@ -39,13 +39,13 @@ export default {
                 importRuntimeDefault(
                   tag.hub.file,
                   "components/return",
-                  "return"
+                  "return",
                 ),
-                [meta.component]
-              )
+                [meta.component],
+              ),
             ),
           ]),
-        ])
+        ]),
       );
 
       tag.insertAfter(
@@ -53,10 +53,10 @@ export default {
           t.variableDeclaration("const", [
             t.variableDeclarator(
               tagVarReplacement,
-              t.callExpression(returnValueId, [])
+              t.callExpression(returnValueId, []),
             ),
           ]),
-        ])
+        ]),
       );
     },
     exit(tag) {

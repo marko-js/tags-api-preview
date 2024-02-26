@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <const/setValue = { value: 1 }/>
     > 2 | <set ...setValue>
         |  ^^^ The <set> tag does not support the "...setValue" attribute.

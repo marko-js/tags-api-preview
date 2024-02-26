@@ -4,7 +4,7 @@ import isCoreTag from "../../util/is-core-tag";
 import { importRuntimeDefault } from "../../util/import-runtime";
 import { closest } from "../wrapper-component";
 
-type RootNodePath = t.NodePath<t.Program> | t.NodePath<t.MarkoTagBody>;
+type RootNodePath = t.NodePath<t.MarkoTagBody | t.Program>;
 
 enum ScopeRelation {
   Same,
@@ -37,7 +37,7 @@ export default {
         const binding = scope.getBinding(name);
         if (binding && binding.scope !== scope) {
           const hoistedId = binding.scope.generateUidIdentifier(
-            `${binding.identifier.name}_hoisted`
+            `${binding.identifier.name}_hoisted`,
           );
 
           let maybeHasSyncRefsBefore = false;
@@ -45,7 +45,7 @@ export default {
 
           if (assignment) {
             throw assignment.buildCodeFrameError(
-              `Assigning to a hoisted tag variable is not supported in the tags api preview.`
+              `Assigning to a hoisted tag variable is not supported in the tags api preview.`,
             );
           }
 
@@ -58,7 +58,7 @@ export default {
                   break;
                 case ReferenceType.Sync:
                   throw ref.buildCodeFrameError(
-                    `Cannot access '${name}' before initialization.`
+                    `Cannot access '${name}' before initialization.`,
                   );
                 case ReferenceType.Unknown:
                   maybeHasSyncRefsBefore = true;
@@ -66,8 +66,8 @@ export default {
                     t.assignmentExpression(
                       "=",
                       ref.node as t.Identifier,
-                      t.callExpression(hoistedId, [])
-                    )
+                      t.callExpression(hoistedId, []),
+                    ),
                   );
                   break;
               }
@@ -86,7 +86,7 @@ export default {
                   importRuntimeDefault(
                     file,
                     "transform/hoist-tag-vars",
-                    "hoist"
+                    "hoist",
                   ),
                   [
                     closest(binding.scope.path as RootNodePath)!.component,
@@ -96,20 +96,20 @@ export default {
                       t.assignmentExpression(
                         "=",
                         binding.identifier,
-                        t.identifier("_")
-                      )
+                        t.identifier("_"),
+                      ),
                     ),
-                  ]
-                )
-              )
+                  ],
+                ),
+              ),
             );
             initializers.push(
               t.expressionStatement(
                 t.callExpression(hoistedId, [
                   meta.component,
                   binding.identifier,
-                ])
-              )
+                ]),
+              ),
             );
           } else {
             hoistedDeclarators.push(
@@ -120,21 +120,23 @@ export default {
                   t.assignmentExpression(
                     "=",
                     binding.identifier,
-                    t.identifier("_")
-                  )
-                )
-              )
+                    t.identifier("_"),
+                  ),
+                ),
+              ),
             );
             initializers.push(
               t.expressionStatement(
-                t.callExpression(hoistedId, [binding.identifier])
-              )
+                t.callExpression(hoistedId, [binding.identifier]),
+              ),
             );
           }
 
           (binding.scope.path as RootNodePath).unshiftContainer(
             "body",
-            t.markoScriptlet([t.variableDeclaration("var", hoistedDeclarators)])
+            t.markoScriptlet([
+              t.variableDeclaration("var", hoistedDeclarators),
+            ]),
           );
         }
       }
@@ -142,7 +144,7 @@ export default {
       if (initializers.length) {
         (tag.parentPath as RootNodePath).pushContainer(
           "body",
-          t.markoScriptlet(initializers)
+          t.markoScriptlet(initializers),
         );
       }
     },
@@ -161,7 +163,7 @@ function getScopeRelation(scope: t.Scope, tag: t.NodePath, ref: t.NodePath) {
     return ScopeRelation.Same;
   }
 
-  return refParent.key < tagParent.key
+  return refParent.key! < tagParent.key!
     ? ScopeRelation.Before
     : ScopeRelation.After;
 }

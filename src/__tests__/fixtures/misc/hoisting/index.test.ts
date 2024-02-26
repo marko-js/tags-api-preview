@@ -17,12 +17,12 @@ describe("misc hoisting", () => {
         expect(onValue).not.to.have.been.called;
         resetHistory();
       },
-    ])
+    ]),
   );
 
   describe(
     "sync read after",
-    fixture("./templates/hoisting-sync-read-after.marko")
+    fixture("./templates/hoisting-sync-read-after.marko"),
   );
 
   describe(
@@ -40,8 +40,8 @@ describe("misc hoisting", () => {
           expect(onValue).not.to.have.been.called;
           resetHistory();
         },
-      ]
-    )
+      ],
+    ),
   );
 
   describe(
@@ -54,39 +54,39 @@ describe("misc hoisting", () => {
           expect(onValue).to.have.been.calledOnceWith(1);
           resetHistory();
         },
-      ]
-    )
+      ],
+    ),
   );
 
   describe(
     "error assign before",
-    fixture("./templates/error-hoisting-assign-before.marko")
+    fixture("./templates/error-hoisting-assign-before.marko"),
   );
 
   describe(
     "error assign after",
-    fixture("./templates/error-hoisting-assign-after.marko")
+    fixture("./templates/error-hoisting-assign-after.marko"),
   );
 
   describe(
     "error sync read before",
-    fixture("./templates/error-hoisting-sync-read-before.marko")
+    fixture("./templates/error-hoisting-sync-read-before.marko"),
   );
 
   describe(
     "error sync read before in iife",
-    fixture("./templates/error-hoisting-sync-read-before-in-iife.marko")
+    fixture("./templates/error-hoisting-sync-read-before-in-iife.marko"),
   );
 
   describe(
     "error maybe sync read before",
-    fixture("./templates/error-hoisting-maybe-sync-read-before.marko")
+    fixture("./templates/error-hoisting-maybe-sync-read-before.marko"),
   );
 
   describe(
     "error maybe sync read before with custom tag",
     fixture(
-      "./templates/error-hoisting-maybe-sync-read-before-with-custom-tag.marko"
-    )
+      "./templates/error-hoisting-maybe-sync-read-before-with-custom-tag.marko",
+    ),
   );
 });

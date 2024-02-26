@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <attrs/{ value }|y|/>
         |  ^^^^^ The <attrs> tag does not support tag body parameters.
       2 | <div>Hello ${value}</div>

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <const/x/>
         |  ^^^^^ The <const> tag must be initialized with a value.
       2 |

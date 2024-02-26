@@ -42,7 +42,7 @@ const featureDetectionVisitor = {
         state,
         "tags",
         "Tag variable",
-        tag.get("var") as t.NodePath<t.LVal>
+        tag.get("var") as t.NodePath<t.LVal>,
       );
     }
 
@@ -53,7 +53,7 @@ const featureDetectionVisitor = {
             state,
             "class",
             "Attribute arguments",
-            (attr.get("arguments") as t.NodePath<t.Expression>[])[0]
+            (attr.get("arguments") as t.NodePath<t.Expression>[])[0],
           );
           break;
         } else if (attr.node.modifier) {
@@ -84,7 +84,7 @@ const featureDetectionVisitor = {
                     state,
                     "class",
                     `"${attr.node.name}" attribute`,
-                    attr
+                    attr,
                   );
                   break;
               }
@@ -109,7 +109,7 @@ const featureDetectionVisitor = {
                 state,
                 "class",
                 `<${tagDef.name}> tag`,
-                tag.get("name")
+                tag.get("name"),
               );
               break;
           }
@@ -126,7 +126,7 @@ const featureDetectionVisitor = {
                 state,
                 "tags",
                 `<${tagDef.name}> tag`,
-                tag.get("name")
+                tag.get("name"),
               );
           }
           break;
@@ -150,7 +150,7 @@ function addFeature(
   state: FeatureState,
   type: Feature["type"],
   name: Feature["name"],
-  path: Feature["path"]
+  path: Feature["path"],
 ) {
   if (state.feature) {
     if (state.feature.type !== type) {
@@ -158,7 +158,7 @@ function addFeature(
         path.hub.file,
         'Cannot mix "tags api" and "class api" features',
         [state.feature.name, state.feature.path],
-        [name, path]
+        [name, path],
       );
     }
   } else {

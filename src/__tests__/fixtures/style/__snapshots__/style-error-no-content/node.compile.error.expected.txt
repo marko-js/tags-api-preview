@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <style/>
         |  ^^^^^ The <style> tag requires body content.
       2 |

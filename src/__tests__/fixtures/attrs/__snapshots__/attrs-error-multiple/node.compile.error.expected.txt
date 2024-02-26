@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ value: valueA }/>
     > 2 | <attrs/{ value: valueB }/>
         |  ^^^^^ The <attrs> tag can only be used once within a template.

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <return/>
         |  ^^^^^^ The <return> tag requires a default attribute.
       2 |

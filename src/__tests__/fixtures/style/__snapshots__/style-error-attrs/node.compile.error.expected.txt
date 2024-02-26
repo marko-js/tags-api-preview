@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <style y=2>
         |  ^^^^^ The <style> tag does not support attributes.
       2 |   .test {

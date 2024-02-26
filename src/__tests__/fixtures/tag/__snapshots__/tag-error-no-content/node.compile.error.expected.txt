@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <tag/myTag/>
         |  ^^^ The <tag> tag requires body content.
       2 |

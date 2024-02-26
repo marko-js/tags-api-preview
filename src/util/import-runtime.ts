@@ -11,7 +11,7 @@ const prefix =
 export function importRuntimeDefault(
   file: t.BabelFile,
   request: string,
-  nameHint?: string
+  nameHint?: string,
 ) {
   return _importDefault(file, prefix + request, nameHint);
 }
@@ -20,7 +20,7 @@ export function importRuntimeNamed(
   file: t.BabelFile,
   request: string,
   name: string,
-  nameHint?: string
+  nameHint?: string,
 ) {
   return _importNamed(file, prefix + request, name, nameHint);
 }

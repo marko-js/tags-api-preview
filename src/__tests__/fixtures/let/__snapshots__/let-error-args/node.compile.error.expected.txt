@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <let(y)/count=0/>
         |  ^^^ The <let> tag does not support arguments.
       2 | <div>${count}</div>

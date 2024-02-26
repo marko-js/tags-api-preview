@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <tag(y)/myTag|{ name }|>
         |  ^^^ The <tag> tag does not support arguments.
       2 |   <div>Hello ${name}</div>

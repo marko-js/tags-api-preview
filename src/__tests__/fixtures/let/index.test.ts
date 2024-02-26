@@ -8,7 +8,7 @@ const increment = click("Increment");
 
 describe(
   "<let> basic",
-  fixture("./templates/basic.marko", [{ value: 1 }, increment, increment])
+  fixture("./templates/basic.marko", [{ value: 1 }, increment, increment]),
 );
 
 describe(
@@ -18,7 +18,7 @@ describe(
     increment,
     { value: 2, valueChange() {} },
     increment,
-  ])
+  ]),
 );
 
 describe(
@@ -28,7 +28,7 @@ describe(
     { value: 2 },
     increment,
     increment,
-  ])
+  ]),
 );
 
 describe(
@@ -50,7 +50,7 @@ describe(
       helpers.expect(onRead.args[1][0]).to.equal(1);
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
@@ -69,12 +69,12 @@ describe(
       helpers.expect(valueChange).has.not.been.called;
       resetHistory();
     },
-  ])
+  ]),
 );
 
 describe(
   "<let> hoisted",
-  fixture("./templates/hoisted.marko", [{ value: 1 }, increment, increment])
+  fixture("./templates/hoisted.marko", [{ value: 1 }, increment, increment]),
 );
 
 describe(
@@ -86,7 +86,7 @@ describe(
     { show: false },
     { show: true, value: 1 },
     increment,
-  ])
+  ]),
 );
 
 describe(
@@ -105,7 +105,7 @@ describe(
       b: 2,
     },
     click("Increment a"),
-  ])
+  ]),
 );
 
 describe(
@@ -122,7 +122,7 @@ describe(
     click("Increment 2"),
     click("Remove 1"),
     click("Remove 0"),
-  ])
+  ]),
 );
 
 describe("<let> no default attr", fixture("./templates/no-default-attr.marko"));
@@ -131,27 +131,27 @@ describe("<let> error args", fixture("./templates/error-args.marko"));
 
 describe(
   "<let> error body content",
-  fixture("./templates/error-body-content.marko")
+  fixture("./templates/error-body-content.marko"),
 );
 
 describe(
   "<let> error body parameters",
-  fixture("./templates/error-body-parameters.marko")
+  fixture("./templates/error-body-parameters.marko"),
 );
 
 describe(
   "<let> error destructured",
-  fixture("./templates/error-destructured.marko")
+  fixture("./templates/error-destructured.marko"),
 );
 
 describe(
   "<let> error extra attr",
-  fixture("./templates/error-extra-attr.marko")
+  fixture("./templates/error-extra-attr.marko"),
 );
 
 describe(
   "<let> error no tag var",
-  fixture("./templates/error-no-tag-var.marko")
+  fixture("./templates/error-no-tag-var.marko"),
 );
 
 describe(
@@ -160,7 +160,7 @@ describe(
     { value: 1 },
     { value: 2 },
     { value: 3 },
-  ])
+  ]),
 );
 
 describe(
@@ -169,7 +169,7 @@ describe(
     { value: 1 },
     increment,
     increment,
-  ])
+  ]),
 );
 
 function click(text: string) {

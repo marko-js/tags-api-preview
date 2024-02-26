@@ -4,12 +4,12 @@ import replaceAssignments from "../../util/replace-assignments/transform";
 export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const tagVar = tag.get("var") as t.NodePath<t.LVal>;
   const body = tag.get("body");
-  const params: t.LVal[] = [tagVar.node];
+  const params = [tagVar.node] as (t.Identifier | t.RestElement | t.Pattern)[];
 
   if (tagVar.isIdentifier()) {
     const binding = tag.scope.getBinding(tagVar.node.name)!;
     const changeId = tag.scope.generateUidIdentifier(
-      `${tagVar.node.name}Change`
+      `${tagVar.node.name}Change`,
     );
 
     params.push(changeId);
@@ -21,7 +21,7 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
   }
 
   for (const sibling of tag.getAllNextSiblings()) {
-    body.pushContainer("body", sibling.node);
+    body.pushContainer("body", sibling.node as any);
     sibling.remove();
   }
 

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       4 | </div>
       5 |
     > 6 | <button onClick=(() => x++)/>

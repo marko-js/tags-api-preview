@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <style>
       2 |   .test {
     > 3 |     color: ${"green"}

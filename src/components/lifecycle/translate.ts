@@ -9,12 +9,12 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
   let errorMessage = tag.node.var
     ? "does not support a tag variable"
     : tag.node.body.body.length
-    ? "does not support body content"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.arguments?.length
-    ? "does not support arguments"
-    : undefined;
+      ? "does not support body content"
+      : tag.node.body.params.length
+        ? "does not support tag body parameters"
+        : tag.node.arguments?.length
+          ? "does not support arguments"
+          : undefined;
 
   if (!errorMessage) {
     for (const attr of tag.get("attributes")) {
@@ -25,7 +25,7 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
         }
 
         properties.push(
-          t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
+          t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value),
         );
       } else {
         errorMessage = `does not support ...spread attributes`;
@@ -56,8 +56,8 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
         [
           (file as any)._componentInstanceIdentifier,
           t.objectExpression(properties),
-        ]
-      )
-    )
+        ],
+      ),
+    ),
   );
 }

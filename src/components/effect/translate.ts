@@ -9,16 +9,16 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const errorMessage = tag.node.var
     ? "does not support a tag variable"
     : !valueAttr
-    ? "must be initialized with a value"
-    : tag.node.attributes.length > 1
-    ? "only supports the 'value' attribute"
-    : tag.node.body.body.length
-    ? "does not support body content"
-    : tag.node.body.params.length
-    ? "does not support tag body parameters"
-    : tag.node.arguments?.length
-    ? "does not support arguments"
-    : undefined;
+      ? "must be initialized with a value"
+      : tag.node.attributes.length > 1
+        ? "only supports the 'value' attribute"
+        : tag.node.body.body.length
+          ? "does not support body content"
+          : tag.node.body.params.length
+            ? "does not support tag body parameters"
+            : tag.node.arguments?.length
+              ? "does not support arguments"
+              : undefined;
 
   if (errorMessage) {
     throw tag
@@ -38,8 +38,8 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
         [
           (file as any)._componentInstanceIdentifier,
           getAttr(tag, "value")!.node.value,
-        ]
-      )
-    )
+        ],
+      ),
+    ),
   );
 }

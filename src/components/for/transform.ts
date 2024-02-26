@@ -31,7 +31,7 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
         t.variableDeclaration("const", [
           t.variableDeclarator(byId, byAttr.node.value),
         ]),
-      ])
+      ]),
     );
   }
 

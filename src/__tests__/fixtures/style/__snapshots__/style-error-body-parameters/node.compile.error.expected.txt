@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <style|y|>
         |  ^^^^^ The <style> tag does not support tag body parameters.
       2 |   .test {

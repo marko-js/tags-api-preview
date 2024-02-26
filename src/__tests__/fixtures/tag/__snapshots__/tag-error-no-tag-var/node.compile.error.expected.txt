@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <tag>
         |  ^^^ The <tag> tag requires a tag variable.
       2 |   <div>Hello ${name}</div>

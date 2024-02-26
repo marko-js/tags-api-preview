@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <set/x=1>
         |  ^^^ The <set> tag does not support a tag variable.
       2 |   <div/>

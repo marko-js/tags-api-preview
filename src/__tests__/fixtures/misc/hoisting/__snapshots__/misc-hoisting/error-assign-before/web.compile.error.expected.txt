@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <button onClick=(() => x++)/>
         |                        ^^^ Assigning to a hoisted tag variable is not supported in the tags api preview.
       2 | <div>

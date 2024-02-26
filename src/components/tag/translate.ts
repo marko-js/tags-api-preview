@@ -9,14 +9,14 @@ export default {
     const errorMessage = tag.node.arguments
       ? "does not support arguments"
       : tag.node.attributes.length
-      ? "does not support attributes"
-      : !tagVar
-      ? "requires a tag variable"
-      : !t.isIdentifier(tagVar)
-      ? "cannot have a destructured tag variable"
-      : !body.body.length
-      ? "requires body content"
-      : undefined;
+        ? "does not support attributes"
+        : !tagVar
+          ? "requires a tag variable"
+          : !t.isIdentifier(tagVar)
+            ? "cannot have a destructured tag variable"
+            : !body.body.length
+              ? "requires body content"
+              : undefined;
 
     if (errorMessage) {
       throw tag
@@ -36,8 +36,8 @@ export default {
       t.functionDeclaration(
         IDENTIFIERS.get(tag)!,
         [t.identifier("out"), ...tag.node.body.params],
-        t.blockStatement(tag.node.body.body)
-      )
+        t.blockStatement(tag.node.body.body),
+      ),
     );
   },
 };

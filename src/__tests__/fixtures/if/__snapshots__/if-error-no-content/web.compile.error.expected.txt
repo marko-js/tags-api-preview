@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ show }/>
     > 2 | <if=show/>
         |  ^^ The <if> tag requires body content.

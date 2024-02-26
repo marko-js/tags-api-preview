@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <effect=(() => {})>Hello</effect>
         |  ^^^^^^ The <effect> tag does not support body content.
       2 | <div/>

@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <read-only/{ ...x }/>
       2 | <button onClick=(() => {
     > 3 |   x++;

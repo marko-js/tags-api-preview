@@ -5,7 +5,7 @@ import * as chai from "chai";
 import domPlugin from "chai-dom";
 import sinonPlugin from "sinon-chai";
 import promisePlugin from "chai-as-promised";
-import createBrowser from "jsdom-context-require";
+import { createBrowser } from "jsdom-context-require";
 import register from "@marko/compiler/register";
 import { patchRequire, patchFs } from "fs-monkey";
 import { fs as vfs } from "memfs";
@@ -78,7 +78,7 @@ type Step =
 
 export default (
   file: string,
-  stepsOrInput?: Step[] | Step | Record<string, unknown>
+  stepsOrInput?: Step[] | Step | Record<string, unknown>,
 ) => {
   const dir = calldir();
   let [input, ...steps] = Array.isArray(stepsOrInput)
@@ -133,7 +133,7 @@ export default (
                 await snapshot("html", fixtureHelpers.container);
               }
             }
-          }
+          },
         );
       });
     }
@@ -147,7 +147,7 @@ function getTitle(test: Mocha.Test) {
   while (parent) {
     title = path.join(
       parent.title.replace(/[^a-z0-9$_-]+/gi, "-").replace(/^-|-$/, ""),
-      title
+      title,
     );
     parent = parent.parent;
   }

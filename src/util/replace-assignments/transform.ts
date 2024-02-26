@@ -4,7 +4,7 @@ import deepFreeze from "../deep-freeze/transform";
 
 export default function replaceAssignments(
   binding: t.Binding,
-  fnExpression: t.Expression
+  fnExpression: t.Expression,
 ): void {
   const file = binding.path.hub.file;
   for (const assignment of binding.constantViolations) {
@@ -13,7 +13,7 @@ export default function replaceAssignments(
       value = t.binaryExpression(
         assignment.node.operator === "++" ? "+" : "-",
         binding.identifier,
-        t.numericLiteral(1)
+        t.numericLiteral(1),
       );
     } else if (assignment.isAssignmentExpression()) {
       value =
@@ -22,10 +22,10 @@ export default function replaceAssignments(
           : t.binaryExpression(
               assignment.node.operator.slice(
                 0,
-                -1
+                -1,
               ) as t.BinaryExpression["operator"],
               binding.identifier,
-              assignment.node.right
+              assignment.node.right,
             );
     }
 
@@ -43,8 +43,8 @@ export default function replaceAssignments(
         assignment.replaceWith(
           t.callExpression(
             importRuntimeDefault(file, "util/replace-assignments", "assign"),
-            [fnExpression, value]
-          )
+            [fnExpression, value],
+          ),
         );
       }
     }

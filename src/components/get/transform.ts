@@ -10,14 +10,14 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
     valueAttr && tag.node.attributes.length > 1
       ? "only supports the 'value' attribute"
       : !tag.node.var
-      ? "requires a tag variable"
-      : tag.node.arguments
-      ? "does not support arguments"
-      : tag.node.body.params.length
-      ? "does not support tag body parameters"
-      : tag.node.body.body.length
-      ? "does not support body content"
-      : undefined;
+        ? "requires a tag variable"
+        : tag.node.arguments
+          ? "does not support arguments"
+          : tag.node.body.params.length
+            ? "does not support tag body parameters"
+            : tag.node.body.body.length
+              ? "does not support body content"
+              : undefined;
 
   if (errorMessage) {
     throw tag.get("name").buildCodeFrameError(`The <get> tag ${errorMessage}.`);
@@ -28,7 +28,7 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
       for (const violation of tag.scope.getOwnBinding(name)!
         .constantViolations) {
         throw violation.buildCodeFrameError(
-          "Cannot mutate the global context."
+          "Cannot mutate the global context.",
         );
       }
     }
@@ -38,10 +38,10 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
         t.variableDeclaration("const", [
           t.variableDeclarator(
             tag.node.var!,
-            t.memberExpression(t.identifier("out"), t.identifier("global"))
+            t.memberExpression(t.identifier("out"), t.identifier("global")),
           ),
         ]),
-      ])
+      ]),
     );
     return;
   }
@@ -54,7 +54,7 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
       fromValue = importDefault(
         file,
         `./${path.basename(file.opts.sourceFileName as string)}`,
-        "context"
+        "context",
       );
     } else if (literalValue.includes("/")) {
       fromValue = importDefault(file, literalValue, "context");
@@ -65,7 +65,7 @@ export default function transform(tag: t.NodePath<t.MarkoTag>) {
         fromValue = importDefault(file, `<${literalValue}>`, "context");
       } else {
         throw valueAttr.buildCodeFrameError(
-          `<get> could not find provider matching "${literalValue}".`
+          `<get> could not find provider matching "${literalValue}".`,
         );
       }
     }

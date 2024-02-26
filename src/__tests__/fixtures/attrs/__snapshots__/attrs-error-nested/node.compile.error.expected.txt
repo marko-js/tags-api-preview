@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <div>
     > 2 |   <attrs/{ value }/>
         |    ^^^^^ The <attrs> tag can only used at the root of the template.

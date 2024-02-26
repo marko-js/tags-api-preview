@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <return(y)=1/>
         |  ^^^^^^ The <return> tag does not support arguments.
       2 |

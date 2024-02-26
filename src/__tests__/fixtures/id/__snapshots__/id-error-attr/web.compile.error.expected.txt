@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <id/firstNameId x=1/>
         |  ^^ The <id> tag does not support attributes.
       2 | <input id=firstNameId/>

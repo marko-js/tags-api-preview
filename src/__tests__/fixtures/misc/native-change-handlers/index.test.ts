@@ -9,7 +9,7 @@ describe("misc native tag change handlers", () => {
           delay: 0,
         });
       },
-    ])
+    ]),
   );
 
   describe(
@@ -18,7 +18,7 @@ describe("misc native tag change handlers", () => {
       async ({ screen, fireEvent }) => {
         await fireEvent.click(screen.getByRole("checkbox"));
       },
-    ])
+    ]),
   );
 
   describe(
@@ -29,7 +29,7 @@ describe("misc native tag change handlers", () => {
           delay: 0,
         });
       },
-    ])
+    ]),
   );
 
   describe(
@@ -40,7 +40,7 @@ describe("misc native tag change handlers", () => {
           delay: 0,
         });
       },
-    ])
+    ]),
   );
 
   describe(
@@ -49,6 +49,6 @@ describe("misc native tag change handlers", () => {
       async ({ screen, fireEvent }) => {
         await fireEvent.click(screen.getByRole("checkbox"));
       },
-    ])
+    ]),
   );
 });

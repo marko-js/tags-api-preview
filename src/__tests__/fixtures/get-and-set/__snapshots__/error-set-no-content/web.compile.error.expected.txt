@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <set=1/>
         |  ^^^ The <set> tag requires body content.
       2 |

@@ -17,7 +17,7 @@ describe("cached", () => {
       toggle,
       increment,
       toggle,
-    ])
+    ]),
   );
 
   describe(
@@ -41,7 +41,7 @@ describe("cached", () => {
         expect(onRender).calledOnce;
         resetHistory();
       },
-    ])
+    ]),
   );
 });
 

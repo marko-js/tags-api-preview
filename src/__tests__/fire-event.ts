@@ -15,7 +15,7 @@ export default {
         return [k, (...args: unknown[]) => act(() => (v as any)(...args))];
       }
       return [k, v];
-    })
+    }),
   ) as unknown as {
     [Key in keyof typeof userEvent]: Promisify<(typeof userEvent)[Key]>;
   }),

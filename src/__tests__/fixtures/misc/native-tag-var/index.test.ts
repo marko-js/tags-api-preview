@@ -16,7 +16,7 @@ describe("misc native tag vars", () => {
           .that.has.text("Hello");
         resetHistory();
       },
-    ])
+    ]),
   );
 
   describe(
@@ -31,16 +31,16 @@ describe("misc native tag vars", () => {
           .that.has.text("Hello");
         resetHistory();
       },
-    ])
+    ]),
   );
 
   describe(
     "error read before mount",
-    fixture("./templates/error-read-before-mount.marko")
+    fixture("./templates/error-read-before-mount.marko"),
   );
 
   describe(
     "error destructured",
-    fixture("./templates/error-destructured.marko")
+    fixture("./templates/error-destructured.marko"),
   );
 });

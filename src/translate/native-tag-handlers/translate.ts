@@ -27,7 +27,7 @@ export default {
         tag.insertBefore(
           t.variableDeclaration("var", [
             t.variableDeclarator(metaId, t.objectExpression([])),
-          ])
+          ]),
         );
 
         meta.push(t.spreadElement(metaId));
@@ -37,7 +37,10 @@ export default {
             if (attr.node.name === "key") continue;
 
             properties.push(
-              t.objectProperty(t.stringLiteral(attr.node.name), attr.node.value)
+              t.objectProperty(
+                t.stringLiteral(attr.node.name),
+                attr.node.value,
+              ),
             );
           } else {
             properties.push(t.spreadElement(attr.node.value));
@@ -53,7 +56,7 @@ export default {
               importRuntimeDefault(
                 file,
                 "translate/native-tag-handlers",
-                "extractHandlers"
+                "extractHandlers",
               ),
               isHTML
                 ? [t.objectExpression(properties)]
@@ -62,9 +65,9 @@ export default {
                     (file as any)._componentDefIdentifier,
                     tag.node.name as t.StringLiteral,
                     metaId,
-                  ]
-            )
-          )
+                  ],
+            ),
+          ),
         );
       } else {
         const tagName = (tag.node.name as t.StringLiteral).value;
@@ -100,7 +103,7 @@ export default {
               tag.insertBefore(
                 t.variableDeclaration("var", [
                   t.variableDeclarator(changeId, changeValue),
-                ])
+                ]),
               );
 
               tag.pushContainer(
@@ -113,13 +116,13 @@ export default {
                         t.callExpression(changeId, [
                           t.memberExpression(
                             t.memberExpression(eId, targetId),
-                            t.identifier(name)
+                            t.identifier(name),
                           ),
-                        ])
+                        ]),
                       ),
-                    ])
+                    ]),
                   ),
-                ])
+                ]),
               );
 
               changeAttr.remove();
@@ -134,7 +137,7 @@ export default {
 
           if (preserve.length) {
             meta.push(
-              t.objectProperty(t.identifier("pa"), t.arrayExpression(preserve))
+              t.objectProperty(t.identifier("pa"), t.arrayExpression(preserve)),
             );
           }
         }

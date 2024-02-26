@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <set=1>
     > 2 |   <get="."/>
         |    ^^^ The <get> tag requires a tag variable.

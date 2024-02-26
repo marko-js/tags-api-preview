@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
       1 | <attrs/{ show }/>
     > 2 | <if>
         |  ^^ The <if> tag must be given a value.

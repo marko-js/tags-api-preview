@@ -13,7 +13,7 @@ export default async function trySnapshot(
   runner: (utils: {
     title(title: string): void;
     snapshot(ext: string, data: unknown): Promise<void>;
-  }) => Promise<void>
+  }) => Promise<void>,
 ) {
   const parsed = path.parse(file);
   const snapshotDir = path.join(dir, "__snapshots__", parsed.dir);
@@ -40,7 +40,7 @@ export default async function trySnapshot(
         try {
           assert.strictEqual(
             normalizeWindowsStuff(data),
-            normalizeWindowsStuff(expected)
+            normalizeWindowsStuff(expected),
           );
         } catch (err) {
           await fs.promises.writeFile(actualFile, data, "utf-8");
@@ -66,7 +66,7 @@ export default async function trySnapshot(
             (existingFiles = fs.promises.readdir(snapshotDir)))
         )
           .filter((file) => file.includes(`${title}.expected.`))
-          .map((file) => fs.promises.unlink(path.join(snapshotDir, file)))
+          .map((file) => fs.promises.unlink(path.join(snapshotDir, file))),
       );
     } else if (
       !(
@@ -88,8 +88,8 @@ export function trackError(err: string | Error | Event) {
     typeof err === "string"
       ? new Error(err)
       : (err as ErrorEvent).type === "error"
-      ? (err as ErrorEvent).error
-      : (err as Error)
+        ? (err as ErrorEvent).error
+        : (err as Error),
   );
 }
 
@@ -107,7 +107,35 @@ function ensureNoErrors() {
 function format(data: any): string {
   if (data) {
     if ("nodeType" in data) {
-      return defaultSerializer(defaultNormalizer(data));
+      const normalized = defaultNormalizer(data);
+      normalized.querySelectorAll("input").forEach((el) => {
+        if (el.type === "checkbox" || el.type === "radio") {
+          if (el.checked === true) {
+            el.setAttribute("checked", "");
+          } else {
+            el.removeAttribute("checked");
+          }
+        } else if (el.value !== el.getAttribute("value")) {
+          if (el.value) {
+            el.setAttribute("value", el.value);
+          } else {
+            el.removeAttribute("value");
+          }
+        }
+      });
+      normalized.querySelectorAll("option").forEach((el) => {
+        if (el.selected === true) {
+          el.setAttribute("selected", "");
+        } else {
+          el.removeAttribute("selected");
+        }
+      });
+      normalized.querySelectorAll("textarea").forEach((el) => {
+        if (el.value !== el.textContent) {
+          el.textContent = el.value;
+        }
+      });
+      return defaultSerializer(normalized);
     }
 
     if (data.stack) {

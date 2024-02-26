@@ -1,4 +1,4 @@
-CompileError
+CompileError: 
     > 1 | <return/x=1/>
         |  ^^^^^^ The <return> tag does not support a tag variable.
       2 |

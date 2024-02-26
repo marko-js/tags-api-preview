@@ -8,7 +8,7 @@ describe(
     { show: true },
     { show: false },
     { show: true },
-  ])
+  ]),
 );
 
 describe(
@@ -17,24 +17,24 @@ describe(
     { fields: ["a"] },
     { fields: ["a", "b", "c"] },
     { fields: ["a", "b"] },
-  ])
+  ]),
 );
 
 describe("<id> error args", fixture("./templates/error-args.marko"));
 describe("<id> error attr", fixture("./templates/error-attr.marko"));
 describe(
   "<id> error body content",
-  fixture("./templates/error-body-content.marko")
+  fixture("./templates/error-body-content.marko"),
 );
 describe(
   "<id> error body parameters",
-  fixture("./templates/error-body-parameters.marko")
+  fixture("./templates/error-body-parameters.marko"),
 );
 describe(
   "<id> error destructured",
-  fixture("./templates/error-destructured.marko")
+  fixture("./templates/error-destructured.marko"),
 );
 describe(
   "<id> error no tag var",
-  fixture("./templates/error-no-tag-var.marko")
+  fixture("./templates/error-no-tag-var.marko"),
 );
