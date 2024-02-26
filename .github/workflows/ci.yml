@@ -13,6 +13,10 @@ concurrency:
 jobs:
   format:
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -30,7 +34,6 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          branch: ${{ github.head_ref }}
           commit_message: "[ci] format"
           commit_user_name: "github-actions[bot]"
           commit_user_email: "github-actions[bot]@users.noreply.github.com"
@@ -42,7 +45,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [16, 18]
+        node: [18, 20]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
