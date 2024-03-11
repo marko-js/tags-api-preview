@@ -1,4 +1,4 @@
-// @ts-expect-error 'VariableType' is declared but its value is never read. (It is only used to set the type of the return)
+// @ts-ignore We need to ignore instead of -expect-error because the error only happens when noUnusedParameters compiler option is true
 export interface Input<VariableType = unknown> {
   value: string;
 }
