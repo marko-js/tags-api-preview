@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.4
+
+### Patch Changes
+
+- fd6ba01: Fix "Unused '@ts-expect-error' directive" compilation error when noUnusedParameters is false
+
 ## 0.7.3
 
 ### Patch Changes
