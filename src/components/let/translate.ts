@@ -54,7 +54,7 @@ export default function translate(tag: t.NodePath<t.MarkoTag>) {
   if (server) {
     file.path.scope.crawl();
     tag.replaceWith(
-      t.variableDeclaration("const", [
+      t.variableDeclaration("let", [
         t.variableDeclarator(tagVar, deepFreeze(file, value)),
       ]),
     );
