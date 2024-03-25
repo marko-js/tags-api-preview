@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.5
+
+### Patch Changes
+
+- 8b85ca8: Fix const reassignment when using the let tag and spread attributes
+
 ## 0.7.4
 
 ### Patch Changes
