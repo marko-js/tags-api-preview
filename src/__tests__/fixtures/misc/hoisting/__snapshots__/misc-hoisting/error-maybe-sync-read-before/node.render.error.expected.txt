@@ -1,5 +1,1 @@
 ReferenceError: Cannot access 'x' before initialization
-    at /src/transform/hoist-tag-vars/index.ts
-    at /src/__tests__/fixtures/misc/hoisting/templates/error-hoisting-maybe-sync-read-before.marko
-    at /src/__tests__/fixtures/misc/hoisting/templates/error-hoisting-maybe-sync-read-before.marko
-    at /src/__tests__/fixture.ts

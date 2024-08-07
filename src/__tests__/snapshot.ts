@@ -144,8 +144,7 @@ function format(data: any): string {
           // eslint-disable-next-line no-control-regex
           .replace(/\x1B[[(?);]{0,2}(;?\d)*./g, "")
           .replaceAll(process.cwd(), "")
-          .replace(/\r?\n +at (?![/\\]src[/\\])[^\n]+$/gm, "")
-          .replace(/(\r?\n +at [/\\]src[/\\].*[^\n]):\d+:\d+$/gm, "$1")
+          .replace(/\r?\n +at [^\n]+$/gm, "")
       );
     }
   }

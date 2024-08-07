@@ -1,2 +1,1 @@
 Error: Cannot read an element reference while rendering.
-    at /src/__tests__/fixture.ts

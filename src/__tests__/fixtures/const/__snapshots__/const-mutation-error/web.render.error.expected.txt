@@ -1,2 +1,1 @@
 TypeError: Cannot add property fullName, object is not extensible
-    at /src/__tests__/fixture.ts
