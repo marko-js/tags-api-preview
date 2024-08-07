@@ -1,0 +1,17 @@
+<!-- use tags -->
+<for|key, value| in=input>
+  <if=value>
+    <if=Array.isArray(value)>
+      <for|item| of=value>
+        <div data-key=key ...item>
+          <${item}/>
+        </div>
+      </for>
+    </if>
+    <else>
+      <div data-key=key ...value>
+        <${value}/>
+      </div>
+    </else>
+  </if>
+</for>

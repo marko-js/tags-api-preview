@@ -1,5 +1,11 @@
 import { types as t } from "@marko/compiler";
-import { isNativeTag, getTagDef } from "@marko/babel-utils";
+import {
+  isNativeTag,
+  isTransparentTag,
+  isAttributeTag,
+  findParentTag,
+  getTagDef,
+} from "@marko/babel-utils";
 import { taglibId } from "../util/taglib-id";
 import isApi from "../util/is-api";
 
@@ -96,6 +102,14 @@ export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>, client = true) {
     isNativeTag(root as t.NodePath<t.MarkoTag>)
   );
 
+  if (isAttributeTagLike(tag)) {
+    if (isTransparentTag(root as t.NodePath<t.MarkoTag>)) {
+      root = findParentTag(root as t.NodePath<t.MarkoTag>) || program;
+    }
+
+    root = findParentTag(root as t.NodePath<t.MarkoTag>) || program;
+  }
+
   if (root.node) {
     const roots = lifecycleRootsForProgram.get(program)!;
     let extra = root.node.extra;
@@ -181,4 +195,20 @@ function buildNestedLifecycle(tag: t.NodePath<t.MarkoTag>): t.Statement[] {
   );
 
   return result;
+}
+
+function isAttributeTagLike(tag: t.NodePath<t.MarkoTag>) {
+  if (isAttributeTag(tag)) {
+    return true;
+  }
+
+  if (isTransparentTag(tag)) {
+    for (const child of tag.get("body").get("body")) {
+      if (child.isMarkoTag() && isAttributeTagLike(child)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
