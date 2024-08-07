@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.7.6
+
+### Patch Changes
+
+- 97ec7db: Fix issue with cached values inside attribute tags.
+
 ## 0.7.5
 
 ### Patch Changes
