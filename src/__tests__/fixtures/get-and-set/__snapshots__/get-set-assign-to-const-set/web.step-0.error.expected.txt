@@ -1,4 +1,1 @@
 Error: Assignment to constant variable.
-    at /src/__tests__/fire-event.ts
-    at /src/__tests__/fixtures/get-and-set/index.test.ts
-    at /src/__tests__/fixture.ts
