@@ -1,0 +1,17 @@
+<!-- use tags -->
+<test>
+  <@hello name="Frank" onClick() {
+    console.log('Hello Frank!');
+  }>
+    Hello Frank!
+  </@hello>
+</test>
+<test>
+  <for|name| of=["Frank", "John"]>
+    <@hello name=name onClick() {
+      console.log('Hello ' + name + '!');
+    }>
+      Hello ${name}!
+    </@hello>
+  </for>
+</test>
