@@ -80,6 +80,27 @@ describe(
 );
 
 describe(
+  "<effect> read-input",
+  fixture("./templates/read-input.marko", [
+    { onCount, onCleanup, count: 1 },
+    async ({ expect, rerender }) => {
+      expect(onCount).calledOnceWith(1);
+      expect(onCleanup).has.not.been.called;
+      resetHistory();
+
+      await rerender();
+      expect(onCount).has.not.been.called;
+      expect(onCleanup).has.not.been.called;
+
+      await rerender({ onCount, onCleanup, count: 2 });
+      expect(onCount).calledOnceWith(2);
+      expect(onCleanup).has.been.calledOnce;
+      resetHistory();
+    },
+  ]),
+);
+
+describe(
   "<effect> multiple",
   fixture("./templates/multiple.marko", [
     { onCount, onCleanup },
