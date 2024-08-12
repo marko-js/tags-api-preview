@@ -47,12 +47,13 @@ const depsVisitor = {
 
     if (
       binding
-        ? binding.path.isMarkoTag() &&
-          !(
-            binding.path === state.parentTag ||
-            isNativeTag(binding.path) ||
-            isDynamicTag(binding.path)
-          )
+        ? binding.path.isMarkoTag()
+          ? !(
+              binding.path === state.parentTag ||
+              isNativeTag(binding.path) ||
+              isDynamicTag(binding.path)
+            )
+          : name === "input" && binding.path.isProgram()
         : name === "input" || name === "$global"
     ) {
       let deps = state.deps || (state.deps = {});
