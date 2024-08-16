@@ -1,5 +1,12 @@
 # @marko/tags-api-preview
 
+## 0.7.7
+
+### Patch Changes
+
+- f996c1e: Update node version for CI
+- bc6ccd2: Fix input dependency tracking
+
 ## 0.7.6
 
 ### Patch Changes
