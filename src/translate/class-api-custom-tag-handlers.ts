@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { loadFileForTag } from "@marko/babel-utils";
+import { loadFileForTag } from "@marko/compiler/babel-utils";
 import isApi from "../util/is-api";
 const eventNameReg = /^on[A-Z]/;
 

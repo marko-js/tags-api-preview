@@ -4,7 +4,7 @@ import {
   isDynamicTag,
   isAttributeTag,
   getTagDef,
-} from "@marko/babel-utils";
+} from "@marko/compiler/babel-utils";
 import { importRuntimeDefault } from "../util/import-runtime";
 import { closest } from "./wrapper-component";
 

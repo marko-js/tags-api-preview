@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { isNativeTag } from "@marko/babel-utils";
+import { isNativeTag } from "@marko/compiler/babel-utils";
 import { importRuntimeDefault } from "../../util/import-runtime";
 import isApi from "../../util/is-api";
 import getAttr from "../../util/get-attr";

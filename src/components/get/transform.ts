@@ -1,6 +1,9 @@
 import path from "path";
 import { types as t } from "@marko/compiler";
-import { getTagDefForTagName, importDefault } from "@marko/babel-utils";
+import {
+  getTagDefForTagName,
+  importDefault,
+} from "@marko/compiler/babel-utils";
 import getAttr from "../../util/get-attr";
 
 export default function transform(tag: t.NodePath<t.MarkoTag>) {

@@ -1,4 +1,4 @@
-import { isNativeTag, isDynamicTag } from "@marko/babel-utils";
+import { isNativeTag, isDynamicTag } from "@marko/compiler/babel-utils";
 import { types as t } from "@marko/compiler";
 import { importRuntimeNamed } from "../../util/import-runtime";
 import isApi from "../../util/is-api";

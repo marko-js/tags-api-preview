@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { isNativeTag, isDynamicTag } from "@marko/babel-utils";
+import { isNativeTag, isDynamicTag } from "@marko/compiler/babel-utils";
 import isCoreTag from "../../util/is-core-tag";
 import { importRuntimeDefault } from "../../util/import-runtime";
 import { closest } from "../wrapper-component";

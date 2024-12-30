@@ -5,7 +5,7 @@ import {
   isAttributeTag,
   findParentTag,
   getTagDef,
-} from "@marko/babel-utils";
+} from "@marko/compiler/babel-utils";
 import { taglibId } from "../util/taglib-id";
 import isApi from "../util/is-api";
 
@@ -96,8 +96,10 @@ export default {
 export function ensureLifecycle(tag: t.NodePath<t.MarkoTag>, client = true) {
   const program = tag.hub.file.path;
   let root = tag as t.NodePath;
+
   while (
     (root = root.parentPath!) !== program &&
+    root.type === "MarkoTagBody" &&
     (root = root.parentPath!).node &&
     isNativeTag(root as t.NodePath<t.MarkoTag>)
   );
@@ -203,6 +205,9 @@ function isAttributeTagLike(tag: t.NodePath<t.MarkoTag>) {
   }
 
   if (isTransparentTag(tag)) {
+    if (tag.node.attributeTags.length) {
+      return true;
+    }
     for (const child of tag.get("body").get("body")) {
       if (child.isMarkoTag() && isAttributeTagLike(child)) {
         return true;
