@@ -2,7 +2,7 @@ import type { types as t } from "@marko/compiler";
 import {
   importDefault as _importDefault,
   importNamed as _importNamed,
-} from "@marko/babel-utils";
+} from "@marko/compiler/babel-utils";
 const prefix =
   process.env.NODE_ENV === "production"
     ? "@marko/tags-api-preview/dist/"

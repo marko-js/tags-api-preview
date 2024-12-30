@@ -1,6 +1,6 @@
 import path from "path";
 import { types as t } from "@marko/compiler";
-import { importDefault } from "@marko/babel-utils";
+import { importDefault } from "@marko/compiler/babel-utils";
 
 export default function translate(tag: t.NodePath<t.MarkoTag>) {
   const file = tag.hub.file;

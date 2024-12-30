@@ -1,7 +1,10 @@
 import path from "path";
 import MagicString, { SourceMap } from "magic-string";
 import { types as t, type Config } from "@marko/compiler";
-import { resolveRelativePath, importDefault } from "@marko/babel-utils";
+import {
+  resolveRelativePath,
+  importDefault,
+} from "@marko/compiler/babel-utils";
 import getAttr from "../../util/get-attr";
 import isApi from "../../util/is-api";
 
@@ -94,14 +97,18 @@ export default (tag: t.NodePath<t.MarkoTag>) => {
       }
     }
 
-    const resolved = resolveRelativePath(
-      file,
-      resolveVirtualDependency(filename, {
-        virtualPath,
-        map,
-        code,
-      }),
-    );
+    const virtualDep = resolveVirtualDependency(filename, {
+      virtualPath,
+      map,
+      code,
+    });
+
+    if (!virtualDep) {
+      tag.remove();
+      return;
+    }
+
+    const resolved = resolveRelativePath(file, virtualDep);
 
     deps.push(resolved);
     tag.replaceWith(

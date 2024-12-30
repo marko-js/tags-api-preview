@@ -1,5 +1,5 @@
 import { types as t } from "@marko/compiler";
-import { getTagDef } from "@marko/babel-utils";
+import { getTagDef } from "@marko/compiler/babel-utils";
 import isApi from "../util/is-api";
 
 export default {

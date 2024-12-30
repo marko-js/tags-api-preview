@@ -1,5 +1,5 @@
 import type { types as t } from "@marko/compiler";
-import { getTagDef } from "@marko/babel-utils";
+import { getTagDef } from "@marko/compiler/babel-utils";
 import { taglibId } from "../util/taglib-id";
 export default function isCoreTag<Name extends string>(
   name: Name,
