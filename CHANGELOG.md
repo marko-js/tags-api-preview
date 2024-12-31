@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.8.0
+
+### Minor Changes
+
+- fa87e07: Upgrades to work with latest marko compiler.
+
 ## 0.7.8
 
 ### Patch Changes
