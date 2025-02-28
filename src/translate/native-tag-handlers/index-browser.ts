@@ -18,7 +18,7 @@ export default (
   attrs: Record<string, unknown>,
   def: any,
   tag: string,
-  meta: Record<string, unknown> & { pa?: string[] },
+  meta: Record<string, unknown> & { pa?: Record<string, 1> },
 ) => {
   const binds = bindsByTag[tag];
   const resultAttrs: Record<string, unknown> = {};
@@ -44,7 +44,7 @@ export default (
       if (handler) {
         meta.oninput = def.d("input", binds[key]!(handler), false);
       } else {
-        (meta.pa || (meta.pa = [])).push(key);
+        (meta.pa || (meta.pa = {}))[key] = 1;
       }
     }
   }
