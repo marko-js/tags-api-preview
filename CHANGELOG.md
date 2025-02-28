@@ -1,5 +1,11 @@
 # @marko/tags-api-preview
 
+## 0.8.1
+
+### Patch Changes
+
+- 2ae05fd: Upgrade to work with newer preserve attrs internal api.
+
 ## 0.8.0
 
 ### Minor Changes
