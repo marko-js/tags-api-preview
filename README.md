@@ -1,8 +1,10 @@
 <h1 align="center">
   <!-- Logo -->
   <br/>
-  @marko/tags-api-preview (DEPRECATED: marko 5 includes tags api interop by default)
-	<br/>
+  @marko/tags-api-preview
+  <br/>
+  (DEPRECATED: marko 5 includes tags api interop by default)
+  <br/>
 
   <!-- CI -->
   <a href="https://github.com/marko-js/tags-api-preview/actions/workflows/ci.yml">
